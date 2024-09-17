@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:58:53 by obrittne          #+#    #+#             */
-/*   Updated: 2024/03/17 17:57:09 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:43:42 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../include/minirt.h"
 
 char	*help_delete_25_lines(char *str, char *out, char *second, size_t len1)
 {
@@ -115,7 +115,7 @@ char	*allocate(char *str)
 	return (out);
 }
 
-char	*solve(char *str, char *buffer, int fd)
+char	*solve(char *str, char *buffer, int fd, int *finished)
 {
 	char	*out;
 	ssize_t	bytes;
@@ -140,5 +140,6 @@ char	*solve(char *str, char *buffer, int fd)
 		if (ind || (!ind && bytes != BUFFER_SIZE))
 			break ;
 	}
+	*finished = 1;
 	return (help_delete_25_lines(out, out, NULL, 123));
 }

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 14:05:04 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/17 17:19:36 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/17 20:44:18 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 
 # include "minirt.h"
 
-char	*get_next_line(int fd);
-char	*solve(char *str, char *buffer, int fd);
+char	*get_next_line(int fd, int *finished);
+char	*solve(char *str, char *buffer, int fd, int *finished);
 char	*allocate(char *str);
 char	*strjoins(char *first, char *second, char *str);
 size_t	get_ind_of_n_len(char *str, int l);
-char	*help_delete_25_lines(char *str, char *out, char *second, size_t len1);
+char	*help_delete_25_lines(char *str, char *out, char *second, \
+size_t len1);
+
 
 #endif

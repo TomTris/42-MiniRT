@@ -6,13 +6,13 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:09:32 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/17 17:18:48 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:40:43 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../include/minirt.h"
 
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int *finished)
 {
 	static char	str[BUFFER_SIZE + 1];
 	char		buffer[BUFFER_SIZE + 1];
@@ -34,7 +34,7 @@ char	*get_next_line(int fd)
 	bytes = get_ind_of_n_len(str, 0);
 	if (bytes)
 		return (allocate(str));
-	return (solve(str, buffer, fd));
+	return (solve(str, buffer, fd, finished));
 }
 
 // int main()
