@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:42 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/17 21:42:38 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:07:15 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,20 @@ int	get_fov(t_data *data, char *str)
 
 	res = int_double_notvalid(str, 0, 0);
 	if (res == 2 || res == 1)
-		return (display_error_message("`A` not valid 3rd argument must be an \
+		return (display_error_message("`C` not valid 3rd argument must be an \
 		integer in range [0, 180]"), 0);
 	move = 0;
 	sign = get_sign(str, &move);
 	numb = str + move;
 	if (sign == -1 || (res == 0 && str_len(numb) > 4))
-		return (display_error_message("`A` not valid 3rd argument must be an \
+		return (display_error_message("`C` not valid 3rd argument must be an \
 		integer in range [0, 180]"), 0);
-	fov = str_to_long_long;
+	fov = str_to_long_long(numb);
 	if (fov <= 0 || fov > 180)
-		return (display_error_message("`A` not valid 3rd argument must be an \
+		return (display_error_message("`C` not valid 3rd argument must be an \
 		integer in range [0, 180]"), 0);
 	data->camera.fov = fov;
+	return (1);
 }
 
 int	set_pos_c(t_data *data, char *number, int ind, int update)
@@ -89,14 +90,14 @@ int	set_pos_c(t_data *data, char *number, int ind, int update)
 	return (1);
 }
 
-int	get_first_arg(t_data *data, char *str, int update)
+int	get_first_arg_c(t_data *data, char *str, int update)
 {
 	char	**numbers;
 	int		ind;
 
 	numbers = ft_split(str, ',');
 	if (!numbers)
-		return (0);
+		return (display_error_message("Memmory Allocation Error"), 0);
 	if (len2d_array(numbers) != 3)
 		return (error_message_parse_c(update), freeing(numbers), 0);
 	ind = 0;
@@ -104,6 +105,7 @@ int	get_first_arg(t_data *data, char *str, int update)
 	{
 		if (set_pos_c(data, numbers[ind], ind, update) == 0)
 			return (error_message_parse_c(update), freeing(numbers), 0);
+		ind++;
 	}
 	freeing(numbers);
 	return (1);
@@ -112,12 +114,12 @@ int	get_first_arg(t_data *data, char *str, int update)
 int	parse_c(t_data *data, char **splited)
 {
 	if (data->seen_camera)
-		return (display_error_message("`A` cant be defined twice"), 0);
+		return (display_error_message("`C` cant be defined twice"), 0);
 	if (len2d_array(splited) != 4)
-		return (display_error_message("`A` must have 3 args"), 0);
-	if (!get_first_arg(data, splited[1], 0))
+		return (display_error_message("`C` must have 3 args"), 0);
+	if (!get_first_arg_c(data, splited[1], 0))
 		return (0);
-	if (!get_first_arg(data, splited[2], 1))
+	if (!get_first_arg_c(data, splited[2], 1))
 		return (0);
 	if (!get_fov(data, splited[3]))
 		return (0);

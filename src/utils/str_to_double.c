@@ -6,18 +6,25 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:59:01 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/17 20:43:46 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:15:50 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
+static double	int_double_notvalid_h(int seen, int i)
+{
+	if (i == 0)	
+		return (2);
+	return (seen);
+}
+
 double	int_double_notvalid(char *str, int seen, int seen_other)
 {
 	int	i;
 
-	i = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
 		if (!(str[i] >= '0' && str[i] <= '9'))
 		{
@@ -38,7 +45,7 @@ double	int_double_notvalid(char *str, int seen, int seen_other)
 		else
 			seen_other = 1;
 	}
-	return (seen);
+	return (int_double_notvalid_h(seen, i));
 }
 
 
@@ -51,7 +58,7 @@ int	get_sign(char *str, int *move)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] != '+' || str[i] != '-')
+		if (str[i] != '+' && str[i] != '-')
 			break ;
 		if (str[i] == '-')
 			counter++;
@@ -70,6 +77,7 @@ long long	str_to_long_long(char *str)
 	int			i;
 
 	out = 0;
+	i = 0;
 	while (str[i])
 	{
 		out = out * 10 + str[i] - '0';
@@ -89,18 +97,19 @@ double	str_to_double(char *str)
 	multiplier = 0.1;
 	out = 0;
 	seen = 0;
-	while (str[i])
+	i = -1;
+	while (str[++i])
 	{
 		if (!seen)
 		{
 			if (str[i] == '.')
 				seen = 1;
 			else
-				out = out * 10.0 + (double)(str[i] -' 0');
+				out = out * 10.0 + (double)(str[i] - '0');
 		}
 		else
 		{
-			out += ((double)(str[i] -' 0') * multiplier);
+			out += ((double)(str[i] - '0') * multiplier);
 			multiplier /= 10.0;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:07 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/17 20:52:10 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/18 15:17:18 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	delete_useless_spaces(char *str)
 	ptr2 = 0;
 	while (str[ptr1])
 	{
-		if (is_white_space(str[ptr1]) && !(ptr2 == 0 || str[ptr2 - 1]) == ' ')
+		if (is_white_space(str[ptr1]) && !(ptr2 == 0 || str[ptr2 - 1] == ' ' || \
+		str[ptr2 - 1] == ','))
 		{
 			str[ptr2] = ' ';
 			ptr2++;
@@ -84,6 +85,7 @@ int	get_pos_of_char(char *str, char c)
 	{
 		if (str[i] == c)
 			return (i);
+		i++;
 	}
 	return (-1);
 }

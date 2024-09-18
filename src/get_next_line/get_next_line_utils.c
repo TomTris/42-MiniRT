@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 15:58:53 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/17 18:43:42 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:40:52 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ char	*allocate(char *str)
 	return (out);
 }
 
-char	*solve(char *str, char *buffer, int fd, int *finished)
+char	*solve_get_next(char *str, char *buffer, int fd, int *finished)
 {
 	char	*out;
 	ssize_t	bytes;

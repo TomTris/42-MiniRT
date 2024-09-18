@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:09:32 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/17 18:40:43 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:41:00 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_next_line(int fd, int *finished)
 	bytes = get_ind_of_n_len(str, 0);
 	if (bytes)
 		return (allocate(str));
-	return (solve(str, buffer, fd, finished));
+	return (solve_get_next(str, buffer, fd, finished));
 }
 
 // int main()

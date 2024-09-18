@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:45 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/17 21:43:47 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:55:44 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@ void	error_not_valid_identifier(char *str)
 int	detect_type(t_data *data, char **splited)
 {
 
-	if (str_compare(splited[0], "A"))
+	if (!str_compare(splited[0], "A"))
 		return (parse_a(data, splited));
-	else if (str_compare(splited[0], "C"))
+	else if (!str_compare(splited[0], "C"))
 		return (parse_c(data, splited));
-	else if (str_compare(splited[0], "L"))
+	else if (!str_compare(splited[0], "L"))
 		return (parse_l(data, splited));
-	// else if (str_compare(splited[0], "sp"))
-	// 	return (parse_sp(data, splited));
-	// else if (str_compare(splited[0], "pl"))
-	// 	return (parse_pl(data, splited));
-	// else if (str_compare(splited[0], "cy"))
-	// 	return (parse_cy(data, splited));
-	// else if (str_compare(splited[0], "co"))
-	// 	return (parse_co(data, splited));
+	else if (!str_compare(splited[0], "sp"))
+		return (parse_sp(data, splited));
+	else if (!str_compare(splited[0], "pl"))
+		return (parse_pl(data, splited));
+	else if (!str_compare(splited[0], "cy"))
+		return (parse_cy(data, splited));
+	else if (!str_compare(splited[0], "co"))
+		return (parse_co(data, splited));
 	else
 		return (error_not_valid_identifier(splited[0]), 0);
 }
@@ -55,7 +55,7 @@ int	parse_line(t_data *data, char *line)
 	if (!splited)
 		return (0);
 	if (!detect_type(data, splited))
-		return (freeeing(splited), 0);
+		return (freeing(splited), 0);
 	freeing(splited);
 	return (1);
 }
@@ -77,6 +77,10 @@ int	parse(t_data *data)
 		if (!parse_line(data, line))
 			return (free(line), 0);
 		free(line);
+		line = NULL;
 	}
+	if (!check_if_ok(data))
+		return (0);
+	output_data(data);
 	return (1);
 }

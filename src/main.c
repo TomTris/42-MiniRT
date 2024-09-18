@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:10 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/17 19:41:12 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:03:55 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ int	main(int ac, char **av)
 	init_data(&data, fd);
 	if (!parse(&data))
 		return (free_data_before_display(&data), 1);
-
+	free_data_before_display(&data);
 	return (0);
 }
