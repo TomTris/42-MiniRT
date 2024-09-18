@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/17 21:43:03 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:01:35 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,14 @@ typedef struct s_camera
 
 typedef struct s_ambitient_light
 {
-	double	colors[3];
+	int		colors[3];
 	double	ratio;
 }	t_ambitient_light;
 
 
 typedef struct s_light
 {
-	double	colors[3];
+	int		colors[3];
 	double	ratio;
 	double	cords[3];
 }	t_light;
@@ -46,7 +46,7 @@ typedef struct s_light
 
 typedef struct s_sphere
 {
-	double	colors[3];
+	int		colors[3];
 	double	diameter;
 	double	cords[3];
 }	t_sphere;
@@ -56,13 +56,13 @@ typedef struct s_plane
 {
 	double	cords[3];
 	double	vector[3];
-	double	colors[3];
+	int		colors[3];
 }	t_plane;
 
 
 typedef struct s_cylinder
 {
-	double	colors[3];
+	int		colors[3];
 	double	diameter;
 	double	cords[3];
 	double	vector[3];
@@ -72,7 +72,7 @@ typedef struct s_cylinder
 
 typedef struct s_cone
 {
-	double	colors[3];
+	int		colors[3];
 	double	diameter;
 	double	cords[3];
 	double	vector[3];
@@ -127,6 +127,21 @@ int			get_sign(char *str, int *move);
 double		str_to_double(char *str);
 int			get_pos_of_char(char *str, char c);
 void		freeing(char **arr);
-int			parse_c(t_data *data, char **splited);
+
+void		copy_all_stuff(void *to, void *from, int len);
+int			parse_l(t_data *data, char **splited);
+void		output_data(t_data	*data);
+void		error_message_parse_cy(int update);
+void		error_message_parse_co(int update);
+
 int			parse_a(t_data *data, char **splited);
+int			parse_c(t_data *data, char **splited);
+int			parse_l(t_data *data, char **splited);
+int			parse_sp(t_data *data, char **splited);
+int			parse_pl(t_data *data, char **splited);
+int			parse_cy(t_data *data, char **splited);
+int			parse_co(t_data *data, char **splited);
+
+int			check_if_ok(t_data *data);
+
 #endif

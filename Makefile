@@ -1,5 +1,5 @@
 NAME			= minirt
-CFLAGS			= -Wextra -Wall -Werror -Wunreachable-code
+CFLAGS			= -Wextra -Wall -Werror -Wunreachable-code -fsanitize=address -g
 CC 				= cc
 SRC_DIR = src
 FT_LIBS =	MLX42/build/libmlx42.a
@@ -11,7 +11,9 @@ OBJS = $(SRC:.c=.o)
 all:  $(NAME)
 
 $(NAME): $(FT_LIBS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(FT_LIBS) -o $(NAME) -ldl -lglfw -lm -g
+	$(CC) $(CFLAGS) $(OBJS) $(FT_LIBS) -o $(NAME) 
+	
+# -ldl -lglfw -lm -g
 
 $(FT_LIBS):
 	@git clone https://github.com/codam-coding-college/MLX42.git
