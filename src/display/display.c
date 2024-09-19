@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 15:14:05 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 19:07:23 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,20 @@ void	make_image_black(mlx_image_t *image)
 	}
 }
 
-uint32_t	per_pixel(mlx_image_t *image, uint32_t x, uint32_t y)
+uint32_t	per_pixel(t_data *data, uint32_t x, uint32_t y)
 {
 	double		x_val;
 	double		y_val;
+	t_vec3		vec;
 	uint32_t	pixel;
 
-	x_val = (double)x / (double)image->width;
-	y_val = (double)y / (double)image->height;
+	x_val = ((double)x / (double)data->image->width);
+	y_val = (1.0 - (double)y / (double)data->image->height);
 	pixel = 255;
 	pixel |= (uint32_t)(x_val * 255.0) << 24 | (uint32_t)(y_val * 255.0) << 16;
+	vec = get_direction_ray(data, x_val * 2.0 - 1.0, y_val * 2.0 - 1.0);
+	if (x == 511 && y == 511)
+		dprintf(1, "%f -- %f -- %f\n",vec.x, vec.y, vec.z);
 
 	return (pixel);
 }
@@ -55,7 +59,7 @@ int	displaying(t_data *data)
 		x = 0;
 		while (x < data->image->width)
 		{
-			pixel = per_pixel(data->image, x, y);
+			pixel = per_pixel(data, x, y);
 			mlx_put_pixel(data->image, x, y, pixel);
 			x++;
 		}

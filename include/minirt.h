@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 15:11:23 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:44:42 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,27 @@
 # define HEIGHT 1024
 # define WIDTH 1024
 
+typedef struct s_matrix3
+{
+	double	m[3][3];
+}	t_matrix3;
+
+
+typedef struct s_vec3
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_vec3;
+
+
 typedef struct s_camera
 {
 	double	cords[3];
 	double	vector[3];
-	int		fov;
+	t_vec3	vec3;
+	double	fov;
+	t_vec3	world_up;
 }	t_camera;
 
 
@@ -61,6 +77,7 @@ typedef struct s_plane
 {
 	double	cords[3];
 	double	vector[3];
+	t_vec3	vec3;
 	int		colors[3];
 }	t_plane;
 
@@ -72,6 +89,7 @@ typedef struct s_cylinder
 	double	cords[3];
 	double	vector[3];
 	double	height;
+	t_vec3	vec3;
 }	t_cylinder;
 
 
@@ -82,6 +100,7 @@ typedef struct s_cone
 	double	cords[3];
 	double	vector[3];
 	double	height;
+	t_vec3	vec3;
 }	t_cone;
 
 
@@ -150,7 +169,7 @@ int			parse_cy(t_data *data, char **splited);
 int			parse_co(t_data *data, char **splited);
 
 int			check_if_ok(t_data *data);
-double		get_len_vector(double *vector);
+double		get_len_vector_d(double *vector);
 
 void		display(t_data *data);
 void		ft_hook_keys(void *param);
@@ -158,4 +177,19 @@ void		change_image_size_hook(void *param);
 void		make_image_black(mlx_image_t *image);
 int			displaying(t_data *data);
 uint32_t	get_pixel(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+
+// math
+t_vec3		cross(t_vec3 vec1, t_vec3 vec2);
+t_vec3		add(t_vec3 vec1, t_vec3 vec2);
+t_vec3		scale(t_vec3 vec, double scale);
+t_vec3		normalize(t_vec3 vec);
+double		dot_product(t_vec3 vec1, t_vec3 vec2);
+t_vec3		create_vec3(double x, double y, double z);
+t_vec3		apply_matrix(t_vec3 vec, t_matrix3 *matrix);
+t_matrix3	create_matrix(t_vec3 axis, double angle);
+
+void		calculate_up(t_data *data);
+t_vec3		get_direction_ray(t_data *data, double offset_x, double offset_y);
+int			are_vectors_similar(t_vec3 vec1, t_vec3 vec2);
+
 #endif

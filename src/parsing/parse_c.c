@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:42 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 16:07:15 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 16:41:06 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	get_fov(t_data *data, char *str)
 	if (fov <= 0 || fov > 180)
 		return (display_error_message("`C` not valid 3rd argument must be an \
 		integer in range [0, 180]"), 0);
-	data->camera.fov = fov;
+	data->camera.fov = (double)fov / 180.0 * M_PI;
 	return (1);
 }
 

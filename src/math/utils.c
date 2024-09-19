@@ -1,32 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils3.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 14:11:42 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 15:35:24 by obrittne         ###   ########.fr       */
+/*   Created: 2024/09/19 15:32:18 by obrittne          #+#    #+#             */
+/*   Updated: 2024/09/19 16:10:01 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-void	copy_all_stuff(void *to, void *from, int len)
+double	dot_product_d(double *vec1, double *vec2)
 {
-	char	*char_from;
-	char	*char_to;
-	int		i;
-
-	if (!from)
-		return ;
-	char_from = (char *)from;
-	char_to = (char *)to;
-	i = 0;
-	while (i < len)
-	{
-		char_to[i] = char_from[i];
-		i++;
-	}
+	return (vec1[0] * vec2[0] + vec1[1] * vec2[1] + vec1[2] * vec2[2]);
 }
 
+double	get_len_vector_d(double *vector)
+{
+	return (sqrt(dot_product_d(vector, vector)));
+}
+
+void	normilize_vector_d(double *vec)
+{
+	double	len;
+
+	len = get_len_vector_d(vec);
+	vec[0] /= len;
+	vec[1] /= len;
+	vec[2] /= len;
+}

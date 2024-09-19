@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:00:23 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 16:54:12 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 18:27:17 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	output_data(t_data	*data)
 {
 	dprintf(1, "A %f %d,%d,%d\n", data->ambitient_light.ratio, data->ambitient_light.colors[0], data->ambitient_light.colors[1], data->ambitient_light.colors[2]);
-	dprintf(1, "C %f,%f,%f  %f,%f,%f  %d\n", data->camera.cords[0], data->camera.cords[1], data->camera.cords[2], data->camera.vector[0], data->camera.vector[1], data->camera.vector[2], data->camera.fov);
+	dprintf(1, "C %f,%f,%f  %f,%f,%f  %d\n", data->camera.cords[0], data->camera.cords[1], data->camera.cords[2], data->camera.vector[0], data->camera.vector[1], data->camera.vector[2], (int)(data->camera.fov / M_PI * 180.0));
 	dprintf(1, "L %f,%f,%f  %f, %d,%d,%d\n", data->light.cords[0], data->light.cords[1], data->light.cords[2], data->light.ratio, data->light.colors[0], data->light.colors[1], data->light.colors[2]);
 	for (int i = 0; i < data->amount_of_spheres; i++)
 	{
