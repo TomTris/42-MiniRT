@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:45 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 16:55:44 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:52:13 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	error_not_valid_identifier(char *str)
 
 int	detect_type(t_data *data, char **splited)
 {
-
 	if (!str_compare(splited[0], "A"))
 		return (parse_a(data, splited));
 	else if (!str_compare(splited[0], "C"))
@@ -41,7 +40,6 @@ int	detect_type(t_data *data, char **splited)
 		return (error_not_valid_identifier(splited[0]), 0);
 }
 
-
 int	parse_line(t_data *data, char *line)
 {
 	char	**splited;
@@ -59,7 +57,6 @@ int	parse_line(t_data *data, char *line)
 	freeing(splited);
 	return (1);
 }
-
 
 int	parse(t_data *data)
 {

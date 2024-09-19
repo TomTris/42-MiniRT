@@ -6,12 +6,11 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 16:53:33 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:20:12 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
-
 
 int	get_radius_cy(char *number, t_cylinder *cylinder, int update)
 {
@@ -73,7 +72,6 @@ int	set_pos_cy(char *number, int ind, int update, t_cylinder *cylinder)
 	return (1);
 }
 
-
 int	get_first_arg_cy(char *str, int update, t_cylinder *cylinder)
 {
 	char			**numbers;
@@ -118,8 +116,7 @@ int	parse_cy(t_data *data, char **splited)
 		return (0);
 	if (!get_radius_cy(splited[4], cylinder, 1))
 		return (0);
-	data->amount_of_cylinders += 1;
-	if (data->amount_of_cylinders != 1)
+	if (++data->amount_of_cylinders && data->amount_of_cylinders != 1)
 		free(data->cylinders);
 	data->cylinders = cylinders;
 	return (1);

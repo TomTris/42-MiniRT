@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 17:01:35 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:11:23 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@
 # include <stdlib.h>
 # include "get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
+# include <math.h>
+
+# define TOLARANCE 0.03
+# define HEIGHT 1024
+# define WIDTH 1024
 
 typedef struct s_camera
 {
@@ -84,6 +89,8 @@ typedef struct s_cone
 typedef struct s_data
 {
 	mlx_t				*mlx;
+	mlx_image_t			*image;
+	int					displayed;
 
 	t_camera			camera;
 	t_ambitient_light	ambitient_light;
@@ -143,5 +150,12 @@ int			parse_cy(t_data *data, char **splited);
 int			parse_co(t_data *data, char **splited);
 
 int			check_if_ok(t_data *data);
+double		get_len_vector(double *vector);
 
+void		display(t_data *data);
+void		ft_hook_keys(void *param);
+void		change_image_size_hook(void *param);
+void		make_image_black(mlx_image_t *image);
+int			displaying(t_data *data);
+uint32_t	get_pixel(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 #endif

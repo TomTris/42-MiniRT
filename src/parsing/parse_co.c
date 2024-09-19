@@ -6,12 +6,11 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 16:52:31 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:20:17 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
-
 
 int	get_radius_co(char *number, t_cone *cone, int update)
 {
@@ -73,7 +72,6 @@ int	set_pos_co(char *number, int ind, int update, t_cone *cone)
 	return (1);
 }
 
-
 int	get_first_arg_co(char *str, int update, t_cone *cone)
 {
 	char			**numbers;
@@ -118,9 +116,8 @@ int	parse_co(t_data *data, char **splited)
 		return (0);
 	if (!get_radius_co(splited[4], cone, 1))
 		return (0);
-	data->amount_of_cones += 1;
-    if (data->amount_of_cones != 1)
-	    free(data->cones);
+	if (++data->amount_of_cones && data->amount_of_cones != 1)
+		free(data->cones);
 	data->cones = cones;
 	return (1);
 }

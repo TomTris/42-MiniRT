@@ -6,12 +6,11 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 16:20:16 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:54:28 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
-
 
 void	error_message_parse_l(int update)
 {
@@ -57,7 +56,6 @@ int	set_pos_l(t_data *data, char *number, int ind, int update)
 	}
 	return (1);
 }
-
 
 int	get_first_arg_l(t_data *data, char *str, int update)
 {

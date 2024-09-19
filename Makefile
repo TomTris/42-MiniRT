@@ -11,9 +11,7 @@ OBJS = $(SRC:.c=.o)
 all:  $(NAME)
 
 $(NAME): $(FT_LIBS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(FT_LIBS) -o $(NAME) 
-	
-# -ldl -lglfw -lm -g
+	$(CC) $(CFLAGS) $(OBJS) $(FT_LIBS) -o $(NAME) -ldl -lglfw -lm -g
 
 $(FT_LIBS):
 	@git clone https://github.com/codam-coding-college/MLX42.git

@@ -6,10 +6,9 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:10 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 17:03:55 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:56:45 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/minirt.h"
 
@@ -41,6 +40,7 @@ void	init_data(t_data *data, int fd)
 	data->seen_light = 0;
 	data->seen_ambitient_light = 0;
 	data->seen_camera = 0;
+	data->displayed = 0;
 }
 
 int	main(int ac, char **av)
@@ -59,6 +59,7 @@ int	main(int ac, char **av)
 	init_data(&data, fd);
 	if (!parse(&data))
 		return (free_data_before_display(&data), 1);
+	display(&data);
 	free_data_before_display(&data);
 	return (0);
 }

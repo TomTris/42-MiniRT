@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 16:52:15 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:54:38 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int	set_pos_pl(char *number, int ind, int update, t_plane *plane)
 	}
 	return (1);
 }
-
 
 int	get_first_arg_pl(char *str, int update, t_plane *plane)
 {

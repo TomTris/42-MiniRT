@@ -6,10 +6,9 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:04 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/17 19:41:05 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:56:05 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../include/minirt.h"
 
@@ -24,7 +23,6 @@ int	str_len(char *str)
 	}
 	return (i);
 }
-
 
 int	ends_with(char *main, char *sub)
 {

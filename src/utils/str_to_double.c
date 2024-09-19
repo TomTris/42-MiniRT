@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:59:01 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 15:15:50 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:55:52 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static double	int_double_notvalid_h(int seen, int i)
 {
-	if (i == 0)	
+	if (i == 0)
 		return (2);
 	return (seen);
 }
@@ -48,7 +48,6 @@ double	int_double_notvalid(char *str, int seen, int seen_other)
 	return (int_double_notvalid_h(seen, i));
 }
 
-
 int	get_sign(char *str, int *move)
 {
 	int	i;
@@ -70,7 +69,6 @@ int	get_sign(char *str, int *move)
 	return (1);
 }
 
-
 long long	str_to_long_long(char *str)
 {
 	long long	out;
@@ -85,7 +83,6 @@ long long	str_to_long_long(char *str)
 	}
 	return (out);
 }
-
 
 double	str_to_double(char *str)
 {

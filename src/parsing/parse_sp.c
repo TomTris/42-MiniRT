@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 16:52:04 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/19 13:54:43 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int	set_pos_sp(char *number, int ind, int update, t_sphere *sphere)
 	}
 	return (1);
 }
-
 
 int	get_first_arg_sp(char *str, int update, t_sphere *sphere)
 {
