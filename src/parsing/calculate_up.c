@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:43:40 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 19:02:40 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/21 19:36:42 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,10 @@ void	calculate_up(t_data *data)
 	res = apply_matrix(data->camera.vec3, &rotation_matrix);
 	if (res.y < 0.0)
 		res = scale(res, -1.0);
+	// t_vec3 temp = create_vec3(1, 0, 1);
+	// t_vec3 right = cross(temp, data->camera.vec3);
+	// temp = cross(data->camera.vec3, right);
+	// dprintf(1, "%f  %f  %f\n", res.x, res.y, res.z);
+	// dprintf(1, "%f  %f  %f\n", temp.x, temp.y, temp.z);
 	data->camera.world_up = res;
 }

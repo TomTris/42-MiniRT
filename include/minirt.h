@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 18:44:42 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/21 16:50:04 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,9 +187,12 @@ double		dot_product(t_vec3 vec1, t_vec3 vec2);
 t_vec3		create_vec3(double x, double y, double z);
 t_vec3		apply_matrix(t_vec3 vec, t_matrix3 *matrix);
 t_matrix3	create_matrix(t_vec3 axis, double angle);
+t_vec3		create_vec3_arr(double *vec);
 
 void		calculate_up(t_data *data);
 t_vec3		get_direction_ray(t_data *data, double offset_x, double offset_y);
 int			are_vectors_similar(t_vec3 vec1, t_vec3 vec2);
+
+double		max_double(double v1, double v2);
 
 #endif
