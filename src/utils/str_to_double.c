@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   str_to_double.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:59:01 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 13:55:52 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/21 21:19:33 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ double	str_to_double(char *str)
 		}
 		else
 		{
-			out += ((double)(str[i] - '0') * multiplier);
+			out += ((double)(str[i] - '0')) * multiplier;
 			multiplier /= 10.0;
 		}
 	}
