@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:43:40 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/21 20:53:26 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/21 21:11:33 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 // 	t_vec3		rotation_axis;
 // 	t_matrix3	rotation_matrix;
 // 	t_vec3		res;
-
 
 // 	data->camera.vec3 = normalize(data->camera.vec3);
 // 	vec_up = create_vec3(0, 1, 0);
@@ -40,46 +39,53 @@
 // 	data->camera.world_up = res;
 // }
 
+typedef struct s_vars
+{
+	double	x;
+	double	y;
+	double	z;
+	double	x2;
+	double	y2;
+}	t_5vars;
+
+void	calculate_up2(t_5vars vars, t_data *data)
+{
+	data->camera.world_up.z = sqrt(vars.x * vars.z + vars.y * vars.y);
+	vars.x2 = sqrt(vars.z * vars.z - \
+		((vars.z * vars.z * vars.y * vars.y) / \
+		(vars.x * vars.x + vars.y * vars.y)));
+	vars.y2 = vars.z * vars.y / sqrt(vars.x * vars.x + vars.y * vars.y);
+	if (vars.z > 0)
+	{
+		if ((vars.x > 0) && (vars.x2 > 0))
+			vars.x2 *= -1;
+		if ((vars.y > 0) && (vars.y2 > 0))
+			vars.y2 *= -1;
+	}
+	else
+	{
+		if (((vars.x > 0) && (vars.x2 < 0)) || ((vars.x < 0) && (vars.x2 > 0)))
+			vars.x2 *= -1;
+		if (((vars.y > 0) && (vars.y2 < 0)) || ((vars.y < 0) && (vars.y2 > 0)))
+			vars.y2 *= -1;
+	}
+	data->camera.world_up.x = vars.x2;
+	data->camera.world_up.y = vars.y2;
+}
 
 void	calculate_up(t_data *data)
 {
-	double x;
-	double y;
-	double z;
-	double x2;
-	double y2;
-	
-	x = data->camera.vec3.x;
-	y = data->camera.vec3.y;
-	z = data->camera.vec3.z;
+	t_5vars	vars;
 
-	if (x == 0 && y == 0)
+	vars.x = data->camera.vec3.x;
+	vars.y = data->camera.vec3.y;
+	vars.z = data->camera.vec3.z;
+	if (vars.x == 0 && vars.y == 0)
 	{
 		data->camera.world_up.x = 0;
 		data->camera.world_up.y = 1;
 		data->camera.world_up.z = 0;
 		return ;
 	}
-
-	data->camera.world_up.z = sqrt(x * z + y * y);
-	x2 = sqrt(z * z - ((z * z * y * y) / (x * x + y * y)));
-	y2 = z * y / sqrt(x * x + y * y);
-	if (z > 0)
-	{
-		if ((x > 0) && (x2 > 0))
-			x2 *= -1;
-		if ((y > 0) && (y2 > 0))
-			y2 *= -1;
-		data->camera.world_up.x = x2;
-		data->camera.world_up.y = y2;
-	}
-	else
-	{
-		if (((x > 0) && (x2 < 0)) || ((x < 0) && (x2 > 0)))
-			x2 *= -1;
-		if (((y > 0) && (y2 < 0)) || ((y < 0) && (y2 > 0)))
-			y2 *= -1;
-		data->camera.world_up.x = x2;
-		data->camera.world_up.y = y2;
-	}
+	calculate_up2(vars, data);
 }
