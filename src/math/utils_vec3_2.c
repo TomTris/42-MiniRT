@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:20:36 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 20:46:46 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/22 12:16:04 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,15 @@ t_vec3	create_vec3_arr(double *vec)
 	res.x = vec[0];
 	res.y = vec[1];
 	res.z = vec[2];
+	return (res);
+}
+
+t_vec3	subtract(t_vec3 vec1, t_vec3 vec2)
+{
+	t_vec3	res;
+
+	res.x = vec1.x - vec2.x;
+	res.y = vec1.y - vec2.y;
+	res.z = vec1.z - vec2.z;
 	return (res);
 }

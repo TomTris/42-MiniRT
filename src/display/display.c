@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/21 18:01:26 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/22 13:50:15 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,42 +46,56 @@ uint32_t	get_color_from_vec3(t_vec3 *vec)
 	return (res);
 }
 
+t_hit	miss(t_data *data, t_ray *ray)
+{
+	
+}
+
 // (bx^2 + by^2 + bz^2)t^2 + (2(axbxzx + aybyzy))
 
-uint32_t	per_pixel(t_data *data, uint32_t x, uint32_t y)
+t_hit	ray_trace(t_data *data, t_ray *ray)
 {
-	double		x_val;
-	double		y_val;
-	t_vec3		vec;
-	uint32_t	pixel;
+	t_sphere	*sphere = NULL;
+	int		i = 0;
 
-	x_val = ((double)x / (double)data->image->width);
-	y_val = (1.0 - (double)y / (double)data->image->height);
-	pixel = 255;
-	
-	vec = get_direction_ray(data, x_val * 2.0 - 1.0, y_val * 2.0 - 1.0);
-
-	double a = dot_product(vec, vec);
-	double b = 2.0 * dot_product(vec, create_vec3_arr(data->camera.cords));
-	double c = dot_product(create_vec3_arr(data->camera.cords), create_vec3_arr(data->camera.cords)) - data->spheres->diameter * data->spheres->diameter / 4.0;
-
-	double descriminent = b * b - 4.0 * a * c;
-	if (descriminent < 0)
+	double closest = MAXFLOAT;
+	while (i < data->amount_of_spheres)
 	{
-		return (pixel);
+		t_vec3	origin = subtract(ray->ray_origin, create_vec3_arr(data->spheres[i].cords));
+		double a = dot_product(ray->ray_direction,  ray->ray_direction);
+		double b = 2.0 * dot_product(ray->ray_direction, origin);
+		double c = dot_product(origin, origin) - data->spheres[i].diameter * data->spheres[i].diameter / 4.0;
+
+		double descriminent = b * b - 4.0 * a * c;
+		if (descriminent < 0)
+		{
+			i++;
+			continue ;
+		}
+		double t1 = (-b - sqrt(descriminent)) / (2.0 * a);
+		if (t1 < closest)
+		{
+			closest = t1;
+			sphere = &data->spheres[i];
+		}
+		i++;
+
 	}
-	// double t0 = (-b + sqrt(descriminent)) / (2.0 * a);
-	double t1 = (-b - sqrt(descriminent)) / (2.0 * a);
-	// dprintf(1, "%f\n", descriminent);
+
+	if (sphere == NULL)
+		return (miss(data, ray));
+	return (closest_hit(raty))
+	t_vec3 origin = subtract(ray->ray_origin, create_vec3_arr(sphere->cords));
+		// dprintf(1, "%f\n", descriminent);
 	// t_vec3 hit_pos1 = add(data->camera.vec3, scale(vec, t0));
 	// t_vec3 scaled = scale(vec, t1);
-	t_vec3 hit_pos2 = add(create_vec3_arr(data->camera.cords), scale(vec, t1));
+	t_vec3 hit_pos2 = add(origin, scale(ray->ray_direction, closest));
 	// dprintf(1, "%f--%f--%f\n", scaled.x, scaled.y, scaled.z);
 	// dprintf(1, "%f--%f--%f\n", data->camera.vec3.x, data->camera.vec3.y, data->camera.vec3.z);
 	t_vec3 normal = normalize(hit_pos2);
 	// dprintf(1, "%f--%f--%f\n\n\n", hit_pos2.x, hit_pos2.y, hit_pos2.z);
 	// normal = normalize(add(scale(normal, 0.5), create_vec3(0.5, 0.5, 0.5)));
-	t_vec3 color = create_vec3(1, 0, 1);
+	t_vec3 color = create_vec3_color_arr(sphere->colors);
 	t_vec3 light_dir = normalize(add(hit_pos2, create_vec3_arr(data->light.cords)));
 	// light_dir = normalize(create_vec3(1.0, 1.0, 1.0));
 	double d = max_double(dot_product(normal, light_dir), 0.0);
@@ -91,19 +105,31 @@ uint32_t	per_pixel(t_data *data, uint32_t x, uint32_t y)
 	return (pixel);
 }
 
+uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
+{
+	ray->ray_direction = get_direction_ray(data, ((double)x / \
+	(double)data->image->width) * 2.0 - 1.0, (1.0 - (double)y / \
+	(double)data->image->height) * 2.0 - 1.0);
+
+	t_hit hit = ray_trace(data, ray);
+}
+
+
 int	displaying(t_data *data)
 {
 	uint32_t	y;
 	uint32_t	x;
 	uint32_t	pixel;
+	t_ray		ray;
 
 	y = 0;
+	ray.ray_origin = create_vec3_arr(data->camera.cords);
 	while (y < data->image->height)
 	{
 		x = 0;
 		while (x < data->image->width)
 		{
-			pixel = per_pixel(data, x, y);
+			pixel = per_pixel;
 			mlx_put_pixel(data->image, x, y, pixel);
 			x++;
 		}

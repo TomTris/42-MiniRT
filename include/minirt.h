@@ -6,10 +6,9 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/21 16:50:04 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/22 13:40:37 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINIRT_H
 # define MINIRT_H
@@ -31,14 +30,12 @@ typedef struct s_matrix3
 	double	m[3][3];
 }	t_matrix3;
 
-
 typedef struct s_vec3
 {
 	double	x;
 	double	y;
 	double	z;
 }	t_vec3;
-
 
 typedef struct s_camera
 {
@@ -49,13 +46,11 @@ typedef struct s_camera
 	t_vec3	world_up;
 }	t_camera;
 
-
 typedef struct s_ambitient_light
 {
 	int		colors[3];
 	double	ratio;
 }	t_ambitient_light;
-
 
 typedef struct s_light
 {
@@ -64,14 +59,12 @@ typedef struct s_light
 	double	cords[3];
 }	t_light;
 
-
 typedef struct s_sphere
 {
 	int		colors[3];
 	double	diameter;
 	double	cords[3];
 }	t_sphere;
-
 
 typedef struct s_plane
 {
@@ -80,7 +73,6 @@ typedef struct s_plane
 	t_vec3	vec3;
 	int		colors[3];
 }	t_plane;
-
 
 typedef struct s_cylinder
 {
@@ -92,7 +84,6 @@ typedef struct s_cylinder
 	t_vec3	vec3;
 }	t_cylinder;
 
-
 typedef struct s_cone
 {
 	int		colors[3];
@@ -102,8 +93,6 @@ typedef struct s_cone
 	double	height;
 	t_vec3	vec3;
 }	t_cone;
-
-
 
 typedef struct s_data
 {
@@ -132,6 +121,20 @@ typedef struct s_data
 	int					fd;
 }	t_data;
 
+typedef struct s_ray
+{
+	t_vec3				ray_origin;
+	t_vec3				ray_direction;
+}	t_ray;
+
+typedef struct s_hit
+{
+	double		hit_distance;
+	t_vec3		world_position;
+	t_vec3		world_normal;
+
+	uint32_t	object_index;
+}	t_hit;
 
 char		*get_next_line(int fd, int *finished);
 int			str_len(char *str);
@@ -181,6 +184,7 @@ uint32_t	get_pixel(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 // math
 t_vec3		cross(t_vec3 vec1, t_vec3 vec2);
 t_vec3		add(t_vec3 vec1, t_vec3 vec2);
+t_vec3		subtract(t_vec3 vec1, t_vec3 vec2);
 t_vec3		scale(t_vec3 vec, double scale);
 t_vec3		normalize(t_vec3 vec);
 double		dot_product(t_vec3 vec1, t_vec3 vec2);
@@ -188,6 +192,7 @@ t_vec3		create_vec3(double x, double y, double z);
 t_vec3		apply_matrix(t_vec3 vec, t_matrix3 *matrix);
 t_matrix3	create_matrix(t_vec3 axis, double angle);
 t_vec3		create_vec3_arr(double *vec);
+t_vec3		create_vec3_color_arr(int *arr);
 
 void		calculate_up(t_data *data);
 t_vec3		get_direction_ray(t_data *data, double offset_x, double offset_y);
