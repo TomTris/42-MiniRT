@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/22 13:40:37 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/22 13:55:04 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ typedef struct s_hit
 	t_vec3		world_position;
 	t_vec3		world_normal;
 
-	uint32_t	object_index;
+	int			object_index;
 }	t_hit;
 
 char		*get_next_line(int fd, int *finished);

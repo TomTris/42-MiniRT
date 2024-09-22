@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/22 13:50:15 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/22 14:14:36 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,37 @@ uint32_t	get_color_from_vec3(t_vec3 *vec)
 	return (res);
 }
 
-t_hit	miss(t_data *data, t_ray *ray)
+t_hit	miss(void)
 {
-	
+	t_hit	hit;
+
+	hit.hit_distance = -1.0;
+	return (hit);
+}
+
+t_hit	closest_hit(t_data *data, t_ray *ray, double distance, int ind)
+{
+	t_hit	hit;
+	t_vec3	origin;
+
+	hit.hit_distance = distance;
+	hit.object_index = ind;
+	origin = \
+	subtract(ray->ray_origin, create_vec3_arr(data->spheres[ind].cords));
+	hit.world_position = add(origin, scale(ray->ray_direction, distance));
+	hit.world_normal = normalize(hit.world_position);
+	hit.world_position = \
+	add(hit.world_normal, create_vec3_arr(data->spheres[ind].cords));
+	return (hit);
 }
 
 // (bx^2 + by^2 + bz^2)t^2 + (2(axbxzx + aybyzy))
 
 t_hit	ray_trace(t_data *data, t_ray *ray)
 {
-	t_sphere	*sphere = NULL;
 	int		i = 0;
 
+	int 	ind = -1;
 	double closest = MAXFLOAT;
 	while (i < data->amount_of_spheres)
 	{
@@ -76,33 +95,14 @@ t_hit	ray_trace(t_data *data, t_ray *ray)
 		if (t1 < closest)
 		{
 			closest = t1;
-			sphere = &data->spheres[i];
+			ind = i;
 		}
 		i++;
 
 	}
-
-	if (sphere == NULL)
-		return (miss(data, ray));
-	return (closest_hit(raty))
-	t_vec3 origin = subtract(ray->ray_origin, create_vec3_arr(sphere->cords));
-		// dprintf(1, "%f\n", descriminent);
-	// t_vec3 hit_pos1 = add(data->camera.vec3, scale(vec, t0));
-	// t_vec3 scaled = scale(vec, t1);
-	t_vec3 hit_pos2 = add(origin, scale(ray->ray_direction, closest));
-	// dprintf(1, "%f--%f--%f\n", scaled.x, scaled.y, scaled.z);
-	// dprintf(1, "%f--%f--%f\n", data->camera.vec3.x, data->camera.vec3.y, data->camera.vec3.z);
-	t_vec3 normal = normalize(hit_pos2);
-	// dprintf(1, "%f--%f--%f\n\n\n", hit_pos2.x, hit_pos2.y, hit_pos2.z);
-	// normal = normalize(add(scale(normal, 0.5), create_vec3(0.5, 0.5, 0.5)));
-	t_vec3 color = create_vec3_color_arr(sphere->colors);
-	t_vec3 light_dir = normalize(add(hit_pos2, create_vec3_arr(data->light.cords)));
-	// light_dir = normalize(create_vec3(1.0, 1.0, 1.0));
-	double d = max_double(dot_product(normal, light_dir), 0.0);
-	// dprintf(1, "%f  ", d);
-	color = scale(color, d);
-	pixel = get_color_from_vec3(&color);
-	return (pixel);
+	if (ind == -1)
+		return (miss());
+	return (closest_hit(data, ray, closest, ind));
 }
 
 uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
@@ -112,6 +112,15 @@ uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
 	(double)data->image->height) * 2.0 - 1.0);
 
 	t_hit hit = ray_trace(data, ray);
+	if (hit.hit_distance < 0)
+		return (255);
+	t_vec3 light_dir = normalize(add(hit.world_normal, create_vec3_arr(data->light.cords)));
+	// light_dir = normalize(create_vec3(1.0, 1.0, 1.0));
+	double d = max_double(dot_product(hit.world_normal, light_dir), 0.0);
+	// dprintf(1, "%f  ", d);
+	t_vec3 color = create_vec3_color_arr(data->spheres[hit.object_index].colors);
+	color = scale(color, d);
+	return (get_color_from_vec3(&color));
 }
 
 
@@ -129,7 +138,7 @@ int	displaying(t_data *data)
 		x = 0;
 		while (x < data->image->width)
 		{
-			pixel = per_pixel;
+			pixel = per_pixel(data, &ray, x, y);
 			mlx_put_pixel(data->image, x, y, pixel);
 			x++;
 		}
