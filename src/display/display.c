@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/24 18:42:02 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/24 22:50:54 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,11 @@ void	closest_hit(t_data *data, t_ray *ray, t_hit *hit)
 	{
 		hit->world_position = add(ray->ray_origin, scale(ray->ray_direction, hit->hit_distance));
 		hit->world_normal = normalize(subtract(hit->world_position, add(hit->cords, scale(hit->normal, dot_product(subtract(hit->world_position, hit->cords), hit->normal)))));
+	}
+	else if (hit->type == 4)
+	{
+		hit->world_position = add(ray->ray_origin, scale(ray->ray_direction, hit->hit_distance));
+		hit->world_normal = normalize(subtract(subtract(hit->world_position, hit->cords), scale(hit->normal, dot_product(subtract(hit->world_position, hit->cords), hit->normal))));
 	}
 }
 
@@ -176,17 +181,43 @@ void	handle_cylinders(t_data *data, t_ray *ray, t_hit *hit)
 	}
 }
 
-// void handle_cones(t_data *data, t_ray *ray, t_hit *hit)
-// {
-// 	int	i;
+void handle_cones(t_data *data, t_ray *ray, t_hit *hit)
+{
+	int		i;
+	t_vec3	temp;
+	t_vec3	temp2;
+	double	constant;
+	t_vec3	apex;
 
-// 	i = -1;
-// 	while (++i < data->amount_of_cylinders)
-// 	{
-// 		hit->vars_sp.a = 
-		
-// 	}
-// }
+	i = -1;
+	while (++i < data->amount_of_cones)
+	{
+		apex = add(data->cones[i].vec3_cords, scale(data->cones[i].vec3_norm, data->cones[i].height / 2.0));
+		constant = data->cones[i].diameter * data->cones[i].diameter / 4.0 / data->cones[i].height / data->cones[i].height;
+		temp = scale(ray->ray_direction, dot_product(ray->ray_direction, data->cones[i].vec3_norm));
+		temp2 = scale(data->cones[i].vec3_norm, dot_product(subtract(ray->ray_origin, apex), data->cones[i].vec3_norm));
+		hit->vars_sp.a = dot_product(subtract(ray->ray_direction, temp), subtract(ray->ray_direction, temp)) - constant * dot_product(temp, temp);
+		hit->vars_sp.b = 2 * (dot_product(subtract(subtract(ray->ray_origin, apex), temp2), subtract(ray->ray_direction, temp)) - constant * dot_product(temp, temp2));
+		hit->vars_sp.c = dot_product(subtract(subtract(ray->ray_origin, apex), temp2), subtract(subtract(ray->ray_origin, apex), temp2)) - constant * dot_product(temp2, temp2);
+		hit->vars_sp.descriminent = hit->vars_sp.b * hit->vars_sp.b - 4 * hit->vars_sp.a * hit->vars_sp.c;
+		if (hit->vars_sp.descriminent < 0)
+			continue ;
+		hit->vars_sp.t = (-hit->vars_sp.b - sqrt(hit->vars_sp.descriminent)) / (2.0 * hit->vars_sp.a);
+		if (hit->vars_sp.t > 0 && hit->vars_sp.t < hit->hit_distance)
+		{
+			hit->vars_sp.d = dot_product(subtract(add(ray->ray_origin, scale(ray->ray_direction, hit->vars_sp.t)), apex), data->cones[i].vec3_norm);
+			if (hit->vars_sp.d >= 0 && hit->vars_sp.d <= data->cones[i].height)
+			{
+				hit->hit_distance = hit->vars_sp.t;
+				hit->found = 1;
+				hit->type = 4;
+				hit->color = data->cones[i].vec3_color;
+				hit->cords = apex;
+				hit->normal = data->cones[i].vec3_norm;
+			}
+		}
+	}
+}
 
 
 void	ray_trace(t_data *data, t_ray *ray, t_hit *hit)
@@ -197,7 +228,7 @@ void	ray_trace(t_data *data, t_ray *ray, t_hit *hit)
 	handle_spheres(data, ray, hit);
 	handle_planes(data, ray, hit);
 	handle_cylinders(data, ray, hit);
-	// handle_cones(data, ray, hit);
+	handle_cones(data, ray, hit);
 	closest_hit(data, ray, hit);
 }
 

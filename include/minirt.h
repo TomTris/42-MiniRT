@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/24 13:03:18 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:49:05 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,10 @@ typedef struct s_cone
 	double	cords[3];
 	double	vector[3];
 	double	height;
-	t_vec3	vec3;
+
+	t_vec3	vec3_cords;
+	t_vec3	vec3_norm;
+	t_vec3	vec3_color;
 }	t_cone;
 
 typedef struct s_data
