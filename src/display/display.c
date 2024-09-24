@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/24 13:07:14 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:58:23 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,11 @@ void	closest_hit(t_data *data, t_ray *ray, t_hit *hit)
 	{
 		hit->world_position = add(ray->ray_origin, scale(ray->ray_direction, hit->hit_distance));
 		hit->world_normal = hit->normal;
-		hit->world_position = subtract(ray->ray_origin, hit->cords);
+	}
+	else if (hit->type == 3)
+	{
+		hit->world_position = add(ray->ray_origin, scale(ray->ray_direction, hit->hit_distance));
+		hit->world_normal = normalize(subtract(hit->world_position, add(hit->cords, scale(hit->normal, dot_product(subtract(hit->world_position, hit->cords), hit->normal)))));
 	}
 }
 
@@ -136,17 +140,40 @@ void	handle_planes(t_data *data, t_ray *ray, t_hit *hit)
 	}
 }
 
+// | (Q - P) - (((Q - P) * n) * n) | = r * r
+
 void	handle_cylinders(t_data *data, t_ray *ray, t_hit *hit)
 {
-	int	i;
+	int		i;
+	t_vec3	temp;
+	t_vec3	temp2;
 
 	i = -1;
 	while (++i < data->amount_of_cylinders)
 	{
-		hit->vars_sp.d = scale(data->cylinders[i].vec3_norm, dot_product(ray->ray_direction, data->cylinders[i].vec3_norm));
-		hit->vars_sp.a = dot_product();
+		temp = subtract(ray->ray_direction, scale(data->cylinders[i].vec3_norm, dot_product(ray->ray_direction, data->cylinders[i].vec3_norm)));
+		temp2 = subtract(subtract(ray->ray_origin, data->cylinders[i].vec3_cords), scale(data->cylinders[i].vec3_norm, dot_product(subtract(ray->ray_origin, data->cylinders[i].vec3_cords), data->cylinders[i].vec3_norm)));
+		hit->vars_sp.a = dot_product(temp, temp);
+		hit->vars_sp.b = 2 * dot_product(temp2, temp);
+		hit->vars_sp.c = dot_product(temp2, temp2) - data->cylinders[i].diameter * data->cylinders[i].diameter / 4.0;
+		hit->vars_sp.descriminent = hit->vars_sp.b * hit->vars_sp.b - 4 * hit->vars_sp.a * hit->vars_sp.c;
+		if (hit->vars_sp.descriminent < 0)
+			continue ;
+		hit->vars_sp.t = (-hit->vars_sp.b - sqrt(hit->vars_sp.descriminent)) / (2.0 * hit->vars_sp.a);
+		if (hit->vars_sp.t > 0 && hit->vars_sp.t < hit->hit_distance)
+		{
+			hit->vars_sp.d = dot_product(subtract(add(ray->ray_origin, scale(ray->ray_direction, hit->vars_sp.t)), subtract(data->cylinders[i].vec3_cords, scale(data->cylinders[i].vec3_norm, data->cylinders[i].height / 2.0))), data->cylinders[i].vec3_norm);
+			if (hit->vars_sp.d >= 0 && hit->vars_sp.d <= data->cylinders[i].height)
+			{
+				hit->hit_distance = hit->vars_sp.t;
+				hit->found = 1;
+				hit->type = 3;
+				hit->color = data->cylinders[i].vec3_color;
+				hit->cords = data->cylinders[i].vec3_cords;
+				hit->normal = data->cylinders[i].vec3_norm;
+			}
+		}
 	}
-	
 }
 
 
