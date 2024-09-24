@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 18:38:46 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:05:43 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,50 @@ int	check_is_vector_ok(double *vector)
 	return (1);
 }
 
-void	set_vector(t_vec3 *vec3, double *vec)
+int	check_half(t_data *data, int i)
 {
-	vec3->x = vec[0];
-	vec3->y = vec[1];
-	vec3->z = vec[2];
+	while (i < data->amount_of_spheres)
+	{
+		data->spheres[i].vec3_cords = create_vec3_arr(data->spheres[i].cords);
+		data->spheres[i].vec3_color = \
+		create_vec3_color_arr(data->spheres[i].colors);
+		i++;
+	}
+	i = 0;
+	while (i < data->amount_of_cones)
+	{
+		if (!check_is_vector_ok(data->cones[i].vector))
+			return (display_error_message("Cone vector not OK"), 0);
+		i++;
+	}
+	return (1);
 }
 
 int	check_all_vectors(t_data *data, int i)
 {
 	if (!check_is_vector_ok(data->camera.vector))
 		return (display_error_message("Camera Vector not OK"), 0);
-	set_vector(&data->camera.vec3, data->camera.vector);
-	while (i < data->amount_of_cones)
-	{
-		if (!check_is_vector_ok(data->cones[i++].vector))
-			return (display_error_message("Cone vector not OK"), 0);
-		set_vector(&data->cones[i - 1].vec3, data->cones[i - 1].vector);
-	}
-	i = 0;
+	data->camera.vec3 = create_vec3_arr(data->camera.vector);
+	if (!check_half(data, 0))
+		return (0);
 	while (i < data->amount_of_cylinders)
 	{
-		if (!check_is_vector_ok(data->cylinders[i++].vector))
+		if (!check_is_vector_ok(data->cylinders[i].vector))
 			return (display_error_message("Cylinder vector not OK"), 0);
-		set_vector(&data->cylinders[i - 1].vec3, data->cylinders[i - 1].vector);
+		data->cylinders[i].vec3_cords = create_vec3_arr(data->cylinders[i].cords);
+		data->cylinders[i].vec3_color = create_vec3_color_arr(data->cylinders[i].colors);
+		data->cylinders[i].vec3_norm = normalize(create_vec3_arr(data->cylinders[i].vector));
+		i++;
 	}
 	i = 0;
 	while (i < data->amount_of_planes)
 	{
-		if (!check_is_vector_ok(data->planes[i++].vector))
+		if (!check_is_vector_ok(data->planes[i].vector))
 			return (display_error_message("Plane vector not OK"), 0);
-		set_vector(&data->planes[i - 1].vec3, data->planes[i - 1].vector);
+		data->planes[i].vec3_color = create_vec3_color_arr(data->planes[i].colors);
+		data->planes[i].vec3_cords = create_vec3_arr(data->planes[i].cords);
+		data->planes[i].vec3_norm = normalize(create_vec3_arr(data->planes[i].vector));
+		i++;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/22 13:55:04 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/24 13:03:18 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,20 @@ typedef struct s_sphere
 	int		colors[3];
 	double	diameter;
 	double	cords[3];
+
+	t_vec3	vec3_cords;
+	t_vec3	vec3_color;
 }	t_sphere;
 
 typedef struct s_plane
 {
 	double	cords[3];
 	double	vector[3];
-	t_vec3	vec3;
 	int		colors[3];
+
+	t_vec3	vec3_cords;
+	t_vec3	vec3_color;
+	t_vec3	vec3_norm;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -81,7 +87,10 @@ typedef struct s_cylinder
 	double	cords[3];
 	double	vector[3];
 	double	height;
-	t_vec3	vec3;
+
+	t_vec3	vec3_cords;
+	t_vec3	vec3_norm;
+	t_vec3	vec3_color;
 }	t_cylinder;
 
 typedef struct s_cone
@@ -127,13 +136,35 @@ typedef struct s_ray
 	t_vec3				ray_direction;
 }	t_ray;
 
+
+typedef struct s_var_sphere
+{
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+	double	descriminent;
+	double	closest;
+	double	t;
+
+	t_vec3	origin;
+
+}	t_var_sphere;
+
+
 typedef struct s_hit
 {
-	double		hit_distance;
-	t_vec3		world_position;
-	t_vec3		world_normal;
+	double			hit_distance;
+	t_vec3			world_position;
+	t_vec3			world_normal;
+	t_vec3			color;
+	t_vec3			cords;
+	t_vec3			normal;
+	double			closest;
+	int				found;
+	int				type;
+	t_var_sphere	vars_sp;
 
-	int			object_index;
 }	t_hit;
 
 char		*get_next_line(int fd, int *finished);
@@ -193,11 +224,14 @@ t_vec3		apply_matrix(t_vec3 vec, t_matrix3 *matrix);
 t_matrix3	create_matrix(t_vec3 axis, double angle);
 t_vec3		create_vec3_arr(double *vec);
 t_vec3		create_vec3_color_arr(int *arr);
+t_vec3		multiply_vec3(t_vec3 vec1, t_vec3 vec2);
+t_vec3		shrink_vec3(t_vec3 vec, double min, double max);
 
 void		calculate_up(t_data *data);
 t_vec3		get_direction_ray(t_data *data, double offset_x, double offset_y);
 int			are_vectors_similar(t_vec3 vec1, t_vec3 vec2);
 
 double		max_double(double v1, double v2);
+double		min_double(double v1, double v2);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 15:32:18 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/21 16:49:29 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/22 19:54:11 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ void	normilize_vector_d(double *vec)
 double	max_double(double v1, double v2)
 {
 	if (v1 > v2)
+		return (v1);
+	return (v2);
+}
+
+double	min_double(double v1, double v2)
+{
+	if (v1 < v2)
 		return (v1);
 	return (v2);
 }
