@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/24 13:58:23 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/24 18:42:02 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,18 @@ void	handle_cylinders(t_data *data, t_ray *ray, t_hit *hit)
 		}
 	}
 }
+
+// void handle_cones(t_data *data, t_ray *ray, t_hit *hit)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	while (++i < data->amount_of_cylinders)
+// 	{
+// 		hit->vars_sp.a = 
+		
+// 	}
+// }
 
 
 void	ray_trace(t_data *data, t_ray *ray, t_hit *hit)
