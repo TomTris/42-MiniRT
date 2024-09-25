@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:45 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/25 15:27:17 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/25 20:27:36 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int	detect_type(t_data *data, char **splited)
 		return (parse_pl(data, splited));
 	else if (!str_compare(splited[0], "cy"))
 		return (parse_cy(data, splited));
-	else if (!str_compare(splited[0], "co"))
-		return (parse_co(data, splited));
 	else
 		return (error_not_valid_identifier(splited[0]), 0);
 }
@@ -78,6 +76,5 @@ int	parse(t_data *data)
 	}
 	if (!check_if_ok(data))
 		return (0);
-	output_data(data);
 	return (1);
 }

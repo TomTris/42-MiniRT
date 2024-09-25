@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 17:43:40 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/25 14:56:00 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/25 20:26:04 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	calculate_up2(t_5vars vars, t_data *data)
 	}
 	data->camera.world_up.x = vars.x2;
 	data->camera.world_up.z = vars.z2;
-	dprintf(1, "-- %f %f %f --\n", data->camera.world_up.x, data->camera.world_up.y, data->camera.world_up.z);
 }
 
 void	calculate_up(t_data *data)
@@ -81,7 +80,6 @@ void	calculate_up(t_data *data)
 	vars.x = data->camera.vec3.x;
 	vars.y = data->camera.vec3.y;
 	vars.z = data->camera.vec3.z;
-
 	if (vars.x == 0 && vars.z == 0)
 	{
 		data->camera.world_up.x = 0;

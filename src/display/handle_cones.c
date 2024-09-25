@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 18:34:18 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/25 20:03:41 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/25 20:28:29 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,10 @@ typedef struct s_vars
 	double	height;
 }	t_vars;
 
-
 void	handle_cones(t_data *data, t_ray *ray, t_hit *hit)
 {
 	int		i;
 	t_vars	vars;
-	// double	t;
 
 	i = -1;
 	vars.point_line = ray->ray_origin;

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 16:12:20 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 18:58:10 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/25 20:28:13 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_vec3	add(t_vec3 vec1, t_vec3 vec2)
 // x x
 // y y
 // z z
-
 
 t_vec3	cross(t_vec3 vec1, t_vec3 vec2)
 {

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/25 20:10:39 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/25 20:48:42 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,32 +77,7 @@ void	closest_hit(t_data *data, t_ray *ray, t_hit *hit)
 	}
 }
 
-void	handle_spheres(t_data *data, t_ray *ray, t_hit *hit)
-{
-	int		i;
-	t_vec3	origin;
 
-	i = -1;
-	while (++i < data->amount_of_spheres)
-	{
-		origin = subtract(ray->ray_origin, data->spheres[i].vec3_cords);
-		hit->vars_sp.a = dot_product(ray->ray_direction,  ray->ray_direction);
-		hit->vars_sp.b = 2.0 * dot_product(ray->ray_direction, origin);
-		hit->vars_sp.c = dot_product(origin, origin) - data->spheres[i].diameter * data->spheres[i].diameter / 4.0;
-		hit->vars_sp.descriminent = hit->vars_sp.b * hit->vars_sp.b - 4.0 * hit->vars_sp.a * hit->vars_sp.c;
-		if (hit->vars_sp.descriminent < 0)
-			continue ;
-		hit->vars_sp.t = (-hit->vars_sp.b - sqrt(hit->vars_sp.descriminent)) / (2.0 * hit->vars_sp.a);
-		if (hit->vars_sp.t > 0.0 && hit->vars_sp.t < hit->hit_distance)
-		{
-			hit->hit_distance = hit->vars_sp.t;
-			hit->found = 1;
-			hit->color = data->spheres[i].vec3_color;
-			hit->cords = data->spheres[i].vec3_cords;
-			hit->type = 1;
-		}
-	}
-}
 
 double	get_factor(t_vec3 *norm, t_vec3	*point, t_vec3 *camera)
 {
@@ -152,35 +127,74 @@ void	handle_cylinders(t_data *data, t_ray *ray, t_hit *hit)
 	int		i;
 	t_vec3	temp;
 	t_vec3	temp2;
+	t_vec3	cap_center;
+	double	t_cap;
 
 	i = -1;
 	while (++i < data->amount_of_cylinders)
 	{
+		// Cylinder body intersection
 		temp = subtract(ray->ray_direction, scale(data->cylinders[i].vec3_norm, dot_product(ray->ray_direction, data->cylinders[i].vec3_norm)));
 		temp2 = subtract(subtract(ray->ray_origin, data->cylinders[i].vec3_cords), scale(data->cylinders[i].vec3_norm, dot_product(subtract(ray->ray_origin, data->cylinders[i].vec3_cords), data->cylinders[i].vec3_norm)));
 		hit->vars_sp.a = dot_product(temp, temp);
 		hit->vars_sp.b = 2 * dot_product(temp2, temp);
 		hit->vars_sp.c = dot_product(temp2, temp2) - data->cylinders[i].diameter * data->cylinders[i].diameter / 4.0;
 		hit->vars_sp.descriminent = hit->vars_sp.b * hit->vars_sp.b - 4 * hit->vars_sp.a * hit->vars_sp.c;
-		if (hit->vars_sp.descriminent < 0)
-			continue ;
-		hit->vars_sp.t = (-hit->vars_sp.b - sqrt(hit->vars_sp.descriminent)) / (2.0 * hit->vars_sp.a);
-		if (hit->vars_sp.t > 0 && hit->vars_sp.t < hit->hit_distance)
+		if (hit->vars_sp.descriminent >= 0)
 		{
-			hit->vars_sp.d = dot_product(subtract(add(ray->ray_origin, scale(ray->ray_direction, hit->vars_sp.t)), subtract(data->cylinders[i].vec3_cords, scale(data->cylinders[i].vec3_norm, data->cylinders[i].height / 2.0))), data->cylinders[i].vec3_norm);
-			if (hit->vars_sp.d >= 0 && hit->vars_sp.d <= data->cylinders[i].height)
+			hit->vars_sp.t = (-hit->vars_sp.b - sqrt(hit->vars_sp.descriminent)) / (2.0 * hit->vars_sp.a);
+			if (hit->vars_sp.t > 0 && hit->vars_sp.t < hit->hit_distance)
 			{
-				hit->hit_distance = hit->vars_sp.t;
+				hit->vars_sp.d = dot_product(subtract(add(ray->ray_origin, scale(ray->ray_direction, hit->vars_sp.t)), subtract(data->cylinders[i].vec3_cords, scale(data->cylinders[i].vec3_norm, data->cylinders[i].height / 2.0))), data->cylinders[i].vec3_norm);
+				if (hit->vars_sp.d >= 0 && hit->vars_sp.d <= data->cylinders[i].height)
+				{
+					hit->hit_distance = hit->vars_sp.t;
+					hit->found = 1;
+					hit->type = 3;
+					hit->color = data->cylinders[i].vec3_color;
+					hit->cords = add(data->cylinders[i].vec3_cords, scale(data->cylinders[i].vec3_norm, hit->vars_sp.d - data->cylinders[i].height / 2.0));
+					hit->normal = normalize(subtract(hit->cords, data->cylinders[i].vec3_cords)); // Normal at intersection point on the body
+				}
+			}
+		}
+
+		// Front cap (top) intersection
+		cap_center = add(data->cylinders[i].vec3_cords, scale(data->cylinders[i].vec3_norm, data->cylinders[i].height / 2.0));
+		t_cap = dot_product(subtract(cap_center, ray->ray_origin), data->cylinders[i].vec3_norm) / dot_product(ray->ray_direction, data->cylinders[i].vec3_norm);
+		if (t_cap > 0 && t_cap < hit->hit_distance)
+		{
+			t_vec3 intersection_point = add(ray->ray_origin, scale(ray->ray_direction, t_cap));
+			t_vec3 dist_to_center = subtract(intersection_point, cap_center);
+			if (dot_product(dist_to_center, dist_to_center) <= (data->cylinders[i].diameter / 2.0) * (data->cylinders[i].diameter / 2.0))
+			{
+				hit->hit_distance = t_cap;
 				hit->found = 1;
 				hit->type = 3;
 				hit->color = data->cylinders[i].vec3_color;
-				hit->cords = data->cylinders[i].vec3_cords;
-				hit->normal = data->cylinders[i].vec3_norm;
+				hit->cords = intersection_point;
+				hit->normal = data->cylinders[i].vec3_norm; // Normal is the same as cylinder axis for the cap
+			}
+		}
+
+		// Back cap (bottom) intersection
+		cap_center = subtract(data->cylinders[i].vec3_cords, scale(data->cylinders[i].vec3_norm, data->cylinders[i].height / 2.0));
+		t_cap = dot_product(subtract(cap_center, ray->ray_origin), data->cylinders[i].vec3_norm) / dot_product(ray->ray_direction, data->cylinders[i].vec3_norm);
+		if (t_cap > 0 && t_cap < hit->hit_distance)
+		{
+			t_vec3 intersection_point = add(ray->ray_origin, scale(ray->ray_direction, t_cap));
+			t_vec3 dist_to_center = subtract(intersection_point, cap_center);
+			if (dot_product(dist_to_center, dist_to_center) <= (data->cylinders[i].diameter / 2.0) * (data->cylinders[i].diameter / 2.0))
+			{
+				hit->hit_distance = t_cap;
+				hit->found = 1;
+				hit->type = 3;
+				hit->color = data->cylinders[i].vec3_color;
+				hit->cords = intersection_point;
+				hit->normal = data->cylinders[i].vec3_norm; // Normal is the same as cylinder axis for the cap
 			}
 		}
 	}
 }
-
 
 
 
