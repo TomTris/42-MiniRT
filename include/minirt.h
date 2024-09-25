@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/24 18:49:05 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:30:57 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,5 +236,6 @@ int			are_vectors_similar(t_vec3 vec1, t_vec3 vec2);
 
 double		max_double(double v1, double v2);
 double		min_double(double v1, double v2);
+double		square(double number);
 
 #endif

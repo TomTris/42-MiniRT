@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/24 22:50:29 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/25 19:49:37 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,12 @@ int	check_half(t_data *data, int i)
 	{
 		if (!check_is_vector_ok(data->cones[i].vector))
 			return (display_error_message("Cone vector not OK"), 0);
-		data->cones[i].vec3_cords = create_vec3_arr(data->cones[i].cords);
-		data->cones[i].vec3_color = create_vec3_color_arr(data->cones[i].colors);
-		data->cones[i].vec3_norm = normalize(create_vec3_arr(data->cones[i].vector));
+		data->cones[i].vec3_cords = \
+		create_vec3_arr(data->cones[i].cords);
+		data->cones[i].vec3_color = \
+		create_vec3_color_arr(data->cones[i].colors);
+		data->cones[i].vec3_norm = \
+		normalize(create_vec3_arr(data->cones[i].vector));
 		i++;
 	}
 	return (1);
@@ -65,9 +68,12 @@ int	check_all_vectors(t_data *data, int i)
 	{
 		if (!check_is_vector_ok(data->planes[i].vector))
 			return (display_error_message("Plane vector not OK"), 0);
-		data->planes[i].vec3_color = create_vec3_color_arr(data->planes[i].colors);
-		data->planes[i].vec3_cords = create_vec3_arr(data->planes[i].cords);
-		data->planes[i].vec3_norm = normalize(create_vec3_arr(data->planes[i].vector));
+		data->planes[i].vec3_color = \
+		create_vec3_color_arr(data->planes[i].colors);
+		data->planes[i].vec3_cords = \
+		create_vec3_arr(data->planes[i].cords);
+		data->planes[i].vec3_norm = \
+		normalize(create_vec3_arr(data->planes[i].vector));
 		i++;
 	}
 	return (1);
