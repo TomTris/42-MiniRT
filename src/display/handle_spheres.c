@@ -27,7 +27,7 @@ void	handle_spheres(t_data *data, t_ray *ray, t_hit *hit)
 	while (++i < data->amount_of_spheres)
 	{
 		origin = subtract(ray->ray_origin, data->spheres[i].vec3_cords);
-		hit->vars_sp.a = dot_product(ray->ray_direction,  ray->ray_direction);
+		hit->vars_sp.a = 1.0;
 		hit->vars_sp.b = 2.0 * dot_product(ray->ray_direction, origin);
 		hit->vars_sp.c = dot_product(origin, origin) \
 		- data->spheres[i].diameter * data->spheres[i].diameter / 4.0;

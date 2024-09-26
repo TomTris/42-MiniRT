@@ -20,6 +20,8 @@
 # include "get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
+# include <sys/time.h>
+
 
 # define TOLARANCE 0.03
 # define HEIGHT 1024
@@ -238,6 +240,7 @@ double		max_double(double v1, double v2);
 double		min_double(double v1, double v2);
 double		square(double number);
 
+long long	get_current_time(void);
 void		handle_spheres(t_data *data, t_ray *ray, t_hit *hit);
 
 #endif

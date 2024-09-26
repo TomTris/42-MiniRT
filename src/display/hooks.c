@@ -23,7 +23,8 @@ void	ft_hook_keys(void *param)
 
 void	change_image_size_hook(void *param)
 {
-	t_data	*data;
+	t_data		*data;
+	long long	start;
 
 	data = (t_data *)param;
 	if ((uint32_t)data->mlx->width != data->image->width || \
@@ -36,10 +37,11 @@ void	change_image_size_hook(void *param)
 	}
 	if (!data->displayed)
 	{
+		start = get_current_time();
 		data->displayed = 1;
-		make_image_black(data->image);
 		if (!displaying(data))
 			return (display_error_message("Error while displaying"), \
 			mlx_close_window(data->mlx));
+		dprintf(1, "%lli", get_current_time() - start);
 	}
 }

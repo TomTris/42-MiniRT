@@ -12,23 +12,6 @@
 
 #include "../../include/minirt.h"
 
-void	make_image_black(mlx_image_t *image)
-{
-	uint8_t		*pixels;
-	uint32_t	i;
-
-	pixels = image->pixels;
-	i = 0;
-	while (i < image->width * image->height)
-	{
-		pixels[i * 4] = 0;
-		pixels[i * 4 + 1] = 0;
-		pixels[i * 4 + 2] = 0;
-		pixels[i * 4 + 3] = 255;
-		i++;
-	}
-}
-
 int	transform_to_channel(double v)
 {
 	if (v < 0.0)
@@ -220,8 +203,8 @@ uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
 	ray_trace(data, ray, &hit);
 	if (hit.found == 0)
 		return (255);
-	double dist = sqrt(dot_product(add(hit.world_normal, create_vec3_arr(data->light.cords)), add(hit.world_normal, create_vec3_arr(data->light.cords))));
-	t_vec3 light_dir = normalize(add(hit.world_normal, create_vec3_arr(data->light.cords)));
+	double dist = sqrt(dot_product(subtract(create_vec3_arr(data->light.cords), hit.world_position), subtract(create_vec3_arr(data->light.cords), hit.world_position)));
+	t_vec3 light_dir = normalize(subtract(create_vec3_arr(data->light.cords), hit.world_position));
 	// light_dir = normalize(create_vec3(1.0, 1.0, 1.0));
 	
 
@@ -229,11 +212,13 @@ uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
 	if (d != 0.0)
 	{
 		t_hit new;
-		ray->ray_origin = add(hit.world_position, scale(light_dir, 0.001));
+		ray->ray_origin = add(hit.world_position, scale(light_dir, 0.00001));
 		ray->ray_direction = light_dir;
 		ray_trace(data, ray, &new);
 		if (new.found != 0 && new.hit_distance < dist)
+		{
 			d = 0;
+		}
 	}
 	d *= data->light.ratio;
 

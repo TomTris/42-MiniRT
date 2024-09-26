@@ -29,3 +29,11 @@ void	copy_all_stuff(void *to, void *from, int len)
 		i++;
 	}
 }
+
+long long	get_current_time(void)
+{
+	struct timeval tv;
+
+    gettimeofday(&tv, NULL);
+    return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
