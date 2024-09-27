@@ -4,9 +4,10 @@ CC 				= cc
 SRC	= 0.checker1.c 0.checker2.c 0.checker3.c \
 	1.create_line.c \
 	2.create_plain.c \
-	3.find_point.c \
-	4.check_point_inside_bottom_area.c \
-	4.check_point_inside_triangle.c
+	3.point_from_plain_x_line.c \
+	4.is_point_inside_bottom_area.c \
+	4.is_point_inside_triangle.c \
+	main.c
 
 
 OBJS = $(SRC:.c=.o)

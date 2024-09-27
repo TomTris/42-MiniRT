@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 22:10:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/27 23:04:49 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/27 23:22:45 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_is_inside_triangle2
 }	t_is_inside_triangle2;
 
 // x -> 1, y -> 2, z-3
-int choose_2_coordinations(t_triangle tri)
+static int choose_2_coordinations(t_triangle tri)
 {
 	if (tri.p1.x == tri.p2.x && tri.p1.x == tri.p3.x)
 		return (1);
@@ -34,7 +34,7 @@ int choose_2_coordinations(t_triangle tri)
 	return (3);
 }
 
-t_triangle	create_new_4_points_2D(t_point p, t_triangle tri, int not_choose, t_point *p_2D)
+static t_triangle	create_new_4_points_2D(t_point p, t_triangle tri, int not_choose, t_point *p_2D)
 {
 	if (not_choose == 1)
 	{
@@ -74,18 +74,13 @@ static int	is_inside_triangle2(t_triangle tri_2D, t_point p_2D)
 	return (0);
 }
 
+//use when know a point is on the plain of triangle
 int is_inside_triangle(t_point p, t_triangle tri)
 {
-	t_plain pl;
 	int not_choose_coordinations;
 	t_triangle triangle_2D;
 	t_point p_2D;
 
-	pl = plain_from_3_points(tri.p1, tri.p2, tri.p3);
-	if (!is_valid_plain(pl))
-		return (0);
-	if (!is_on_plain(pl, p))
-		return (0);
 	not_choose_coordinations = choose_2_coordinations(tri);
 	triangle_2D = create_new_4_points_2D(p, tri, not_choose_coordinations, &p_2D);
 	return (is_inside_triangle2(triangle_2D, p_2D));

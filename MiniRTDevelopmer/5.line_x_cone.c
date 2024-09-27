@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   4.check_point_inside_bottom_area.c                 :+:      :+:    :+:   */
+/*   5.line_x_cone.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 22:09:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/27 22:51:23 by qdo              ###   ########.fr       */
+/*   Created: 2024/09/28 00:08:47 by qdo               #+#    #+#             */
+/*   Updated: 2024/09/28 00:32:18 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "abc.h"
 
-int is_point_inside_bottom_area(t_point pA, t_point pO, t_vec3 vAO, double r)
+//return NULL
+//check == 0 -> no points
+//check == 1 -> malloc fail
+t_point	*points_from_line_x_cone(t_line line, t_cone cone, int *check)
 {
-	t_plain	plain;
-	double	distance;
-
-	plain = plain_of_bottom_area(pO, vAO);
-	distance = sqrt((pA.x - pO.x) * (pA.x - pO.x) \
-					+ (pA.y - pO.y) * (pA.y - pO.y) \
-					+ (pA.z - pO.z) * (pA.z - pO.z));
-	if (distance < r)
-		return (1);
-	return (0);
+	t_point p1;
+	t_point	p2;
+	t_point	*points;
+	t_plain	plain_b
 }

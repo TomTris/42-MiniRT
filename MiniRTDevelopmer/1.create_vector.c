@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   1.create_line.c                                    :+:      :+:    :+:   */
+/*   0.other_basic.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 22:06:42 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/28 00:28:57 by qdo              ###   ########.fr       */
+/*   Created: 2024/09/28 00:23:41 by qdo               #+#    #+#             */
+/*   Updated: 2024/09/28 00:36:43 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "abc.h"
 
-//create a line from a valid vector and a point
-t_line line_from_vector_and_point(t_vec3 vec, t_point p)
+t_vec3	vector_cross_product(t_vec3 v1, t_vec3 v2)
 {
-	t_line line;
+	t_vec3	vec;
 
-	line.direction_vector.x = 0;
-	line.direction_vector.y = 0;
-	line.direction_vector.z = 0;
-	if (vec.x == 0 && vec.y == 0 && vec.z == 0)
-		return (perror("Invalid Vector"), line);
-	line.direction_vector = vec;
-	line.point = p;
-	return (line);
+	vec.x = v1.y * v2.z - v1.z * v2.y;
+	vec.y = v1.z * v2.x - v1.x * v2.z;
+	vec.z = v1.x * v2.y - v1.y * v2.x;
+	return (vec);
+}
+
+t_vec3	vector_AO_form_A_O(t_point pA, t_point pO)
+{
+	t_vec3	ret;
+
+	ret.x = pO.x - pA.x;
+	ret.y = pO.y - pA.y;
+	ret.z = pO.z - pA.z;
+	return (ret);
 }

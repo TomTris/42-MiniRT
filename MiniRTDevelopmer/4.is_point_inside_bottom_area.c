@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   1.create_line.c                                    :+:      :+:    :+:   */
+/*   4.is_point_inside_bottom_area.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/27 22:06:42 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/28 00:28:57 by qdo              ###   ########.fr       */
+/*   Created: 2024/09/27 22:09:46 by qdo               #+#    #+#             */
+/*   Updated: 2024/09/27 23:55:10 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "abc.h"
 
-//create a line from a valid vector and a point
-t_line line_from_vector_and_point(t_vec3 vec, t_point p)
+//Use only now point is in the same plain of bottom area
+int is_point_inside_bottom_area(t_cone co, t_point p)
 {
-	t_line line;
-
-	line.direction_vector.x = 0;
-	line.direction_vector.y = 0;
-	line.direction_vector.z = 0;
-	if (vec.x == 0 && vec.y == 0 && vec.z == 0)
-		return (perror("Invalid Vector"), line);
-	line.direction_vector = vec;
-	line.point = p;
-	return (line);
+	if (co.r >= sqrt(pow(co.pO.x - p.x, 2) \
+				+ pow(co.pO.y - p.y, 2) \
+				+ pow(co.pO.z - p.z, 2)))
+		return (1);
+	return (0);
 }
