@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:56:03 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/26 15:18:35 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/26 22:41:38 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,3 +159,4 @@ int is_inside_triangle(t_point p, t_triangle tri)
 	return (is_inside_triangle2(triangle_2D, p_2D));
 }
 
+int	is_inside_
