@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/27 23:04:54 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/27 23:55:57 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/28 14:50:24 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ t_line	crline(t_vec3 vec, t_point p)
 }
 
 void print_vector(t_vec3 vec)
-{
+{ 
 	printf("%f, %f, %f\n", vec.x, vec.y, vec.z);
 }
 
