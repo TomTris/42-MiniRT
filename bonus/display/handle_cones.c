@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_cones.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:10:33 by obrittne          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/09/29 18:56:31 by obrittne         ###   ########.fr       */
+=======
+/*   Updated: 2024/09/29 21:22:27 by qdo              ###   ########.fr       */
+>>>>>>> 64fc612f98fcae6da39c96f58ce49dda51a5b25a
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +62,10 @@ void	handle_cones(t_data *data, t_ray *ray, t_hit *hit)
 				hit->hit_distance = res.t;
 				hit->color = data->cones[i].vec3_color;
 				hit->world_normal = res.v;
-				hit->cords = add(ray->ray_origin, scale(ray->ray_direction, res.t));
+				hit->world_position = add(ray->ray_origin, scale(ray->ray_direction, res.t));
 			}
 		}
 		i++;
 	}
+	// printf("--%f--\n", hit->hit_distance);
 }
