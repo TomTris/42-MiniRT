@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 16:52:46 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/29 20:59:02 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	change_image_size_hook(void *param)
 	{
 		start = current_time_in_ms();
 		data->displayed = 1;
-		if (!displaying(data))
+		if (!create_the_threads(data))
 			return (display_error_message("Error while displaying"), \
 			mlx_close_window(data->mlx));
 		dprintf(1, "%lli\n", current_time_in_ms() - start);

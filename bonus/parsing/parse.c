@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:45 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 17:43:07 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 20:59:13 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ int	parse(t_data *data)
 	}
 	if (!check_if_ok(data))
 		return (0);
-	// output_data(data);
+	output_data(data);
 	return (1);
 }

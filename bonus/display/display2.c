@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:34:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/29 18:14:31 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 20:52:32 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,38 @@ uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
 	return (get_color_from_vec3(shrink_vec3(color, 0.0, 1.0)));
 }
 
-int	displaying(t_data *data)
+void	*displaying(void *input)
 {
+	t_data		*data;
 	uint32_t	y;
 	uint32_t	x;
 	uint32_t	pixel;
 	t_ray		ray;
+	int			*index;
+	int			ind;
 
+	data = ((t_input *)input)->data;
+	index = (((t_input *)input)->ind);
+	ind = *index;
+	free(index);
+	free(input);
 	y = 0;
 	while (y < data->image->height)
 	{
 		x = 0;
 		while (x < data->image->width)
 		{
-			ray.ray_origin = create_vec3_arr(data->camera.cords);
-			pixel = per_pixel(data, &ray, x, y);
-			mlx_put_pixel(data->image, x, y, pixel);
+			if (x % AMOUNT_OF_THREADS == ind)
+			{
+				ray.ray_origin = create_vec3_arr(data->camera.cords);
+				pixel = per_pixel(data, &ray, x, y);
+				mlx_put_pixel(data->image, x, y, pixel);
+			}
 			x++;
 		}
 		y++;
 	}
-	return (1);
+	return (NULL);
 }
 
 void	display(t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 16:52:46 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/29 20:52:38 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,36 @@ void	ft_hook_keys(void *param)
 		mlx_close_window(data->mlx);
 }
 
+int	create_the_threads(t_data *data)
+{
+	int		i;
+	t_input	*input;
+
+	i = 0;
+	while (i < AMOUNT_OF_THREADS)
+	{
+		input = malloc(sizeof(t_input));
+		if (!input)
+			return (0);
+		input->ind = malloc(sizeof(int));
+		if (!input->ind)
+			return (0);
+		*(input->ind) = i;
+		input->data = data;
+		if (pthread_create(&data->threads[i], NULL, displaying, input))
+			return (0);
+		i++;
+	}
+	i = 0;
+	while (i < AMOUNT_OF_THREADS)
+	{
+		if (pthread_join(data->threads[i], NULL))
+			return (0);
+		i++;
+	}
+	return(1);
+}
+
 void	change_image_size_hook(void *param)
 {
 	t_data		*data;
@@ -51,7 +81,7 @@ void	change_image_size_hook(void *param)
 	{
 		start = current_time_in_ms();
 		data->displayed = 1;
-		if (!displaying(data))
+		if (!create_the_threads(data))
 			return (display_error_message("Error while displaying"), \
 			mlx_close_window(data->mlx));
 		dprintf(1, "%lli\n", current_time_in_ms() - start);

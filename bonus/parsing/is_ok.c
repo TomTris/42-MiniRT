@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 17:47:18 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:14:32 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ int	check_cones(t_data *data, int i)
 		normalize(create_vec3_arr(data->cones[i].vector));
 		i++;
 	}
+	i = 0;
+	while (i < data->amount_of_lights)
+	{
+		data->light[i].vec3_color = create_vec3_color_arr(data->light[i].colors);
+		data->light[i].vec3_cords = create_vec3_arr(data->light[i].cords);
+		i++;
+	}
 	return (1);
 }
 
@@ -69,8 +76,6 @@ int	check_all_vectors(t_data *data, int i)
 	if (!check_is_vector_ok(data->camera.vector))
 		return (display_error_message("Camera Vector not OK"), 0);
 	data->camera.vec3 = create_vec3_arr(data->camera.vector);
-	data->light.vec3_color = create_vec3_color_arr(data->light.colors);
-	data->light.vec3_cords = create_vec3_arr(data->light.cords);
 	data->ambitient_light.vec3_color = \
 	create_vec3_color_arr(data->ambitient_light.colors);
 	if (!check_half(data, 0))
@@ -96,7 +101,7 @@ int	check_if_ok(t_data *data)
 		return (display_error_message("Ambitient light is missing"), 0);
 	if (!data->seen_camera)
 		return (display_error_message("Camera is missing"), 0);
-	if (!data->seen_light)
+	if (data->amount_of_lights == 0)
 		return (display_error_message("Light is missing"), 0);
 	if (!check_all_vectors(data, 0))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:10 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 13:56:45 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:12:57 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_data(t_data *data, int fd)
 	data->seen_ambitient_light = 0;
 	data->seen_camera = 0;
 	data->displayed = 0;
+	data->amount_of_lights = 0;
 }
 
 int	main(int ac, char **av)

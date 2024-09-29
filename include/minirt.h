@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 18:13:33 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 20:50:41 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,13 @@
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 # include <sys/time.h>
+# include <pthread.h>
 
 
 # define TOLARANCE 0.03
 # define HEIGHT 1024
 # define WIDTH 1024
+# define AMOUNT_OF_THREADS 6
 
 typedef struct s_matrix3
 {
@@ -158,7 +160,7 @@ typedef struct s_data
 
 	t_camera			camera;
 	t_ambitient_light	ambitient_light;
-	t_light				light;
+	t_light				*light;
 
 	int					seen_camera;
 	int					seen_ambitient_light;
@@ -169,13 +171,24 @@ typedef struct s_data
 	t_plane				*planes;
 	t_cone				*cones;
 
+	int					amount_of_lights;
 	int					amount_of_spheres;
 	int					amount_of_cylinders;
 	int					amount_of_planes;
 	int					amount_of_cones;
 
+	int					current;
+	pthread_t			threads[AMOUNT_OF_THREADS];
+
 	int					fd;
 }	t_data;
+
+typedef struct s_input
+{
+	int		*ind;
+	t_data	*data;
+}	t_input;
+
 
 typedef struct s_ray
 {
@@ -218,7 +231,7 @@ typedef struct s_hit
 //display/display.c
 //display/display2.c
 uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y);
-int	displaying(t_data *data);
+void		*displaying(void *input);
 void	display(t_data *data);
 int	transform_to_channel(double v);
 uint32_t	get_color_from_vec3(t_vec3 vec);

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:50:56 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/29 18:54:31 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 19:12:58 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ double	cal_stuff(t_cal_helper *h, t_line *line, t_cone_tom *cone)
 	h->a = pow(h->dv, 2) - pow(h->cos_alpha, 2);
 	h->b = 2 * (h->dv * h->cov - h->dco * pow(h->cos_alpha, 2));
 	h->c = pow(h->cov, 2) - dot_vec(h->co, h->co) * pow(h->cos_alpha, 2);
-	return (sqrt(pow(h->b, 2) - 4 * h->a * h->c));
+	return (pow(h->b, 2) - 4 * h->a * h->c);
 }
 
 double radianToDegree(double radian) {
