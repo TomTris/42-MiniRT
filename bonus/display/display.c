@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 18:13:22 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 21:52:20 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,6 @@ void	closest_hit2(t_data *data, t_ray *ray, t_hit *hit)
 			add(hit->cords, scale(hit->normal, \
 			dot_product(subtract(hit->world_position, hit->cords), \
 			hit->normal)))));
-	}
-	else if (hit->type == 4)
-	{
-		hit->world_position = add(ray->ray_origin,
-				scale(ray->ray_direction, hit->hit_distance));
-		hit->world_normal = normalize(subtract(\
-			subtract(hit->world_position, hit->cords), \
-			scale(hit->normal, dot_product(\
-			subtract(hit->world_position, hit->cords), hit->normal))));
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:50:56 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/29 22:01:54 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:03:11 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,11 @@ double	cal_stuff(t_cal_helper *h, t_line *line, t_cone_tom *cone)
 {
 	double height = cal_distance(cone->pA, cone->pO);
 
-	// printf("===%f\n", cone->r);
-	// printf("===%f\n", height);
-	// printf("==%f\n", sqrt(height * height + cone->r * cone->r));
 	h->cos_alpha = height / sqrt(height * height + cone->r * cone->r);
-	// printf("%f\n", h->cos_alpha);
 	h->d_v = dot_vec(line->dv, cone->vAO);
 	h->co = vector_p1_to_p2(cone->pA, line->p);
 	h->co_v = dot_vec(h->co, cone->vAO);
 	h->d_co = dot_vec(line->dv, h->co);
-	// printf("%f %f %f\n", line->dv.x, line->dv.y, line->dv.z);
-	// printf("%f %f %f\n\n", cone->vAO.x, cone->vAO.y, cone->vAO.z);
 	h->a = pow(h->d_v, 2) - pow(h->cos_alpha, 2);
 	h->b = 2 * (h->d_v * h->co_v - h->d_co * pow(h->cos_alpha, 2));
 	h->c = pow(h->co_v, 2) - dot_vec(h->co, h->co) * pow(h->cos_alpha, 2);
@@ -256,7 +250,6 @@ t_point_x_nor_vec	line_x_cone(t_line *line, t_cone_tom *cone)
 		ret.v.y *= -1;
 		ret.v.y *= -1;
 	}
-	// printf("%f %f %f\n", points.p1.x, points.p1.y, points.p1.z);
 	return (ret);
 }
 
