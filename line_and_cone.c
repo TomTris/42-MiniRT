@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_and_cone.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:50:56 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/29 15:28:02 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/29 17:04:03 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,9 +196,13 @@ t_point_x_nor_vec	line_x_cone(t_line *line, t_cone *cone)
 		return (ret.amount = 0, ret);
 	if (points.amount == 2)
 		return (ret.amount = 0, perror("Sthwrong in line_x_cone"), ret);
+	ret.amount = 1;
 	ap = vector_AO_form_A_O(cone->pA, points.p1);	
 	op = vector_AO_form_A_O(cone->pO, points.p1);
 	ret.v = vector_cross_product(vector_cross_product(ap, op), ap);
+	ret.v = normalize(ret.v);
+	if (dot_vec(ret.v, op) < 0)
+		ret.v = scale(ret.v, -1.0);
 	ret.t = points.t1;
 	return (ret);
 }
