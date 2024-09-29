@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 16:36:47 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/29 17:22:48 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,44 @@ typedef struct s_cone
 	t_vec3	vec3_norm;
 	t_vec3	vec3_color;
 }	t_cone;
+
+
+typedef struct s_point_x_nor_vec
+{
+	int	amount;
+	double	t;
+	t_vec3	v;
+} t_point_x_nor_vec;
+
+typedef struct s_point
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_point;
+
+typedef struct s_points
+{
+	int	amount;
+	t_point p1;
+	t_point p2;
+	double	t1;
+	double	t2;
+}	t_points;
+
+typedef struct s_line
+{
+	t_point	p;
+	t_vec3	dv;
+} t_line;
+
+typedef struct s_cone_tom
+{
+	t_vec3	vAO;
+	t_point	pA;
+	t_point	pO;
+	double	r;
+}	t_cone_tom;
 
 typedef struct s_data
 {
@@ -262,6 +300,10 @@ long long	get_current_time(void);
 void		handle_spheres(t_data *data, t_ray *ray, t_hit *hit);
 void		handle_cylinders(t_data *data, t_ray *ray, t_hit *hit);
 void		handle_planes(t_data *data, t_ray *ray, t_hit *hit);
+void		handle_cones(t_data *data, t_ray *ray, t_hit *hit);
 
 t_vec3		calculate_light(t_data *data, t_ray *ray, t_hit *hit);
+
+//line_X_cone
+t_point_x_nor_vec	line_x_cone(t_line *line, t_cone_tom *cone);
 #endif

@@ -6,12 +6,11 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:50:56 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/29 17:04:03 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:27:48 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "abc.h"
-#include "../include/minirt.h"
+#include "../../include/minirt.h"
 
 double dot_vec(t_vec3 vec1, t_vec3 vec2)
 {
@@ -48,7 +47,7 @@ typedef struct s_cal_helper
 } t_cal_helper;
 
 //https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/
-double	cal_stuff(t_cal_helper *h, t_line *line, t_cone *cone)
+double	cal_stuff(t_cal_helper *h, t_line *line, t_cone_tom *cone)
 {
 	double height = cal_distance(cone->pA, cone->pO);
 	h->cos_alpha = height / sqrt(pow(height, 2) + pow(cone->r, 2));
@@ -69,7 +68,7 @@ double radianToDegree(double radian) {
     return radian * (180.0 / M_PI);
 }
 
-t_points	recheck(t_points *ret, t_cone *cone)
+t_points	recheck(t_points *ret, t_cone_tom *cone)
 {	
 	t_vec3	cp;
 	double	accos;
@@ -98,7 +97,6 @@ t_points	recheck(t_points *ret, t_cone *cone)
 
 t_points	intersection2_2(double t, double delta, t_line *line, t_cal_helper *h)
 {
-	double		t;
 	t_points	ret;
 
 	ret.amount = 1;
@@ -118,7 +116,7 @@ t_points	intersection2_2(double t, double delta, t_line *line, t_cal_helper *h)
 	return (ret);
 }
 
-t_points	intersection2(double delta, t_line *line, t_cal_helper *h, t_cone *cone)
+t_points	intersection2(double delta, t_line *line, t_cal_helper *h, t_cone_tom *cone)
 {
 	t_points	ret;
 	double		t;
@@ -141,7 +139,7 @@ t_points	intersection2(double delta, t_line *line, t_cal_helper *h, t_cone *cone
 	}
 	return (recheck(&ret, cone));
 }
-t_points	intersection1(t_line *line, t_cal_helper *h, t_cone *cone)
+t_points	intersection1(t_line *line, t_cal_helper *h, t_cone_tom *cone)
 {
 	t_points	ret;
 	double		t;
@@ -160,7 +158,7 @@ t_points	intersection1(t_line *line, t_cal_helper *h, t_cone *cone)
 	return (ret);
 }
 
-t_points	intersection(t_line *line, t_cone *cone)
+t_points	intersection(t_line *line, t_cone_tom *cone)
 {
 	t_cal_helper	h;
 	double			delta;
@@ -169,7 +167,7 @@ t_points	intersection(t_line *line, t_cone *cone)
 	delta = cal_stuff(&h, line, cone);
 	if (delta < 0)
 		return (ret.amount = 0, ret);
-	if (delta = 0)
+	if (delta == 0)
 		return intersection1(line, &h, cone);
 	return intersection2(delta, line, &h, cone);
 }
@@ -184,7 +182,7 @@ t_vec3	vector_cross_product(t_vec3 v1, t_vec3 v2)
 	return (vec);
 }
 
-t_point_x_nor_vec	line_x_cone(t_line *line, t_cone *cone)
+t_point_x_nor_vec	line_x_cone(t_line *line, t_cone_tom *cone)
 {
 	t_points points;
 	t_point_x_nor_vec ret;
@@ -192,13 +190,13 @@ t_point_x_nor_vec	line_x_cone(t_line *line, t_cone *cone)
 	t_vec3	op;
 
 	points = intersection(line, cone);
-	if (points.amount = 0)
+	if (points.amount == 0)
 		return (ret.amount = 0, ret);
 	if (points.amount == 2)
 		return (ret.amount = 0, perror("Sthwrong in line_x_cone"), ret);
 	ret.amount = 1;
-	ap = vector_AO_form_A_O(cone->pA, points.p1);	
-	op = vector_AO_form_A_O(cone->pO, points.p1);
+	ap = vector_p1_to_p2(cone->pA, points.p1);	
+	op = vector_p1_to_p2(cone->pO, points.p1);
 	ret.v = vector_cross_product(vector_cross_product(ap, op), ap);
 	ret.v = normalize(ret.v);
 	if (dot_vec(ret.v, op) < 0)
