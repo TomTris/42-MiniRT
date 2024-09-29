@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 16:07:34 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 16:36:47 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,19 @@ typedef struct s_hit
 
 }	t_hit;
 
+
+//display/display.c
+//display/display2.c
+uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y);
+int	displaying(t_data *data);
+void	display(t_data *data);
+int	transform_to_channel(double v);
+uint32_t	get_color_from_vec3(t_vec3 vec);
+void	closest_hit2(t_data *data, t_ray *ray, t_hit *hit);
+void	closest_hit(t_data *data, t_ray *ray, t_hit *hit);
+void	ray_trace(t_data *data, t_ray *ray, t_hit *hit);
+
+
 char		*get_next_line(int fd, int *finished);
 int			str_len(char *str);
 int			ends_with(char *main, char *sub);
@@ -218,7 +231,7 @@ void		display(t_data *data);
 void		ft_hook_keys(void *param);
 void		change_image_size_hook(void *param);
 void		make_image_black(mlx_image_t *image);
-int			displaying(t_data *data);
+// int			displaying(t_data *data);
 uint32_t	get_pixel(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
 
 // math
@@ -251,5 +264,4 @@ void		handle_cylinders(t_data *data, t_ray *ray, t_hit *hit);
 void		handle_planes(t_data *data, t_ray *ray, t_hit *hit);
 
 t_vec3		calculate_light(t_data *data, t_ray *ray, t_hit *hit);
-void		ray_trace(t_data *data, t_ray *ray, t_hit *hit);
 #endif

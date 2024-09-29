@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_spheres.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:29:07 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/25 20:36:04 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 16:38:47 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	handle_spheres(t_data *data, t_ray *ray, t_hit *hit)
 		4.0 * hit->vars_sp.a * hit->vars_sp.c;
 		if (hit->vars_sp.descriminent < 0)
 			continue ;
-		hit->vars_sp.t = (-hit->vars_sp.b - sqrt(hit->vars_sp.descriminent))\
+		hit->vars_sp.t = (-hit->vars_sp.b - sqrt(hit->vars_sp.descriminent)) \
 		/ (2.0 * hit->vars_sp.a);
 		if (hit->vars_sp.t > 0.0 && hit->vars_sp.t < hit->hit_distance)
 		{
