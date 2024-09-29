@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/25 20:31:11 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 13:44:51 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,5 +242,6 @@ double		square(double number);
 
 long long	get_current_time(void);
 void		handle_spheres(t_data *data, t_ray *ray, t_hit *hit);
-
+void		handle_cylinders(t_data *data, t_ray *ray, t_hit *hit);
+void		handle_planes(t_data *data, t_ray *ray, t_hit *hit);
 #endif
