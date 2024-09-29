@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lightning.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:56 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 16:50:07 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/29 18:13:37 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_calculate_light
 	t_vec3	effective_color;
 	t_vec3	ambitient;
 	t_vec3	light_dir;
-	t_vec3	difuse ;
+	t_vec3	difuse;
 	t_vec3	specular;
 	double	light_dot;
 	t_vec3	reflect;

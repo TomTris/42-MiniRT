@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:10:33 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 17:26:54 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:50:46 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	handle_cones(t_data *data, t_ray *ray, t_hit *hit)
 		res = line_x_cone(&line, &cone);
 		if (res.amount == 1)
 		{
-			if (hit->hit_distance < res.t)
+			if (hit->hit_distance > res.t)
 			{
 				hit->found = 1;
 				hit->type = 4;
@@ -63,4 +63,5 @@ void	handle_cones(t_data *data, t_ray *ray, t_hit *hit)
 		}
 		i++;
 	}
+	printf("--%f--\n", hit->hit_distance);
 }

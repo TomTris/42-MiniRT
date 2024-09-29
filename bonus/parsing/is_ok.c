@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 17:01:24 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:47:18 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	check_cones(t_data *data, int i)
 {
 	while (i < data->amount_of_cones)
 	{
-		if (!check_is_vector_ok(data->cylinders[i].vector))
+		if (!check_is_vector_ok(data->cones[i].vector))
 			return (display_error_message("Cone vector not OK"), 0);
 		data->cones[i].vec3_cords = \
 		create_vec3_arr(data->cones[i].cords);
@@ -87,7 +87,7 @@ int	check_all_vectors(t_data *data, int i)
 		normalize(create_vec3_arr(data->cylinders[i].vector));
 		i++;
 	}
-	return (1);
+	return (check_cones(data, 0));
 }
 
 int	check_if_ok(t_data *data)

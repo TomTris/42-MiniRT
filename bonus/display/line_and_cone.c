@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:50:56 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/29 17:27:48 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:54:31 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_cal_helper
 double	cal_stuff(t_cal_helper *h, t_line *line, t_cone_tom *cone)
 {
 	double height = cal_distance(cone->pA, cone->pO);
+
 	h->cos_alpha = height / sqrt(pow(height, 2) + pow(cone->r, 2));
 	h->dv = dot_vec(line->dv, cone->vAO);
 	h->co.x = line->p.x - cone->pA.x;
@@ -61,7 +62,7 @@ double	cal_stuff(t_cal_helper *h, t_line *line, t_cone_tom *cone)
 	h->a = pow(h->dv, 2) - pow(h->cos_alpha, 2);
 	h->b = 2 * (h->dv * h->cov - h->dco * pow(h->cos_alpha, 2));
 	h->c = pow(h->cov, 2) - dot_vec(h->co, h->co) * pow(h->cos_alpha, 2);
-	return (pow(h->b, 2) - 4 * h->a * h->c);
+	return (sqrt(pow(h->b, 2) - 4 * h->a * h->c));
 }
 
 double radianToDegree(double radian) {
@@ -125,7 +126,7 @@ t_points	intersection2(double delta, t_line *line, t_cal_helper *h, t_cone_tom *
 	t = (-h->b + sqrt(delta)) / (2 * h->a);
 	if (t > 0)
 	{
-		intersection2_2(t, delta, line, h);
+		ret = intersection2_2(t, delta, line, h);
 		return (recheck(&ret, cone));
 	}
 	t = (-h->b - sqrt(delta)) / (2 * h->a);
@@ -136,8 +137,9 @@ t_points	intersection2(double delta, t_line *line, t_cal_helper *h, t_cone_tom *
 		ret.p1.x = line->p.x + line->dv.x * t;
 		ret.p1.y = line->p.y + line->dv.y * t;
 		ret.p1.z = line->p.z + line->dv.z * t;
+		return (recheck(&ret, cone));
 	}
-	return (recheck(&ret, cone));
+	return (ret);
 }
 t_points	intersection1(t_line *line, t_cal_helper *h, t_cone_tom *cone)
 {
@@ -184,6 +186,7 @@ t_vec3	vector_cross_product(t_vec3 v1, t_vec3 v2)
 
 t_point_x_nor_vec	line_x_cone(t_line *line, t_cone_tom *cone)
 {
+	static int i = 0;
 	t_points points;
 	t_point_x_nor_vec ret;
 	t_vec3	ap;
@@ -197,11 +200,26 @@ t_point_x_nor_vec	line_x_cone(t_line *line, t_cone_tom *cone)
 	ret.amount = 1;
 	ap = vector_p1_to_p2(cone->pA, points.p1);	
 	op = vector_p1_to_p2(cone->pO, points.p1);
+	// if (dot_vec(op, cone->vAO) < 0)
+	// {
+	// 	ret.amount = 0;
+	// 	return (ret);
+	// }
 	ret.v = vector_cross_product(vector_cross_product(ap, op), ap);
 	ret.v = normalize(ret.v);
 	if (dot_vec(ret.v, op) < 0)
 		ret.v = scale(ret.v, -1.0);
 	ret.t = points.t1;
+	if (i++ % 20 == 0)
+	{
+		printf("\n\n");
+		printf("%d\n", ret.amount);
+		printf("%f\n", ret.t);
+		printf("%f\n", line->p.x + line->dv.x * ret.t);
+		printf("%f\n", line->p.y + line->dv.y * ret.t);
+		printf("%f\n", line->p.z + line->dv.z * ret.t);
+		printf("%f\n", ret.t);
+	}
 	return (ret);
 }
 

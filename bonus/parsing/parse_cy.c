@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 14:20:12 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 17:40:49 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	set_pos_cy(char *number, int ind, int update, t_cylinder *cylinder)
 	}
 	else
 	{
-		if (pos < 0.0 || pos > 1.0)
+		if (pos < -1.0 || pos > 1.0)
 			return (0);
 		cylinder->vector[ind] = pos;
 	}
