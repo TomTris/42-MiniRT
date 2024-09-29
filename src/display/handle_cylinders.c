@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:57:34 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 13:45:49 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:23:09 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	bottom_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
 			set_type_distance_cy(hit, t_cap);
 			hit->color = data->cylinders[i].vec3_color;
 			hit->cords = inter_p;
-			hit->normal = data->cylinders[i].vec3_norm;
+			hit->normal = scale(data->cylinders[i].vec3_norm, -1.0);
 		}
 	}
 }

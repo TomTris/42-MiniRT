@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/25 20:25:12 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 14:56:21 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ int	check_all_vectors(t_data *data, int i)
 	if (!check_is_vector_ok(data->camera.vector))
 		return (display_error_message("Camera Vector not OK"), 0);
 	data->camera.vec3 = create_vec3_arr(data->camera.vector);
+	data->light.vec3_color = create_vec3_color_arr(data->light.colors);
+	data->light.vec3_cords = create_vec3_arr(data->light.cords);
+	data->ambitient_light.vec3_color = \
+	create_vec3_color_arr(data->ambitient_light.colors);
 	if (!check_half(data, 0))
 		return (0);
 	while (i < data->amount_of_cylinders)

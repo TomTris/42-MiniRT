@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 13:44:51 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 16:07:34 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_ambitient_light
 {
 	int		colors[3];
 	double	ratio;
+	t_vec3	vec3_color;
 }	t_ambitient_light;
 
 typedef struct s_light
@@ -59,6 +60,9 @@ typedef struct s_light
 	int		colors[3];
 	double	ratio;
 	double	cords[3];
+
+	t_vec3	vec3_color;
+	t_vec3	vec3_cords;
 }	t_light;
 
 typedef struct s_sphere
@@ -223,6 +227,7 @@ t_vec3		add(t_vec3 vec1, t_vec3 vec2);
 t_vec3		subtract(t_vec3 vec1, t_vec3 vec2);
 t_vec3		scale(t_vec3 vec, double scale);
 t_vec3		normalize(t_vec3 vec);
+t_vec3		vec_reflect_norm(t_vec3 vector, t_vec3 reflected_around);
 double		dot_product(t_vec3 vec1, t_vec3 vec2);
 t_vec3		create_vec3(double x, double y, double z);
 t_vec3		apply_matrix(t_vec3 vec, t_matrix3 *matrix);
@@ -244,4 +249,7 @@ long long	get_current_time(void);
 void		handle_spheres(t_data *data, t_ray *ray, t_hit *hit);
 void		handle_cylinders(t_data *data, t_ray *ray, t_hit *hit);
 void		handle_planes(t_data *data, t_ray *ray, t_hit *hit);
+
+t_vec3		calculate_light(t_data *data, t_ray *ray, t_hit *hit);
+void		ray_trace(t_data *data, t_ray *ray, t_hit *hit);
 #endif

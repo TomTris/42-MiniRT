@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 13:43:43 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:36:14 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ int	transform_to_channel(double v)
 	return ((int)(v * 255.0));
 }
 
-uint32_t	get_color_from_vec3(t_vec3 *vec)
+uint32_t	get_color_from_vec3(t_vec3 vec)
 {
 	uint32_t	res;
 
-	res = transform_to_channel(vec->x) << 24 | transform_to_channel(vec->y) << 16 | transform_to_channel(vec->z) << 8 | 255;
+	res = transform_to_channel(vec.x) << 24 | transform_to_channel(vec.y) << 16 | transform_to_channel(vec.z) << 8 | 255;
 	return (res);
 }
 
@@ -74,48 +74,52 @@ void	ray_trace(t_data *data, t_ray *ray, t_hit *hit)
 
 uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
 {
+
+	t_hit 	hit;
+	// double	dist;
+	// t_vec3	light_dir;
+	t_vec3	color;
+
 	ray->ray_direction = get_direction_ray(data, ((double)x / \
 	(double)data->image->width) * 2.0 - 1.0, (1.0 - (double)y / \
 	(double)data->image->height) * 2.0 - 1.0);
-
-	t_hit hit;
 	ray_trace(data, ray, &hit);
 	if (hit.found == 0)
 		return (255);
-	double dist = sqrt(dot_product(subtract(create_vec3_arr(data->light.cords), hit.world_position), subtract(create_vec3_arr(data->light.cords), hit.world_position)));
-	t_vec3 light_dir = normalize(subtract(create_vec3_arr(data->light.cords), hit.world_position));
-	// light_dir = normalize(create_vec3(1.0, 1.0, 1.0));
+	// light_dir = subtract(data->light.vec3_cords, hit.world_position);
+	// dist = sqrt(dot_product(light_dir, light_dir));
+	// light_dir = normalize(light_dir);
+
+	// double d = max_double(dot_product(hit.world_normal, light_dir), 0.0);
+	// if (d != 0.0)
+	// {
+	// 	t_hit new;
+	// 	ray->ray_origin = add(hit.world_position, scale(light_dir, 0.00001));
+	// 	ray->ray_direction = light_dir;
+	// 	ray_trace(data, ray, &new);
+	// 	if (new.found != 0 && new.hit_distance < dist)
+	// 	{
+	// 		d = 0;
+	// 	}
+	// }
+	// d *= data->light.ratio;
+
+	// // dprintf(1, "%f  ", d);
+	// t_vec3 obj_color = hit.color;
+	// t_vec3 color = multiply_vec3(obj_color, create_vec3_color_arr(data->light.colors));
+	// color = scale(color, d);
+
+
 	
+	// t_vec3 ambient_color = create_vec3_color_arr(data->ambitient_light.colors);
+    // t_vec3 ambient_component = multiply_vec3(obj_color, ambient_color);
+    // ambient_component = scale(ambient_component, data->ambitient_light.ratio * data->light.ratio);
 
-	double d = max_double(dot_product(hit.world_normal, light_dir), 0.0);
-	if (d != 0.0)
-	{
-		t_hit new;
-		ray->ray_origin = add(hit.world_position, scale(light_dir, 0.00001));
-		ray->ray_direction = light_dir;
-		ray_trace(data, ray, &new);
-		if (new.found != 0 && new.hit_distance < dist)
-		{
-			d = 0;
-		}
-	}
-	d *= data->light.ratio;
-
-	// dprintf(1, "%f  ", d);
-	t_vec3 obj_color = hit.color;
-	t_vec3 color = multiply_vec3(obj_color, create_vec3_color_arr(data->light.colors));
-	color = scale(color, d);
-
-
-	
-	t_vec3 ambient_color = create_vec3_color_arr(data->ambitient_light.colors);
-    t_vec3 ambient_component = multiply_vec3(obj_color, ambient_color);
-    ambient_component = scale(ambient_component, data->ambitient_light.ratio * data->light.ratio);
-
-	t_vec3 final_color = add(color, ambient_component);
-	// t_vec3 final_color = color;
-	final_color = shrink_vec3(final_color, 0.0, 1.0);
-	return (get_color_from_vec3(&final_color));
+	// t_vec3 final_color = add(color, ambient_component);
+	// // t_vec3 final_color = color;
+	// final_color = shrink_vec3(final_color, 0.0, 1.0);
+	color = calculate_light(data, ray, &hit);
+	return (get_color_from_vec3(shrink_vec3(color, 0.0, 1.0)));
 }
 
 
