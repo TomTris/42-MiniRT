@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:50:56 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/29 21:29:55 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/29 22:01:54 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,6 @@ double	cal_stuff(t_cal_helper *h, t_line *line, t_cone_tom *cone)
 {
 	double height = cal_distance(cone->pA, cone->pO);
 
-<<<<<<< HEAD
-	h->cos_alpha = height / sqrt(pow(height, 2) + pow(cone->r, 2));
-	h->dv = dot_vec(line->dv, cone->vAO);
-	h->co.x = line->p.x - cone->pA.x;
-	h->co.y = line->p.y - cone->pA.y;
-	h->co.z = line->p.z - cone->pA.z;
-	h->cov = dot_vec(h->co, cone->vAO);
-	h->dco = dot_vec(line->dv, h->co);
-	
-	h->a = pow(h->dv, 2) - pow(h->cos_alpha, 2);
-	h->b = 2 * (h->dv * h->cov - h->dco * pow(h->cos_alpha, 2));
-	h->c = pow(h->cov, 2) - dot_vec(h->co, h->co) * pow(h->cos_alpha, 2);
-	return (pow(h->b, 2) - 4 * h->a * h->c);
-=======
 	// printf("===%f\n", cone->r);
 	// printf("===%f\n", height);
 	// printf("==%f\n", sqrt(height * height + cone->r * cone->r));
@@ -81,7 +67,6 @@ double	cal_stuff(t_cal_helper *h, t_line *line, t_cone_tom *cone)
 	h->b = 2 * (h->d_v * h->co_v - h->d_co * pow(h->cos_alpha, 2));
 	h->c = pow(h->co_v, 2) - dot_vec(h->co, h->co) * pow(h->cos_alpha, 2);
 	return (pow(h->b, 2) - (4 * h->a * h->c));
->>>>>>> 64fc612f98fcae6da39c96f58ce49dda51a5b25a
 }
 
 double radianToDegree(double radian) {
