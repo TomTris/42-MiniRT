@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:56 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 17:37:51 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:49:47 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,21 +309,81 @@ t_vec3	stripe_at(t_vec3 point, t_vec3 color1, t_vec3 color2)
 	return color2;
 }
 
-t_vec3	checker_sphere(t_hit *hit)
+// t_vec3	checker_sphere(t_hit *hit)
+// {
+//     double theta, phi;
+//     double u, v;
+//     // double checker_scale = 25.0;  // Adjust the size of the checker squares
+
+//     // Spherical coordinates from normal vector
+//     theta = atan2(hit->world_normal.y, hit->world_normal.x);  // Range: [-PI, PI]
+//     if (theta < 0)
+//         theta += 2.0 * M_PI;  // Adjust theta to [0, 2*PI]
+
+//     phi = acos(hit->world_normal.z);  // Range: [0, PI]
+
+//     // UV coordinates
+//     u = theta / (2.0 * M_PI);  // Map theta to [0, 1]
+//     v = phi / M_PI;            // Map phi to [0, 1]
+
+//     // To reduce distortion near the poles, you can adjust the UV coordinates
+//     // by multiplying `v` with a correction factor, making the pattern denser near the poles.
+//     v = pow(v, 0.5);  // This flattens the v-coordinates near the poles
+
+//     // Apply checkerboard pattern
+//     if (((long long)(floor(u * 60.0) + floor(v * 37.5))) % 2 == 0)
+//         return create_vec3(1, 1, 1);  // White color for even squares
+//     else
+//         return hit->color;   
+// }
+
+
+t_vec3 checker_sphere(t_data *data, t_hit *hit)
 {
-	double	phi;
-	double	theta;
-	
-	theta = atan2(hit->world_normal.y, hit->world_normal.x);
-	if (theta < 0)
-		theta += 2.0 * M_PI;
-	phi = acos(hit->world_normal.z);
-	if ((long long)(floor(theta * 6) + floor(phi * 9)) % 2 == 1)
-		return (hit->color);
+	// double	theta;
+	// double	phi;
+	// int		lat_band;
+	// int		lon_band;
+
+	// theta = atan2(hit->world_normal.y, hit->world_normal.x);
+	// if (theta < 0)
+	// 	theta += 2.0 * M_PI;
+	// phi = acos(hit->world_normal.z);
+	// phi = pow(phi, 0.7);
+	// lat_band = (int)(phi / M_PI * 30);
+	// lon_band = (int)(theta / (2.0 * M_PI) * 20);
+	// if ((lat_band + lon_band) % 2 == 0)
+	// 	return create_vec3(1, 1, 1);
+	// else
+	// 	return hit->color;
+	// mlx_texture_t *texture = data->texture;
+	double theta, phi;
+    double u, v;
+    // double checker_scale = 25.0;  // Adjust the size of the checker squares
+
+    // Spherical coordinates from normal vector
+    theta = atan2(hit->world_normal.y, hit->world_normal.x);  // Range: [-PI, PI]
+    if (theta < 0)
+        theta += 2.0 * M_PI;  // Adjust theta to [0, 2*PI]
+
+    phi = acos(hit->world_normal.z);  // Range: [0, PI]
+
+    // UV coordinates
+    u = theta / (2.0 * M_PI);  // Map theta to [0, 1]
+    v = phi / M_PI;
+	// int height = (int)(u * (texture->height - 1));
+	// int width = (int)(v * (texture->width - 1));
+	// height = max_double(height, 0);
+	// width = max_double(width, 0);
+	// t_vec3 vec;
+	// vec.x = (double)texture->pixels[height * width + width] / 255.0;
+	// vec.y = (double)texture->pixels[height * width + width + 1] / 255.0;
+	// vec.z = (double)texture->pixels[height * width + width + 2] / 255.0;
+	(void)data;
 	return (create_vec3(1, 1, 1));
 }
 
-t_vec3	stripe_at_object(t_hit *hit)
+t_vec3	stripe_at_object(t_data *data, t_hit *hit)
 {
 	if (hit->type == 2)
 	{
@@ -332,7 +392,7 @@ t_vec3	stripe_at_object(t_hit *hit)
 	}
 	if (hit->type == 1)
 	{
-		return (checker_sphere(hit));	
+		return (checker_sphere(data, hit));	
 	}
 	return (hit->color);
 	// return (stripe_at(pattern_point, hit->color, create_vec3(1.0, 1.0, 1.0)));
@@ -350,7 +410,7 @@ t_vec3	calculate_light(t_data *data, t_ray *ray, t_hit *hit)
 	color = hit->color;
 	if (1)
 	{
-		color = stripe_at_object(hit);
+		color = stripe_at_object(data, hit);
 	}
 
 	(void)ray;

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:34:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/30 12:46:22 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:34:34 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	*displaying(void *input)
 
 void	display(t_data *data)
 {
+
+
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Scene", true);
 	if (!data->mlx)
 		return (display_error_message("Couldnt init window"));
@@ -80,4 +82,5 @@ void	display(t_data *data)
 	mlx_loop_hook(data->mlx, change_image_size_hook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
+	
 }

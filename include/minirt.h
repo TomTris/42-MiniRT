@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 17:25:11 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:45:07 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,7 @@ typedef struct s_data
 
 	int					current;
 	pthread_t			threads[AMOUNT_OF_THREADS];
+	mlx_texture_t		*texture;
 
 	int					fd;
 }	t_data;
