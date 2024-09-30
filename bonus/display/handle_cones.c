@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_cones.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:10:33 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 22:02:52 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:04:40 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_cone_tom	from_cone_to_cone_tom(t_cone *cone)
 {
 	t_cone_tom	ret;
 
-	ret.pA = from_vec3_to_tpoint(cone->vec3_cords);
+	ret.pa = from_vec3_to_tpoint(cone->vec3_cords);
 	ret.r = cone->diameter / 2.0;
-	ret.vAO = cone->vec3_norm;
-	ret.pO = from_vec3_to_tpoint(add(cone->vec3_cords, \
+	ret.vao = cone->vec3_norm;
+	ret.po = from_vec3_to_tpoint(add(cone->vec3_cords, \
 		scale(cone->vec3_norm, cone->height)));
 	return (ret);
 }

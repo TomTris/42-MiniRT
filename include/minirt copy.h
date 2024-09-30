@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 19:50:35 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:39:42 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,7 +199,6 @@ typedef struct s_data
 
 	int					current;
 	pthread_t			threads[AMOUNT_OF_THREADS];
-	mlx_texture_t		*texture;
 
 	int					fd;
 }	t_data;
@@ -242,8 +241,7 @@ typedef struct s_hit
 	int				found;
 	int				type;
 	t_var_sphere	vars_sp;
-	t_plane			*plane;
-	t_sphere		*sphere;
+
 }	t_hit;
 
 //display/display.c
