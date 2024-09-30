@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_spheres.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:29:07 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 16:38:47 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/30 17:25:39 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	handle_spheres(t_data *data, t_ray *ray, t_hit *hit)
 			hit->hit_distance = hit->vars_sp.t;
 			hit->color = data->spheres[i].vec3_color;
 			hit->cords = data->spheres[i].vec3_cords;
+			hit->sphere = &data->spheres[i];
 			setter(&hit->found, &hit->type);
 		}
 	}

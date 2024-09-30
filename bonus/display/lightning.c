@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:56 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 16:31:43 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 17:37:51 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,6 +309,20 @@ t_vec3	stripe_at(t_vec3 point, t_vec3 color1, t_vec3 color2)
 	return color2;
 }
 
+t_vec3	checker_sphere(t_hit *hit)
+{
+	double	phi;
+	double	theta;
+	
+	theta = atan2(hit->world_normal.y, hit->world_normal.x);
+	if (theta < 0)
+		theta += 2.0 * M_PI;
+	phi = acos(hit->world_normal.z);
+	if ((long long)(floor(theta * 6) + floor(phi * 9)) % 2 == 1)
+		return (hit->color);
+	return (create_vec3(1, 1, 1));
+}
+
 t_vec3	stripe_at_object(t_hit *hit)
 {
 	if (hit->type == 2)
@@ -316,9 +330,12 @@ t_vec3	stripe_at_object(t_hit *hit)
 		// return (hit->color);
 		return (checker_plane(hit));
 	}
-	t_vec3	object_point = multiply_mat_vec3(inverse(create_scaling_matrix(0.2, 0.2, 0.2)), hit->world_position);
-	t_vec3	pattern_point = multiply_mat_vec3(inverse(create_translating_matrix(100, 0, 0)), object_point);
-	return (stripe_at(pattern_point, hit->color, create_vec3(1.0, 1.0, 1.0)));
+	if (hit->type == 1)
+	{
+		return (checker_sphere(hit));	
+	}
+	return (hit->color);
+	// return (stripe_at(pattern_point, hit->color, create_vec3(1.0, 1.0, 1.0)));
 }
 
 
