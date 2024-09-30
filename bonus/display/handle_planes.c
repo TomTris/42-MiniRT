@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_planes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 13:43:46 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 16:38:19 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/30 12:08:33 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ dot_product(ray->ray_direction, data->planes[i].vec3_norm);
 			set_type_distance_co(hit, hit->vars_sp.t);
 			hit->color = data->planes[i].vec3_color;
 			hit->cords = data->planes[i].vec3_cords;
-			hit->normal = scale(data->planes[i].vec3_norm, \
-get_factor(&data->planes[i].vec3_norm, &data->planes[i].vec3_cords, \
-&ray->ray_origin));
+			hit->normal = data->planes[i].vec3_norm;
 		}
 	}
 }

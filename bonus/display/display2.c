@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:34:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/29 20:52:32 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:46:22 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	*displaying(void *input)
 	ind = *index;
 	free(index);
 	free(input);
+	// ProfilerStart("profile_output.prof");
 	y = 0;
 	while (y < data->image->height)
 	{
@@ -50,7 +51,7 @@ void	*displaying(void *input)
 		{
 			if (x % AMOUNT_OF_THREADS == ind)
 			{
-				ray.ray_origin = create_vec3_arr(data->camera.cords);
+				ray.ray_origin = data->camera.vec3_cords;
 				pixel = per_pixel(data, &ray, x, y);
 				mlx_put_pixel(data->image, x, y, pixel);
 			}
@@ -58,6 +59,7 @@ void	*displaying(void *input)
 		}
 		y++;
 	}
+	// ProfilerStop();
 	return (NULL);
 }
 

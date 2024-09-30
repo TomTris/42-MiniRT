@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 21:53:18 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/30 12:46:10 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
+
+// #include <gperftools/profiler.h>
+
 
 # include <stdio.h>
 # include <unistd.h>
@@ -48,6 +51,7 @@ typedef struct s_camera
 	t_vec3	vec3;
 	double	fov;
 	t_vec3	world_up;
+	t_vec3	vec3_cords;
 }	t_camera;
 
 typedef struct s_ambitient_light
@@ -314,6 +318,7 @@ void		handle_spheres(t_data *data, t_ray *ray, t_hit *hit);
 void		handle_cylinders(t_data *data, t_ray *ray, t_hit *hit);
 void		handle_planes(t_data *data, t_ray *ray, t_hit *hit);
 void		handle_cones(t_data *data, t_ray *ray, t_hit *hit);
+double		get_factor(t_vec3 *norm, t_vec3	*point, t_vec3 *camera);
 
 t_vec3		calculate_light(t_data *data, t_ray *ray, t_hit *hit);
 

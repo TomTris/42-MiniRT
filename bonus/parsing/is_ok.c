@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 19:14:32 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:08:05 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	check_half(t_data *data, int i)
 		create_vec3_arr(data->planes[i].cords);
 		data->planes[i].vec3_norm = \
 		normalize(create_vec3_arr(data->planes[i].vector));
+		data->planes[i].vec3_norm = scale(data->planes[i].vec3_norm, get_factor(&data->planes[i].vec3_norm, &data->planes[i].vec3_cords, &data->camera.vec3_cords));
 		i++;
 	}
 	return (1);
@@ -76,6 +77,7 @@ int	check_all_vectors(t_data *data, int i)
 	if (!check_is_vector_ok(data->camera.vector))
 		return (display_error_message("Camera Vector not OK"), 0);
 	data->camera.vec3 = create_vec3_arr(data->camera.vector);
+	data->camera.vec3_cords = create_vec3_arr(data->camera.cords);
 	data->ambitient_light.vec3_color = \
 	create_vec3_color_arr(data->ambitient_light.colors);
 	if (!check_half(data, 0))
