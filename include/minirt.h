@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 12:46:10 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 12:51:44 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ typedef struct s_cone
 	t_vec3	vec3_color;
 }	t_cone;
 
-
 typedef struct s_point_x_nor_vec
 {
 	int	amount;
@@ -155,6 +154,16 @@ typedef struct s_cone_tom
 	t_point	pO;
 	double	r;
 }	t_cone_tom;
+
+//ax + by + cz + d = 0
+typedef struct s_plain
+{
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+}	t_plain;
+
 
 typedef struct s_data
 {
