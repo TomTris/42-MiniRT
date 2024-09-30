@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 18:03:56 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/30 17:39:42 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,8 +241,7 @@ typedef struct s_hit
 	int				found;
 	int				type;
 	t_var_sphere	vars_sp;
-	t_plane			*plane;
-	t_sphere		*sphere;
+
 }	t_hit;
 
 //display/display.c
