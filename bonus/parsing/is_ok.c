@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_ok.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 19:24:58 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 20:10:06 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_cones(t_data *data, int i)
 		create_vec3_color_arr(data->cones[i].colors);
 		data->cones[i].vec3_norm = \
 		normalize(create_vec3_arr(data->cones[i].vector));
-		// calculate_stuff(&data->cones[i]);
+		calculate_cone(&data->cones[i]);
 		i++;
 	}
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:16:37 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/30 17:50:29 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/30 20:08:12 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ double	dot_vec(t_vec3 vec1, t_vec3 vec2)
 	return (vec1.x * vec2.x + vec1.y * vec2.y + vec1.z * vec2.z);
 }
 
-t_vec3	vector_p1_to_p2(t_point point1, t_point point2)
+t_vec3	vector_p1_to_p2(t_vec3 point1, t_vec3 point2)
 {
 	t_vec3	vec;
 
@@ -27,7 +27,7 @@ t_vec3	vector_p1_to_p2(t_point point1, t_point point2)
 	return (vec);
 }
 
-double	cal_distance(t_point p1, t_point p2)
+double	cal_distance(t_vec3 p1, t_vec3 p2)
 {
 	return (sqrt(\
 		pow(p1.x - p2.x, 2) \

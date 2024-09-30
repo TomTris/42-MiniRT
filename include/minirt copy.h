@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   minirt copy.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 17:39:42 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/30 20:09:58 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,25 +131,25 @@ typedef struct s_point
 typedef struct s_points
 {
 	int		amount;
-	t_point	p1;
-	t_point	p2;
+	t_vec3	p1;
+	t_vec3	p2;
 	double	t1;
 	double	t2;
 }	t_points;
 
 typedef struct s_line
 {
-	t_point	p;
+	t_vec3	p;
 	t_vec3	dv;
 }	t_line;
 
 typedef struct s_cone_tom
 {
 	t_vec3	vao;
-	t_point	pa;
-	t_point	po;
+	t_vec3	pa;
+	t_vec3	po;
 	double	r;
-}	t_cone_tom;
+}	t_cone;
 
 //ax + by + cz + d = 0
 typedef struct s_plain
@@ -334,32 +334,32 @@ double		get_factor(t_vec3 *norm, t_vec3	*point, t_vec3 *camera);
 t_vec3		calculate_light(t_data *data, t_ray *ray, t_hit *hit);
 
 //line_and_cone_1_1.c
-t_point_x_nor_vec	line_x_cone(t_line *line, t_cone_tom *cone);
+t_point_x_nor_vec	line_x_cone(t_line *line, t_cone *cone);
 //line_and_cone_1_2.c
-t_point_x_nor_vec		line_x_cone_surface1(t_cone_tom *cone, t_points *points, double s);
-void					line_x_cone_surface2_2(t_vec3 *cp, t_cone_tom *cone, t_points *points, double s);
-t_point_x_nor_vec		line_x_cone_surface2(t_line *line, t_cone_tom *cone, t_points *points, double s);
-t_point_x_nor_vec		line_x_cone_surface(t_line *line, t_cone_tom *cone);
+t_point_x_nor_vec		line_x_cone_surface1(t_cone *cone, t_points *points, double s);
+void					line_x_cone_surface2_2(t_vec3 *cp, t_cone *cone, t_points *points, double s);
+t_point_x_nor_vec		line_x_cone_surface2(t_line *line, t_cone *cone, t_points *points, double s);
+t_point_x_nor_vec		line_x_cone_surface(t_line *line, t_cone *cone);
 //line_and_cone_1_3.c
 t_points				intersection2_2(double t, double delta, t_line *line, t_cal_helper *h);
 t_points				intersection2(double delta, t_line *line, t_cal_helper *h);
 t_points				intersection1(t_line *line, t_cal_helper *h);
 	//https://lousodrome.net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/
-double					cal_stuff(t_cal_helper *h, t_line *line, t_cone_tom *cone);
-t_points				intersection(t_line *line, t_cone_tom *cone);
+double					cal_stuff(t_cal_helper *h, t_line *line, t_cone *cone);
+t_points				intersection(t_line *line, t_cone *cone);
 //line_and_cone_2_0.c
-t_plain					plain_of_bottom_area(t_cone_tom *cone);
-int				 		is_point_in_circle(t_cone_tom *co, t_point *p);
-int						is_same_side(t_plain *pl, t_point p1, t_point p2);
-t_point_x_nor_vec		line_x_cone_bottom(t_line *li, t_cone_tom *cone);
+t_plain					plain_of_bottom_area(t_cone *cone);
+int				 		is_point_in_circle(t_cone *co, t_vec3 *p);
+int						is_same_side(t_plain *pl, t_vec3 p1, t_vec3 p2);
+t_point_x_nor_vec		line_x_cone_bottom(t_line *li, t_cone *cone);
 //line_and_cone_2_1.c
-// t_abc				 	cal_abc(t_line *li, t_cone_tom *cone);
-void					line_parallel_in_plain2(t_point_x_nor_vec *ret, t_line *li, t_cone_tom *cone);
-t_point_x_nor_vec		line_parallel_in_plain(t_plain *pl, t_line *li, t_cone_tom *cone);
+// t_abc				 	cal_abc(t_line *li, t_cone *cone);
+void					line_parallel_in_plain2(t_point_x_nor_vec *ret, t_line *li, t_cone *cone);
+t_point_x_nor_vec		line_parallel_in_plain(t_plain *pl, t_line *li, t_cone *cone);
 //line_and_cone_2_2.c
 double					 dot_vec(t_vec3 vec1, t_vec3 vec2);
-t_vec3					vector_p1_to_p2(t_point point1, t_point point2);
-double					cal_distance(t_point p1, t_point p2);
+t_vec3					vector_p1_to_p2(t_vec3 point1, t_vec3 point2);
+double					cal_distance(t_vec3 p1, t_vec3 p2);
 double					degree_2_vector(t_vec3 *v1, t_vec3 *v2);
 t_vec3					vector_cross_product(t_vec3 v1, t_vec3 v2);
 #endif

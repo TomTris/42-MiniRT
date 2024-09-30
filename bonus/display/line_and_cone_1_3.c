@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:07:29 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/30 17:47:52 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/30 20:43:12 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,19 @@ t_points	intersection1(t_line *line, t_cal_helper *h)
 
 //https://lousodrome.
 //net/blog/light/2017/01/03/intersection-of-a-ray-and-a-cone/
-double	cal_stuff(t_cal_helper *h, t_line *line, t_cone_tom *cone)
+double	cal_stuff(t_cal_helper *h, t_line *line, t_cone *cone)
 {
-	double	height;
-
-	height = cal_distance(cone->pa, cone->po);
-	h->cos_alpha = height / sqrt(height * height + cone->r * cone->r);
 	h->d_v = dot_vec(line->dv, cone->vao);
 	h->co = vector_p1_to_p2(cone->pa, line->p);
 	h->co_v = dot_vec(h->co, cone->vao);
 	h->d_co = dot_vec(line->dv, h->co);
-	h->a = pow(h->d_v, 2) - pow(h->cos_alpha, 2);
-	h->b = 2 * (h->d_v * h->co_v - h->d_co * pow(h->cos_alpha, 2));
-	h->c = pow(h->co_v, 2) - dot_vec(h->co, h->co) * pow(h->cos_alpha, 2);
+	h->a = pow(h->d_v, 2) - pow(cone->cos_al, 2);
+	h->b = 2 * (h->d_v * h->co_v - h->d_co * pow(cone->cos_al, 2));
+	h->c = pow(h->co_v, 2) - dot_vec(h->co, h->co) * pow(cone->cos_al, 2);
 	return (pow(h->b, 2) - (4 * h->a * h->c));
 }
 
-t_points	intersection(t_line *line, t_cone_tom *cone)
+t_points	intersection(t_line *line, t_cone *cone)
 {
 	t_cal_helper	h;
 	double			delta;
