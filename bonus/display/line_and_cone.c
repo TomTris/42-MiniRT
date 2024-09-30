@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line_and_cone.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:50:56 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/29 22:03:11 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 09:36:25 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ double	degree_2_vector(t_vec3 *v1, t_vec3 *v2)
 				+ sqrt(v2->x * v2->x + v2->y * v2->y + v2->z * v2->z)))));
 }
 
-t_points	intersection2_2(double t, double delta, t_line *line, t_cal_helper *h)
+t_points	intersection2_2(double t, double delta, t_line *line,
+	t_cal_helper *h)
 {
 	t_points	ret;
 
@@ -121,6 +122,7 @@ t_points	intersection2(double delta, t_line *line, t_cal_helper *h)
 	}
 	return (ret);
 }
+
 t_points	intersection1(t_line *line, t_cal_helper *h)
 {
 	t_points	ret;
@@ -164,7 +166,7 @@ t_vec3	vector_cross_product(t_vec3 v1, t_vec3 v2)
 	return (vec);
 }
 
-t_point_x_nor_vec	line_x_cone(t_line *line, t_cone_tom *cone)
+t_point_x_nor_vec	line_x_cone_surface(t_line *line, t_cone_tom *cone)
 {
 	static int i = 0;
 	i++;
@@ -253,3 +255,127 @@ t_point_x_nor_vec	line_x_cone(t_line *line, t_cone_tom *cone)
 	return (ret);
 }
 
+t_plain plain_of_bottom_area(t_cone_tom *cone)
+{
+	t_plain	plain;
+
+	plain.a = cone->vAO.x;
+	plain.b = cone->vAO.y;
+	plain.c = cone->vAO.z;
+	plain.d = - (plain.a * cone->pO.x \
+				+ plain.b * cone->pO.y \
+				+ plain.c * cone->pO.z);
+	return (plain);
+}
+typedef struct s_abc
+{
+	double a;
+	double b;
+	double c;
+} t_abc;
+
+t_abc cal_abc(t_line *li, t_cone_tom *cone)
+{
+	t_point	lp = li->p;
+	t_vec3	lv = li->dv;
+	t_point	cO = cone->pO;
+	t_abc	abc;
+
+	abc.a = pow(lv.x, 2) + pow(lv.y, 2) + pow(lv.z, 2);
+	abc.b = 2 * (lv.x * (lp.x - cO.x) + lv.y * (lp.y - cO.y) + lv.z * (lp.z - cO.z));
+	abc.c = pow(lv.x - cO.x, 2) + pow(lp.y - cO.y, 2) + pow(lp.z - cO.z, 2) - pow(cone->r, 2);
+	return (abc);
+}
+
+t_point_x_nor_vec	line_parallel_in_plain(t_plain *pl, t_line *li, t_cone_tom *cone)
+{
+	t_point_x_nor_vec	ret;
+	t_abc				abc;
+	double				delta;
+	t_point				intersec;
+
+	if (pl->a * li->p.x + pl->b * li->p.y + pl->c * li->p.z + pl->d != 0)
+		return (ret.amount = 0, ret);
+	abc = cal_abc(li, cone);
+	delta = pow(abc.b, 2) - 4 * abc.a * abc.c;
+	if (delta < 0)
+		return (ret.amount = 0, ret);
+	delta = sqrt(delta);
+	ret.t = (- abc.b - delta) / (2 * abc.a);
+	//if we don't know if light is inside or not
+	if (ret.t < 0)
+	{
+		ret.t = (- abc.b + delta) / (2 * abc.a);
+		if (ret.t < 0)
+		{
+			ret.amount = 0;
+			return (ret);
+		}
+	}
+	ret.amount = 1;
+	intersec.x = li->p.x + li->dv.x * ret.t;
+	intersec.y = li->p.y + li->dv.y * ret.t;
+	intersec.z = li->p.z + li->dv.z * ret.t;
+	ret.v = vector_p1_to_p2(cone->pO, intersec);
+	ret.v = normalize(ret.v);
+	return (ret);
+}
+
+int is_point_in_circle(t_cone_tom *co, t_point *p)
+{
+	if (co->r >= sqrt(pow(co->pO.x - p->x, 2) \
+				+ pow(co->pO.y - p->y, 2) \
+				+ pow(co->pO.z - p->z, 2)))
+		return (1);
+	return (0);
+}
+
+int	is_same_side(t_plain *pl, t_point p1, t_point p2)
+{
+	double value1;
+	double value2;
+
+	value1 = pl->a * p1.x + pl->b * p1.y + pl->c * p1.z + pl->d;
+	value2 = pl->a * p2.x + pl->b * p2.y + pl->c * p2.z + pl->d;
+	if (value1 * value2 > 0)
+		return (1);
+	return (0);
+}
+
+t_point_x_nor_vec	line_x_cone_bottom(t_line *li, t_cone_tom *cone)
+{
+	t_plain		pl;
+	t_point_x_nor_vec	ret;
+	double	divided_num;
+	t_point point;
+
+	pl = plain_of_bottom_area(cone);
+	divided_num = (pl.a * li->dv.x + pl.b * li->dv.y + pl.c * li->dv.z);
+	if (divided_num == 0)
+		return (line_parallel_in_plain(&pl, li, cone));
+	if (is_same_side(&pl, li->p, cone->pA) == 1)
+		return (ret.amount = 0, ret);
+	ret.t = - (pl.d + pl.a * li->p.x + pl.b * li->p.y + pl.c * li->p.z) \
+			/ divided_num;
+	if (ret.t < 0)
+		return (ret.amount = 0, ret);
+	point.x = li->p.x + li->dv.x * ret.t;
+	point.y = li->p.y + li->dv.y * ret.t;
+	point.z = li->p.z + li->dv.z * ret.t;
+	if (is_point_in_circle(cone, &point))
+		return (ret.amount = 1, ret.v = cone->vAO, ret);
+	return (ret.amount = 0, ret);
+}
+
+t_point_x_nor_vec	line_x_cone(t_line *line, t_cone_tom *cone)
+{
+	t_point_x_nor_vec ret;
+
+	ret = line_x_cone_bottom(line, cone);
+	if (ret.amount == 1)
+	{
+		printf("%f %f %f %f\n", ret.t, ret.v.x, ret.v.y, ret.v.z);
+		return (ret);
+	}
+	return (line_x_cone_surface(line, cone));
+}
