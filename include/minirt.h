@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 12:51:44 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 15:29:30 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,7 @@ typedef struct s_hit
 	int				found;
 	int				type;
 	t_var_sphere	vars_sp;
+	t_plane			*plane;
 
 }	t_hit;
 
