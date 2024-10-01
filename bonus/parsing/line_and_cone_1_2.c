@@ -6,11 +6,54 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:43:08 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/30 20:36:04 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/01 17:49:36 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
+
+t_vec3	find_point_in_bottom(t_vec3 *p, t_plain *pl, t_vec3 *a)
+{
+	double	t;
+	t_vec3	vap;
+
+	vap.x = p->x - a->x;
+	vap.y = p->y - a->y;
+	vap.z = p->z - a->z;
+	t = -(pl->a * p->x + pl->b * p->y + pl->c * p->z + pl->d) / \
+		(pl->a * vap.x + pl->b * vap.y + pl->c * vap.z);
+	vap.x = p->x + vap.x * t;
+	vap.y = p->y + vap.y * t;
+	vap.z = p->z + vap.z * t;
+	return (vap);	
+}
+
+t_point_x_nor_vec	color_decide2(t_point_x_nor_vec *ret, t_cone *cone)
+{
+	int	color;
+	t_vec3	point_in_bottom;
+	double	alpha;
+	t_vec3	ox;
+
+	if (cone->checkers == 0)
+	{
+		ret->color = cone->vec3_color;
+		return (*ret);
+	}
+	color = 1;
+	if ((int) (cal_distance(cone->pa, ret->p) / cone->surface_width) % 2 == 1)
+		color *= -1;
+	point_in_bottom = find_point_in_bottom(&ret->p, &cone->pl, &cone->pa);
+	ox = vector_p1_to_p2(cone->po, point_in_bottom);
+	alpha = alpha_2_vector(&ox, &cone->bottom_ori_vec);
+	if ((int)((alpha + cone->bottom_angle_2) / cone->bottom_angle) % 2 == 1)
+		color *= -1;
+	if (color == 1)
+		ret->color = cone->vec3_color;
+	else
+		ret->color = create_vec3(1, 1, 1);
+	return (*ret);
+}
 
 t_point_x_nor_vec	line_x_cone_surface1(t_cone *cone,
 	t_points *points, double s)
@@ -38,7 +81,8 @@ t_point_x_nor_vec	line_x_cone_surface1(t_cone *cone,
 		ret.v.y *= -1;
 		ret.v.y *= -1;
 	}
-	return (ret);
+	ret.p = points->p1;
+	return (color_decide2(&ret, cone));
 }
 
 void	line_x_cone_surface2_2(t_vec3 *cp, t_cone *cone,
@@ -82,14 +126,14 @@ t_point_x_nor_vec	line_x_cone_surface2(t_line *line, \
 			points->t1 = points->t2;
 		}
 	}
-	ret.t = points->t1;
 	ap = vector_p1_to_p2(cone->pa, points->p1);
 	op = vector_p1_to_p2(cone->po, points->p1);
 	ret.v = vector_cross_product(vector_cross_product(ap, op), ap);
 	ret.v = normalize(ret.v);
 	if (dot_vec(ret.v, op) < 0)
 		ret.v = scale(ret.v, -1);
-	return (ret.amount = 1, ret);
+	return (ret.amount = 1, ret.p = points->p1, ret.t = points->t1,
+		color_decide2(&ret, cone), ret);
 }
 
 t_point_x_nor_vec	line_x_cone_surface(t_line *line, t_cone *cone)

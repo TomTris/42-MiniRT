@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 15:10:14 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 17:42:46 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,33 @@ typedef struct s_plain
 	double	d;
 }	t_plain;
 
+// typedef struct s_cone
+// {
+// 	int		colors[3];
+// 	double	diameter;
+// 	double	cords[3];
+// 	double	vector[3];
+// 	double	height;
+
+// 	t_vec3	vec3_cords;
+// 	t_vec3	vec3_norm;
+// 	t_vec3	vec3_color;
+
+// 	t_vec3	vao;
+// 	t_vec3	pa;
+// 	t_vec3	po;
+// 	double	r;
+// 	t_plain				pl;
+// 	double	value1;
+// 	double	s;
+// 	double	cos_al;
+// 	double	bottom_width;
+// 	t_vec3	bottom_ori_vec;
+// 	double	bottom_angle;
+// 	double	bottom_angle_2;
+// 	double	surface_width;
+// }	t_cone;
+
 typedef struct s_cone
 {
 	int		colors[3];
@@ -125,7 +152,6 @@ typedef struct s_cone
 	t_vec3	vec3_cords;
 	t_vec3	vec3_norm;
 	t_vec3	vec3_color;
-
 	int		checkers;
 
 	t_vec3	vao;
@@ -136,6 +162,11 @@ typedef struct s_cone
 	double	value1;
 	double	s;
 	double	cos_al;
+	double	bottom_width;
+	t_vec3	bottom_ori_vec;
+	double	bottom_angle;
+	double	bottom_angle_2;
+	double	surface_width;
 }	t_cone;
 
 typedef struct s_point_x_nor_vec
@@ -143,14 +174,9 @@ typedef struct s_point_x_nor_vec
 	int		amount;
 	double	t;
 	t_vec3	v;
+	t_vec3	p;
+	t_vec3	color;
 }	t_point_x_nor_vec;
-
-typedef struct s_point
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_point;
 
 typedef struct s_points
 {
@@ -254,6 +280,14 @@ typedef struct s_hit
 	t_sphere		*sphere;
 	int				checkers;
 }	t_hit;
+
+typedef struct s_abc
+{
+	double	a;
+	double	b;
+	double	c;
+}	t_abc;
+
 
 //display/display.c
 //display/display2.c
@@ -363,7 +397,7 @@ int				 		is_point_in_circle(t_cone *co, t_vec3 *p);
 int	is_same_side(t_plain *pl, t_vec3 p1, double value1);
 t_point_x_nor_vec		line_x_cone_bottom(t_line *li, t_cone *cone);
 //line_and_cone_2_1.c
-// t_abc				 	cal_abc(t_line *li, t_cone *cone);
+t_abc				 	cal_abc(t_line *li, t_cone *cone);
 void					line_parallel_in_plain2(t_point_x_nor_vec *ret, t_line *li, t_cone *cone);
 t_point_x_nor_vec		line_parallel_in_plain(t_plain *pl, t_line *li, t_cone *cone);
 //line_and_cone_2_2.c
@@ -373,4 +407,8 @@ double					cal_distance(t_vec3 p1, t_vec3 p2);
 double					degree_2_vector(t_vec3 *v1, t_vec3 *v2);
 t_vec3					vector_cross_product(t_vec3 v1, t_vec3 v2);
 void					calculate_cone(t_cone *cone);
+
+
+
+double alpha_2_vector(t_vec3 *v1, t_vec3 *v2);
 #endif

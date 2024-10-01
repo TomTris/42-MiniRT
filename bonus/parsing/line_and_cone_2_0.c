@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:42:31 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/30 20:30:19 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/01 12:59:07 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_point_x_nor_vec	line_x_cone_bottom(t_line *li, t_cone *cone)
 {
 	t_point_x_nor_vec	ret;
 	double				divided_num;
-	t_vec3				point;
 
 	divided_num = (cone->pl.a * li->dv.x + cone->pl.b \
 		* li->dv.y + cone->pl.c * li->dv.z);
@@ -47,10 +46,10 @@ t_point_x_nor_vec	line_x_cone_bottom(t_line *li, t_cone *cone)
 		* li->p.y + cone->pl.c * li->p.z) / divided_num;
 	if (ret.t < 0)
 		return (ret.amount = 0, ret);
-	point.x = li->p.x + li->dv.x * ret.t;
-	point.y = li->p.y + li->dv.y * ret.t;
-	point.z = li->p.z + li->dv.z * ret.t;
-	if (is_point_in_circle(cone, &point))
+	ret.p.x = li->p.x + li->dv.x * ret.t;
+	ret.p.y = li->p.y + li->dv.y * ret.t;
+	ret.p.z = li->p.z + li->dv.z * ret.t;
+	if (is_point_in_circle(cone, &ret.p))
 		return (ret.amount = 1, ret.v = cone->vao, ret);
 	return (ret.amount = 0, ret);
 }
