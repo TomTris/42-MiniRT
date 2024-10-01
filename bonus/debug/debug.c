@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 15:00:23 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 19:47:49 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:54:56 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	output_data(t_data	*data)
 	for (int i = 0; i < data->amount_of_planes; i++)
 	{
 		t_plane plane =  data->planes[i];
-		dprintf(1, "pl %f,%f,%f   %f,%f,%f  %d,%d,%d\n", plane.cords[0], plane.cords[1], plane.cords[2], plane.vector[0], plane.vector[1], plane.vector[2], plane.colors[0], plane.colors[1], plane.colors[2]);
+		dprintf(1, "pl %f,%f,%f   %f,%f,%f  %d,%d,%d  %d\n", plane.cords[0], plane.cords[1], plane.cords[2], plane.vector[0], plane.vector[1], plane.vector[2], plane.colors[0], plane.colors[1], plane.colors[2], plane.checkers);
 	}
 	for (int i = 0; i < data->amount_of_cylinders; i++)
 	{

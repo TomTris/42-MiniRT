@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:34:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/01 14:24:09 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:50:14 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ t_vec3	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
 	t_hit	hit;
 	t_vec3	color;
 
+	hit.checkers = 0;
 	ray->ray_direction = get_direction_ray(data, ((double)x / \
 	(double)data->image->width) * 2.0 - 1.0, (1.0 - (double)y / \
 	(double)data->image->height) * 2.0 - 1.0);
 	ray_trace(data, ray, &hit);
 	if (hit.found == 0)
-		return (create_vec3(0, 0, 0));\
-
+		return (create_vec3(0, 0, 0));
 	color = calculate_light(data, ray, &hit);
 	return (color);
 }

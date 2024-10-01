@@ -1,6 +1,5 @@
 NAME			= minirt
-CFLAGS			= -Wextra -Wall -Werror 
-#  -fsanitize=address -g
+CFLAGS			= -Wextra -Wall -Werror  -fsanitize=address -g
 CC 				= cc
 
 SRC_DIR = bonus

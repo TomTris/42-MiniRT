@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 17:40:49 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:10:37 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ int	get_first_arg_cy(char *str, int update, t_cylinder *cylinder)
 	numbers = ft_split(str, ',');
 	if (!numbers)
 		return (display_error_message("Memmory Allocation Error"), 0);
-	if (len2d_array(numbers) != 3)
+	if (!(len2d_array(numbers) == 3 || (update == 1 && \
+		len2d_array(numbers) == 4 && !str_compare("1", numbers[3]))))
 		return (error_message_parse_cy(update), freeing(numbers), 0);
 	ind = 0;
 	while (ind < 3)
@@ -89,6 +90,8 @@ int	get_first_arg_cy(char *str, int update, t_cylinder *cylinder)
 			return (error_message_parse_cy(update), freeing(numbers), 0);
 		ind++;
 	}
+	if (update == 1 && len2d_array(numbers) == 4)
+		cylinder->checkers = 1;
 	freeing(numbers);
 	return (1);
 }
@@ -104,6 +107,7 @@ int	parse_cy(t_data *data, char **splited)
 	copy_all_stuff(cylinders, data->cylinders, sizeof(t_cylinder) * \
 	data->amount_of_cylinders);
 	cylinder = &(cylinders[data->amount_of_cylinders]);
+	cylinder->checkers = 0;
 	if (len2d_array(splited) != 6)
 		return (display_error_message("`cy` must have 5 args"), 0);
 	if (!get_first_arg_cy(splited[1], 0, cylinder))

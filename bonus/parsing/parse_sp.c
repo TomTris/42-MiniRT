@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 13:54:43 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:04:57 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	error_message_parse_sp(int update)
 	}
 	else if (update == 1)
 	{
-		display_error_message("`sp` not valid 3rd argument must be 3 \
+		display_error_message("`sp` not valid 3rd argument must be 3 (checker) \
 		integers separated by commas in range [0, 255]");
 	}
 	else
@@ -65,7 +65,8 @@ int	get_first_arg_sp(char *str, int update, t_sphere *sphere)
 	numbers = ft_split(str, ',');
 	if (!numbers)
 		return (display_error_message("Memmory Allocation Error"), 0);
-	if (len2d_array(numbers) != 3)
+	if (!(len2d_array(numbers) == 3 || (update == 1 && \
+	len2d_array(numbers) == 4 && !str_compare("1", numbers[3]))))
 		return (error_message_parse_sp(update), freeing(numbers), 0);
 	ind = 0;
 	while (ind < 3)
@@ -74,6 +75,8 @@ int	get_first_arg_sp(char *str, int update, t_sphere *sphere)
 			return (error_message_parse_sp(update), freeing(numbers), 0);
 		ind++;
 	}
+	if (update == 1 && len2d_array(numbers) == 4)
+		sphere->checkers = 1;
 	freeing(numbers);
 	return (1);
 }
@@ -106,6 +109,7 @@ int	parse_sp(t_data *data, char **splited)
 		return (display_error_message("Memmory Allocation Error"), 0);
 	copy_all_stuff(spheres, data->spheres, sizeof(t_sphere) * \
 	data->amount_of_spheres);
+	spheres[data->amount_of_spheres].checkers = 0;
 	if (len2d_array(splited) != 4)
 		return (display_error_message("`sp` must have 3 args"), 0);
 	if (!get_first_arg_sp(splited[1], 0, &(spheres[data->amount_of_spheres])))

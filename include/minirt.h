@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 14:34:27 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:10:14 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_sphere
 
 	t_vec3	vec3_cords;
 	t_vec3	vec3_color;
+	int		checkers;
 }	t_sphere;
 
 typedef struct s_plane
@@ -87,6 +88,7 @@ typedef struct s_plane
 	t_vec3	vec3_color;
 	t_vec3	vec3_norm;
 	double	dist;
+	int		checkers;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -96,6 +98,7 @@ typedef struct s_cylinder
 	double	cords[3];
 	double	vector[3];
 	double	height;
+	int		checkers;
 
 	t_vec3	vec3_cords;
 	t_vec3	vec3_norm;
@@ -122,6 +125,8 @@ typedef struct s_cone
 	t_vec3	vec3_cords;
 	t_vec3	vec3_norm;
 	t_vec3	vec3_color;
+
+	int		checkers;
 
 	t_vec3	vao;
 	t_vec3	pa;
@@ -247,6 +252,7 @@ typedef struct s_hit
 	t_var_sphere	vars_sp;
 	t_plane			*plane;
 	t_sphere		*sphere;
+	int				checkers;
 }	t_hit;
 
 //display/display.c

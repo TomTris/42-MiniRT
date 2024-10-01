@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/23 11:50:14 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:58:34 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	error_message_parse_pl(int update)
 	}
 	else if (update == 1)
 	{
-		display_error_message("`pl` not valid 3rd argument must be 3 \
+		display_error_message("`pl` not valid 3rd argument must be 3 (checker)\
 		integers separated by commas in range [0, 255]");
 	}
 	else if (update == 2)
@@ -77,7 +77,8 @@ int	get_first_arg_pl(char *str, int update, t_plane *plane)
 	numbers = ft_split(str, ',');
 	if (!numbers)
 		return (display_error_message("Memmory Allocation Error"), 0);
-	if (len2d_array(numbers) != 3)
+	if (!(len2d_array(numbers) == 3 || ( update == 1 && \
+	len2d_array(numbers) == 4 && !str_compare("1", numbers[3]))))
 		return (error_message_parse_pl(update), freeing(numbers), 0);
 	ind = 0;
 	while (ind < 3)
@@ -86,6 +87,8 @@ int	get_first_arg_pl(char *str, int update, t_plane *plane)
 			return (error_message_parse_pl(update), freeing(numbers), 0);
 		ind++;
 	}
+	if (update == 1 && len2d_array(numbers) == 4)
+		plane->checkers = 1;
 	freeing(numbers);
 	return (1);
 }
@@ -99,6 +102,7 @@ int	parse_pl(t_data *data, char **splited)
 		return (display_error_message("Memmory Allocation Error"), 0);
 	copy_all_stuff(planes, data->planes, sizeof(t_plane) * \
 	data->amount_of_planes);
+	planes[data->amount_of_planes].checkers = 0;
 	if (len2d_array(splited) != 4)
 		return (display_error_message("`pl` must have 3 args"), 0);
 	if (!get_first_arg_pl(splited[1], 0, &(planes[data->amount_of_planes])))
