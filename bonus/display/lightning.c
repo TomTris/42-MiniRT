@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lightning.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:56 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 21:36:24 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:55:05 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,8 @@ t_vec3	manage_textures(t_hit *hit)
 		return (apply_texture_sphere(hit));	
 	if (hit->type == 2)
 		return (apply_texture_plane(hit));
+	if (hit->type == 3)
+		return (apply_texture_cylinder(hit));
 	return (hit->color);
 }
 

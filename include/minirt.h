@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 21:40:19 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/01 21:58:44 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,24 @@ typedef struct s_cylinder
 	t_vec3	vec3_cords;
 	t_vec3	vec3_norm;
 	t_vec3	vec3_color;
+
+	t_vec3	mitdle_top;
+	t_vec3	mitdle_bottom;
+	
+	t_vec3	vao;
+	t_vec3	pa;
+	t_vec3	po;
+	double	r;
+	t_plain				pl;
+	double	value1;
+	double	s;
+	double	cos_al;
+	double	bottom_width;
+	t_vec3	bottom_ori_vec;
+	t_vec3	bottom_ori_vec2;
+	double	bottom_angle;
+	double	bottom_angle_2;
+	double	surface_width;
 }	t_cylinder;
 
 //ax + by + cz + d = 0
@@ -287,6 +305,7 @@ typedef struct s_hit
 	t_cone			*cone;
 	t_cylinder		*cylinder;
 	int				checkers;
+	int				type_cy;
 	mlx_texture_t	*texture;
 }	t_hit;
 
@@ -427,6 +446,7 @@ t_vec3	apply_texture_plane(t_hit *hit);
 t_vec3	apply_texture_sphere(t_hit *hit);
 int	check_planes(t_data *data, int i);
 int	check_is_vector_ok(double *vector);
-void	set_type_distance_cy2(t_hit *hit, double dist);
+void	set_type_distance_cy2(t_hit *hit, double dist, int var);
 double value_a_vector(t_vec3 vec);
+t_vec3	apply_texture_cylinder(t_hit *hit);
 #endif

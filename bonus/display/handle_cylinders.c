@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_cylinders.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:57:34 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 21:13:01 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:53:43 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	set_type_distance_cy(t_hit *hit, t_data *data, int i)
 	hit->checkers = data->cylinders[i].checkers;
 	hit->cylinder = &data->cylinders[i];
 	hit->texture = data->cylinders[i].texture;
+	hit->type_cy = 1;
 }
 
 void	top_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
@@ -48,7 +49,7 @@ void	top_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
 		(data->cylinders[i].diameter / 2.0) * \
 		(data->cylinders[i].diameter / 2.0))
 		{
-			set_type_distance_cy2(hit, t_cap);
+			set_type_distance_cy2(hit, t_cap, 3);
 			hit->color = data->cylinders[i].vec3_color;
 			hit->cords = inter_p;
 			hit->normal = data->cylinders[i].vec3_norm;
@@ -76,7 +77,7 @@ void	bottom_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
 		(data->cylinders[i].diameter / 2.0) * \
 		(data->cylinders[i].diameter / 2.0))
 		{
-			set_type_distance_cy2(hit, t_cap);
+			set_type_distance_cy2(hit, t_cap, 2);
 			hit->color = data->cylinders[i].vec3_color;
 			hit->cords = inter_p;
 			hit->normal = scale(data->cylinders[i].vec3_norm, -1.0);

@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   display2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:34:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/01 21:12:26 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:53:25 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-void	set_type_distance_cy2(t_hit *hit, double dist)
+void	set_type_distance_cy2(t_hit *hit, double dist, int var)
 {
 	hit->type = 3;
 	hit->hit_distance = dist;
+	hit->type_cy = var;
 }
 
 typedef struct s_vars_d
