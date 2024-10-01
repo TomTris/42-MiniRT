@@ -6,16 +6,27 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:56 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 19:49:47 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:29:41 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
+t_vec3	random_vector(void)
+{
+	t_vec3	res;
+
+	res.x = ((double)rand() / (double)RAND_MAX - 0.5) * 2.0;
+	res.y = ((double)rand() / (double)RAND_MAX - 0.5) * 2.0;
+	res.z = ((double)rand() / (double)RAND_MAX - 0.5) * 2.0;
+	return (normalize(res));
+}
+
 int	is_in_shadow(t_data *data, t_hit *hit, t_vec3 *light_dir, double dist)
 {
 	t_ray	ray;
 	t_hit	new_hit;
+
 
 	ray.ray_direction = *light_dir;
 	ray.ray_origin = add(hit->world_position, scale(hit->world_normal, 0.00001));
@@ -218,6 +229,7 @@ t_vec3	get_vec3(t_hit *hit)
 
 t_vec3	checker_plane(t_hit *hit)
 {
+
 	t_vec3	vector1;
 	t_vec3	vector2;
 	t_vec3	vector3;
@@ -296,8 +308,8 @@ t_vec3	checker_plane(t_hit *hit)
 		u = (cx - v * bx) / ax;
 			// dprintf(1, "%f %f\n", u, v);
 	}
-	
-	if (((long long)floor(u * 5) + (long long)floor(v * 5)) % 2 == 0)
+	// dprintf(1, "%f\n", hit->plane->dist);
+	if (((long long)floor(u / pow(hit->plane->dist, 0.75)) + (long long)floor(v / pow(hit->plane->dist, 0.75))) % 2 == 0)
 		return (create_vec3(1, 1, 1));
 	return (hit->color);
 }
@@ -356,31 +368,30 @@ t_vec3 checker_sphere(t_data *data, t_hit *hit)
 	// 	return create_vec3(1, 1, 1);
 	// else
 	// 	return hit->color;
-	// mlx_texture_t *texture = data->texture;
-	double theta, phi;
-    double u, v;
-    // double checker_scale = 25.0;  // Adjust the size of the checker squares
+	mlx_texture_t *texture = data->texture;
+    double theta = atan2(hit->world_normal.y, hit->world_normal.x); // azimuthal angle
+    double phi = acos(hit->world_normal.z);         // polar angle
 
-    // Spherical coordinates from normal vector
-    theta = atan2(hit->world_normal.y, hit->world_normal.x);  // Range: [-PI, PI]
-    if (theta < 0)
-        theta += 2.0 * M_PI;  // Adjust theta to [0, 2*PI]
+    // Calculate UV coordinates
+    double U = (theta + M_PI) / (2 * M_PI); // Normalize theta to [0, 1]
+    double V = phi / M_PI;                  // Normalize phi to [0, 1]
 
-    phi = acos(hit->world_normal.z);  // Range: [0, PI]
+    // Calculate pixel coordinates
+    int pixel_x = (int)(U * (texture->width - 1) + 0.5); // +0.5 for rounding
+    int pixel_y = (int)(V * (texture->height - 1) + 0.5); // +0.5 for rounding
 
-    // UV coordinates
-    u = theta / (2.0 * M_PI);  // Map theta to [0, 1]
-    v = phi / M_PI;
-	// int height = (int)(u * (texture->height - 1));
-	// int width = (int)(v * (texture->width - 1));
-	// height = max_double(height, 0);
-	// width = max_double(width, 0);
-	// t_vec3 vec;
-	// vec.x = (double)texture->pixels[height * width + width] / 255.0;
-	// vec.y = (double)texture->pixels[height * width + width + 1] / 255.0;
-	// vec.z = (double)texture->pixels[height * width + width + 2] / 255.0;
-	(void)data;
-	return (create_vec3(1, 1, 1));
+    // Ensure pixel coordinates are within bounds
+    if (pixel_x < 0) pixel_x = 0;
+    if (pixel_x >= (int)texture->width ) pixel_x = texture->width - 1;
+    if (pixel_y < 0) pixel_y = 0;
+    if (pixel_y >= (int)texture->height ) pixel_y = texture->height - 1;
+	t_vec3	vec;
+
+	// dprintf(1, "%i %i\n", pixel_x, pixel_y);
+	vec.x = (double)texture->pixels[(pixel_y * pixel_x + pixel_x) * 4] / 255.0;
+	vec.y = (double)texture->pixels[(pixel_y * pixel_x + pixel_x) * 4  + 1] / 255.0;
+	vec.z = (double)texture->pixels[(pixel_y * pixel_x + pixel_x) * 4 + 2] / 255.0;
+	return (vec);
 }
 
 t_vec3	stripe_at_object(t_data *data, t_hit *hit)
@@ -411,6 +422,7 @@ t_vec3	calculate_light(t_data *data, t_ray *ray, t_hit *hit)
 	if (1)
 	{
 		color = stripe_at_object(data, hit);
+		return (color);
 	}
 
 	(void)ray;
@@ -418,6 +430,9 @@ t_vec3	calculate_light(t_data *data, t_ray *ray, t_hit *hit)
 		data->ambitient_light.vec3_color), data->ambitient_light.ratio);
 
 	final = create_vec3(0, 0, 0);
+	i = 0;
+	int	t;
+
 	i = 0;
 	while (i < data->amount_of_lights)
 	{
@@ -429,6 +444,7 @@ t_vec3	calculate_light(t_data *data, t_ray *ray, t_hit *hit)
 		dist = sqrt(dot_product(cl.light_dir, cl.light_dir));
 		cl.light_dir = normalize(cl.light_dir);
 		cl.light_dot = dot_product(cl.light_dir, hit->world_normal);
+		t = 0;
 		if (cl.light_dot > 0 && !is_in_shadow(data, hit, &cl.light_dir, dist))
 		{
 			cl.difuse = scale(cl.effective_color, cl.light_dot);

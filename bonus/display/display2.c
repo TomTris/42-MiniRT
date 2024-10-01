@@ -6,13 +6,13 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:34:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/30 19:34:34 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:24:09 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
+t_vec3	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
 {
 	t_hit	hit;
 	t_vec3	color;
@@ -22,9 +22,10 @@ uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
 	(double)data->image->height) * 2.0 - 1.0);
 	ray_trace(data, ray, &hit);
 	if (hit.found == 0)
-		return (255);
+		return (create_vec3(0, 0, 0));\
+
 	color = calculate_light(data, ray, &hit);
-	return (get_color_from_vec3(shrink_vec3(color, 0.0, 1.0)));
+	return (color);
 }
 
 void	*displaying(void *input)
@@ -32,7 +33,7 @@ void	*displaying(void *input)
 	t_data		*data;
 	uint32_t	y;
 	uint32_t	x;
-	uint32_t	pixel;
+	t_vec3		pixel;
 	t_ray		ray;
 	int			*index;
 	int			ind;
@@ -53,12 +54,15 @@ void	*displaying(void *input)
 			{
 				ray.ray_origin = data->camera.vec3_cords;
 				pixel = per_pixel(data, &ray, x, y);
-				mlx_put_pixel(data->image, x, y, pixel);
+				// data->pixels[y * data->image->width + x] = add(data->pixels[y * data->image->width + x], pixel);
+				// mlx_put_pixel(data->image, x, y, get_color_from_vec3(scale(data->pixels[y * data->image->width + x], 1.0 / (double)t)));
+				mlx_put_pixel(data->image, x, y, get_color_from_vec3(pixel));
 			}
 			x++;
 		}
 		y++;
 	}
+
 	// ProfilerStop();
 	return (NULL);
 }
@@ -66,7 +70,11 @@ void	*displaying(void *input)
 void	display(t_data *data)
 {
 
-
+	data->texture = mlx_load_png("./textures/balls.png");
+	// if (!data->texture)
+	// dprintf(1, "%f\n", data->planes->dist);
+	// exit(1);
+	// dprintf(1, "asdasd");
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Scene", true);
 	if (!data->mlx)
 		return (display_error_message("Couldnt init window"));

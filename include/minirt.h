@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 19:50:35 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:53:43 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_plane
 	t_vec3	vec3_cords;
 	t_vec3	vec3_color;
 	t_vec3	vec3_norm;
+	double	dist;
 }	t_plane;
 
 typedef struct s_cylinder
@@ -199,7 +200,8 @@ typedef struct s_data
 
 	int					current;
 	pthread_t			threads[AMOUNT_OF_THREADS];
-	mlx_texture_t		*texture;
+	mlx_texture_t *				texture;
+	t_vec3				*pixels;
 
 	int					fd;
 }	t_data;
@@ -248,7 +250,6 @@ typedef struct s_hit
 
 //display/display.c
 //display/display2.c
-uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y);
 void		*displaying(void *input);
 void	display(t_data *data);
 int	transform_to_channel(double v);

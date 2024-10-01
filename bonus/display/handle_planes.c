@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 13:43:46 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 15:30:27 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:26:20 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ dot_product(ray->ray_direction, data->planes[i].vec3_norm);
 			hit->color = data->planes[i].vec3_color;
 			hit->cords = data->planes[i].vec3_cords;
 			hit->normal = data->planes[i].vec3_norm;
+			hit->plane = &data->planes[i];
 		}
 	}
 }

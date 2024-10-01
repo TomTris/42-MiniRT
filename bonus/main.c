@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:10 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 19:12:57 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/09/30 21:36:32 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	main(int ac, char **av)
 	int		fd;
 	t_data	data;
 
+	srand(time(NULL));
 	if (ac != 2)
 	{
 		write(2, "Error\nUsage: [executable] [path_to_scene]\n", 41);
