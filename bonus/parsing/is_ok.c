@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 14:34:22 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:53:58 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,16 @@ int	check_is_vector_ok(double *vector)
 	return (1);
 }
 
-double	get_distance(t_vec3 *norm, t_vec3	*point, t_vec3 *camera)
+int	check_spheres(t_data *data)
 {
-	t_var_sphere	vars;
+	int	i;
 
-	vars.d = dot_product(subtract(*camera, *point), *norm);
-	// exit(1);
-	return (fabs(vars.d));
-}
-
-int	check_half(t_data *data, int i)
-{
+	i = 0;
 	while (i < data->amount_of_spheres)
 	{
 		data->spheres[i].vec3_cords = create_vec3_arr(data->spheres[i].cords);
 		data->spheres[i].vec3_color = \
 		create_vec3_color_arr(data->spheres[i].colors);
-		i++;
-	}
-	i = 0;
-	while (i < data->amount_of_planes)
-	{
-		if (!check_is_vector_ok(data->planes[i].vector))
-			return (display_error_message("Plane vector not OK"), 0);
-		data->planes[i].vec3_color = \
-		create_vec3_color_arr(data->planes[i].colors);
-		data->planes[i].vec3_cords = \
-		create_vec3_arr(data->planes[i].cords);
-		data->planes[i].vec3_norm = \
-		normalize(create_vec3_arr(data->planes[i].vector));
-		data->planes[i].vec3_norm = scale(data->planes[i].vec3_norm, get_factor(&data->planes[i].vec3_norm, &data->planes[i].vec3_cords, &data->camera.vec3_cords));
-		data->planes[i].dist = get_distance(&data->planes[i].vec3_norm, &data->planes[i].vec3_cords, &data->camera.vec3_cords);
 		i++;
 	}
 	return (1);
@@ -76,11 +55,12 @@ int	check_cones(t_data *data, int i)
 	i = 0;
 	while (i < data->amount_of_lights)
 	{
-		data->light[i].vec3_color = create_vec3_color_arr(data->light[i].colors);
+		data->light[i].vec3_color = \
+		create_vec3_color_arr(data->light[i].colors);
 		data->light[i].vec3_cords = create_vec3_arr(data->light[i].cords);
 		i++;
 	}
-	return (1);
+	return (check_spheres(data));
 }
 
 int	check_all_vectors(t_data *data, int i)
@@ -91,7 +71,7 @@ int	check_all_vectors(t_data *data, int i)
 	data->camera.vec3_cords = create_vec3_arr(data->camera.cords);
 	data->ambitient_light.vec3_color = \
 	create_vec3_color_arr(data->ambitient_light.colors);
-	if (!check_half(data, 0))
+	if (!check_planes(data, 0))
 		return (0);
 	while (i < data->amount_of_cylinders)
 	{

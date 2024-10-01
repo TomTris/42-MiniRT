@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 18:59:20 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:54:15 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,8 +418,11 @@ t_vec3					vector_cross_product(t_vec3 v1, t_vec3 v2);
 void					calculate_cone(t_cone *cone);
 
 
-
+void	modify_values(mlx_texture_t *texture, int *pixel_x, int *pixel_y);
+void	get_uv_plane(t_hit *hit, double *u, double *v);
 double alpha_2_vector(t_vec3 *v1, t_vec3 *v2);
-
+t_vec3	apply_texture_plane(t_hit *hit);
 t_vec3	apply_texture_sphere(t_hit *hit);
+int	check_planes(t_data *data, int i);
+int	check_is_vector_ok(double *vector);
 #endif

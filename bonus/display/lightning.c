@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:56 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 18:54:26 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:23:00 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,105 +209,14 @@ t_vec3	multiply_mat_vec3(t_matrix4 m, t_vec3 p)
 // double u = 0.5 + atan2(vec.z, vec.x) / 2.0 / M_PI;
 // double v = 0.5 + asin(vec.y);
 
-t_vec3	get_vec3(t_hit *hit)
-{
-	double	d;
 
-	d = dot_product(hit->cords, hit->normal);
-	if (hit->normal.x == 0)
-		return (create_vec3(1, 0, 0));
-	if (hit->normal.y == 0)
-		return (create_vec3(0, 1, 0));
-	if (hit->normal.z == 0)
-		return (create_vec3(0, 0, 1));
-	if (d == 0)
-	{
-		return (subtract(hit->cords, create_vec3(-(hit->normal.y / hit->normal.x), 1, 0)));
-	}
-	return (subtract(hit->cords, create_vec3(d, 0, 0)));
-}
 
 t_vec3	checker_plane(t_hit *hit)
 {
+	double	u;
+	double	v;
 
-	t_vec3	vector1;
-	t_vec3	vector2;
-	t_vec3	vector3;
-
-	vector3 = subtract(hit->world_position, hit->cords);
-	if (dot_product(vector3, vector3) < TOLARANCE / 100)
-		return (create_vec3(1, 1, 1));
-	vector1 = normalize(get_vec3(hit));
-	vector2 = normalize(cross(vector1, hit->normal));
-	// dprintf(1, "%f %f %f\n", vector3.x, vector3.y, vector3.z);
-	// dprintf(1, "%f %f %f\n", vector2.x, vector2.y, vector2.z);
-	// dprintf(1, "%f %f %f\n", vector1.x, vector1.y, vector1.z);
-	// exit(1);
-	double ax;
-	double bx;
-	double ay;
-	double by;
-	double cx;
-	double cy;
-	int seen = 0;
-	if (vector1.x != 0 || vector2.x != 0)
-	{
-		ax = vector1.x;
-		bx = vector2.x;
-		cx = vector3.x;
-		seen = 1;
-	}
-	if (vector1.y != 0 || vector2.y != 0)
-	{
-		if (seen == 1)
-		{
-			ay = vector1.y;
-			by = vector2.y;
-			cy = vector3.y;
-		}
-		else
-		{
-			ax = vector1.y;
-			bx = vector2.y;
-			cx = vector3.y;
-		}
-		seen++;
-	}
-	if (seen == 1 && (vector1.z != 0 || vector2.z != 0))
-	{
-		ay = vector1.z;
-		by = vector2.z;
-		cy = vector3.z;
-		seen++;
-	}
-	if (seen != 2)
-		return (create_vec3(1, 1, 1));
-	double u;
-	double v;
-	
-	if (ax == 0 && by == 0)
-	{
-		v = cx / bx;
-		u = cy / ay;
-	
-	}
-	else if (ax == 0)
-	{
-		v = cx / bx;
-		u = (cy - v * by) / ay;
-
-	}
-	else if (by == 0)
-	{
-		u = cy / ay;
-		v = (cx - u * ax) / bx;
-	}
-	else
-	{
-		v = (cy - cx * ay) / (by * ax - bx * ay);
-		u = (cx - v * bx) / ax;
-			// dprintf(1, "%f %f\n", u, v);
-	}
+	get_uv_plane(hit, &u, &v);
 	// dprintf(1, "%f\n", hit->plane->dist);
 	if (((long long)floor(u / pow(hit->plane->dist, 0.75)) + (long long)floor(v / pow(hit->plane->dist, 0.75))) % 2 == 0)
 		return (create_vec3(1, 1, 1));
@@ -391,9 +300,9 @@ t_vec3	stripe_at_object(t_hit *hit)
 t_vec3	manage_textures(t_hit *hit)
 {
 	if (hit->type == 1)
-	{
 		return (apply_texture_sphere(hit));	
-	}
+	if (hit->type == 2)
+		return (apply_texture_plane(hit));
 	return (hit->color);
 }
 
