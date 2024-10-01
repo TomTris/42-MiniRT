@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:43:08 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/01 20:48:03 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/01 21:12:47 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ t_point_x_nor_vec	cone_and_texture2(t_point_x_nor_vec *ret, t_cone *cone)
 	point_in_bottom = find_point_in_bottom(&ret->p, &cone->pl, &cone->pa);
 	ox = vector_p1_to_p2(cone->po, point_in_bottom);
 	alpha = alpha_2_vector(&ox, &cone->bottom_ori_vec);
+	if (value_a_vector(vector_cross_product(cone->bottom_ori_vec, ox)) <0)
+		alpha = 2 * M_PI - alpha;
 	alpha /= (2 * M_PI);
 	width = (int)(alpha * cone->texture->width);
 	ret->color.x = \

@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 17:06:21 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/01 21:23:34 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ void	cone_and_bottom(t_cone *cone)
 	cone->bottom_ori_vec = vector_p1_to_p2(cone->po, intersec);
 }
 
+void	cone_and_bottom2(t_cone *cone)
+{
+	cone->bottom_ori_vec2 = vector_cross_product(cone->vao, cone->bottom_ori_vec);
+}
+
 void	cone_and_surface(t_cone *cone)
 {
 	cone->surface_width = cone->s / 10;
@@ -74,5 +79,6 @@ void calculate_cone(t_cone *cone)
 	cone->cos_al = cone->height \
 		/ sqrt(cone->height * cone->height + cone->r * cone->r);
 	cone_and_bottom(cone);
+	cone_and_bottom2(cone);
 	cone_and_surface(cone);
 }

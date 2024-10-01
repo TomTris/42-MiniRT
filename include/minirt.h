@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 21:12:36 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:40:19 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,10 +168,12 @@ typedef struct s_cone
 	double	cos_al;
 	double	bottom_width;
 	t_vec3	bottom_ori_vec;
+	t_vec3	bottom_ori_vec2;
 	double	bottom_angle;
 	double	bottom_angle_2;
 	double	surface_width;
 }	t_cone;
+
 
 typedef struct s_point_x_nor_vec
 {
@@ -426,4 +428,5 @@ t_vec3	apply_texture_sphere(t_hit *hit);
 int	check_planes(t_data *data, int i);
 int	check_is_vector_ok(double *vector);
 void	set_type_distance_cy2(t_hit *hit, double dist);
+double value_a_vector(t_vec3 vec);
 #endif
