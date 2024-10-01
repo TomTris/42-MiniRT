@@ -6,13 +6,13 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:43:08 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/30 17:44:08 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/30 20:36:04 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-t_point_x_nor_vec	line_x_cone_surface1(t_cone_tom *cone,
+t_point_x_nor_vec	line_x_cone_surface1(t_cone *cone,
 	t_points *points, double s)
 {
 	t_vec3				cp;
@@ -41,7 +41,7 @@ t_point_x_nor_vec	line_x_cone_surface1(t_cone_tom *cone,
 	return (ret);
 }
 
-void	line_x_cone_surface2_2(t_vec3 *cp, t_cone_tom *cone,
+void	line_x_cone_surface2_2(t_vec3 *cp, t_cone *cone,
 	t_points *points, double s)
 {
 	cp->x = points->p2.x - cone->pa.x;
@@ -63,7 +63,7 @@ void	line_x_cone_surface2_2(t_vec3 *cp, t_cone_tom *cone,
 }
 
 t_point_x_nor_vec	line_x_cone_surface2(t_line *line, \
-	t_cone_tom *cone, t_points *points, double s)
+	t_cone *cone, t_points *points, double s)
 {
 	t_vec3				ap;
 	t_vec3				op;
@@ -92,17 +92,15 @@ t_point_x_nor_vec	line_x_cone_surface2(t_line *line, \
 	return (ret.amount = 1, ret);
 }
 
-t_point_x_nor_vec	line_x_cone_surface(t_line *line, t_cone_tom *cone)
+t_point_x_nor_vec	line_x_cone_surface(t_line *line, t_cone *cone)
 {
 	t_points			points;
 	t_point_x_nor_vec	ret;
-	double				s;
 
 	points = intersection(line, cone);
-	s = sqrt(cone->r * cone->r + pow(cal_distance(cone->pa, cone->po), 2));
 	if (points.amount == 0)
 		return (ret.amount = 0, ret);
 	if (points.amount == 1)
-		return (line_x_cone_surface1(cone, &points, s));
-	return (line_x_cone_surface2(line, cone, &points, s));
+		return (line_x_cone_surface1(cone, &points, cone->s));
+	return (line_x_cone_surface2(line, cone, &points, cone->s));
 }

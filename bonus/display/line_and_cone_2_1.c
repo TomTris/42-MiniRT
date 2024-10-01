@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:23:08 by qdo               #+#    #+#             */
-/*   Updated: 2024/09/30 17:49:59 by qdo              ###   ########.fr       */
+/*   Updated: 2024/09/30 20:59:02 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ typedef struct s_abc
 	double	c;
 }	t_abc;
 
-t_abc	cal_abc(t_line *li, t_cone_tom *cone)
+t_abc	cal_abc(t_line *li, t_cone *cone)
 {
-	t_point	lp;
+	t_vec3	lp;
 	t_vec3	lv;
-	t_point	co;
+	t_vec3	co;
 	t_abc	abc;
 
 	lp = li->p;
@@ -38,20 +38,19 @@ t_abc	cal_abc(t_line *li, t_cone_tom *cone)
 }
 
 void	line_parallel_in_plain2(t_point_x_nor_vec *ret,
-	t_line *li, t_cone_tom *cone)
+	t_line *li, t_cone *cone)
 {
-	t_point	intersec;
+	t_vec3	intersec;
 
 	ret->amount = 1;
 	intersec.x = li->p.x + li->dv.x * ret->t;
 	intersec.y = li->p.y + li->dv.y * ret->t;
 	intersec.z = li->p.z + li->dv.z * ret->t;
-	ret->v = vector_p1_to_p2(cone->po, intersec);
-	ret->v = normalize(ret->v);
+	ret->v = normalize(vector_p1_to_p2(cone->po, intersec));
 }
 
 t_point_x_nor_vec	line_parallel_in_plain(t_plain *pl, t_line *li,
-	t_cone_tom *cone)
+	t_cone *cone)
 {
 	t_point_x_nor_vec	ret;
 	t_abc				abc;

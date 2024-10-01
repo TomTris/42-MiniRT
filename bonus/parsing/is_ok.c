@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 14:21:50 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:34:22 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	check_cones(t_data *data, int i)
 		create_vec3_color_arr(data->cones[i].colors);
 		data->cones[i].vec3_norm = \
 		normalize(create_vec3_arr(data->cones[i].vector));
-		// calculate_stuff(&data->cones[i]);
+		calculate_cone(&data->cones[i]);
 		i++;
 	}
 	i = 0;
