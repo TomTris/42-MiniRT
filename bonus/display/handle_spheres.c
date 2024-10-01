@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:29:07 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 15:05:41 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:49:07 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	handle_spheres(t_data *data, t_ray *ray, t_hit *hit)
 			hit->cords = data->spheres[i].vec3_cords;
 			hit->sphere = &data->spheres[i];
 			hit->checkers = data->spheres[i].checkers;
+			hit->texture = data->spheres[i].texture;
 			setter(&hit->found, &hit->type);
 		}
 	}

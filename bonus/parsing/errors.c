@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:15:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 16:26:06 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:58:57 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,20 @@ void	error_message_parse_co(int update)
 		display_error_message("`co` not valid 4th argument must be  \
 		a number");
 	}
+}
+
+int	open_texture(mlx_texture_t **texture, char **path)
+{
+	*texture = mlx_load_png(path[0]);
+	free(path[0]);
+	free(path);
+	if (!(*texture))
+		return (display_error_message("Couldnt open texture"), 0);
+	return (1);
+}
+
+void	set_null(mlx_texture_t **texture, int *checkers)
+{
+	*checkers = 0;
+	*texture = NULL;
 }

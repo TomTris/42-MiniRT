@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 15:11:38 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:59:50 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ int	get_first_arg_co(char *str, int update, t_cone *cone)
 	numbers = ft_split(str, ',');
 	if (!numbers)
 		return (display_error_message("Memmory Allocation Error"), 0);
+	if (update == 1 && len2d_array(numbers) == 1)
+		return (open_texture(&cone->texture, numbers));
 	if (!(len2d_array(numbers) == 3 || (update == 1 && \
 		len2d_array(numbers) == 4 && !str_compare("1", numbers[3]))))
 		return (error_message_parse_cy(update), freeing(numbers), 0);
@@ -107,7 +109,7 @@ int	parse_co(t_data *data, char **splited)
 	copy_all_stuff(cones, data->planes, sizeof(t_cone) * \
 	data->amount_of_cones);
 	cone = &(cones[data->amount_of_cones]);
-	cone->checkers = 0;
+	set_null(&cone->texture, &cone->checkers);
 	if (len2d_array(splited) != 6)
 		return (display_error_message("`co` must have 5 args"), 0);
 	if (!get_first_arg_co(splited[1], 0, cone))
@@ -122,6 +124,5 @@ int	parse_co(t_data *data, char **splited)
 		return (0);
 	if (++data->amount_of_cones && data->amount_of_cones != 1)
 		free(data->cones);
-	data->cones = cones;
-	return (1);
+	return (data->cones = cones, 1);
 }

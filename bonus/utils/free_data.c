@@ -6,14 +6,37 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:54 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 13:54:54 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 19:01:06 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
+void	clean_textures(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->amount_of_spheres)
+		if (data->spheres[i].texture)
+			mlx_delete_texture(data->spheres[i].texture);
+	i = -1;
+	while (++i < data->amount_of_cones)
+		if (data->cones[i].texture)
+			mlx_delete_texture(data->cones[i].texture);
+	i = -1;
+	while (++i < data->amount_of_cylinders)
+		if (data->cylinders[i].texture)
+			mlx_delete_texture(data->cylinders[i].texture);
+	i = -1;
+	while (++i < data->amount_of_planes)
+		if (data->planes[i].texture)
+			mlx_delete_texture(data->planes[i].texture);
+}
+
 void	free_data_before_display(t_data *data)
 {
+	clean_textures(data);
 	if (data->amount_of_spheres)
 		free(data->spheres);
 	if (data->amount_of_cones)

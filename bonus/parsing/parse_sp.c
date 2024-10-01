@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 15:04:57 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:59:28 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	get_first_arg_sp(char *str, int update, t_sphere *sphere)
 	numbers = ft_split(str, ',');
 	if (!numbers)
 		return (display_error_message("Memmory Allocation Error"), 0);
+	if (update == 1 && len2d_array(numbers) == 1)
+		return (open_texture(&sphere->texture, numbers));
 	if (!(len2d_array(numbers) == 3 || (update == 1 && \
 	len2d_array(numbers) == 4 && !str_compare("1", numbers[3]))))
 		return (error_message_parse_sp(update), freeing(numbers), 0);
@@ -110,6 +112,7 @@ int	parse_sp(t_data *data, char **splited)
 	copy_all_stuff(spheres, data->spheres, sizeof(t_sphere) * \
 	data->amount_of_spheres);
 	spheres[data->amount_of_spheres].checkers = 0;
+	spheres[data->amount_of_spheres].texture = NULL;
 	if (len2d_array(splited) != 4)
 		return (display_error_message("`sp` must have 3 args"), 0);
 	if (!get_first_arg_sp(splited[1], 0, &(spheres[data->amount_of_spheres])))
@@ -122,5 +125,6 @@ int	parse_sp(t_data *data, char **splited)
 	if (data->amount_of_spheres != 1)
 		free(data->spheres);
 	data->spheres = spheres;
+	dprintf(1, "%p", spheres[data->amount_of_spheres - 1].texture);
 	return (1);
 }

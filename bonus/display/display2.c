@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:34:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/01 14:50:14 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:01:10 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	*displaying(void *input)
 void	display(t_data *data)
 {
 
-	data->texture = mlx_load_png("./textures/balls.png");
+	data->texture = mlx_load_png("./textures/football.png");
 	// if (!data->texture)
 	// dprintf(1, "%f\n", data->planes->dist);
 	// exit(1);

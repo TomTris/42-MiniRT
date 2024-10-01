@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_cones.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:10:33 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 17:39:09 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/01 18:48:37 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	handle_cones(t_data *data, t_ray *ray, t_hit *hit)
 				hit->color = res.color;
 				hit->world_normal = res.v;
 				hit->world_position = res.p;
+				hit->cone = &data->cones[i];
+				hit->texture = data->cones[i].texture;
 			}
 		}
 		i++;

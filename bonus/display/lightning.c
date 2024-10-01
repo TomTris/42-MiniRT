@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:56 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 16:23:09 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:54:26 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -370,35 +370,9 @@ t_vec3 checker_sphere(t_hit *hit)
 		return hit->color;
 }
 
-t_vec3	make_texture(t_data *data, t_hit * hit)
-{
-	mlx_texture_t *texture = data->texture;
-    double theta = atan2(hit->world_normal.y, hit->world_normal.x); // azimuthal angle
-    double phi = acos(hit->world_normal.z);         // polar angle
 
-    // Calculate UV coordinates
-    double U = (theta + M_PI) / (2 * M_PI); // Normalize theta to [0, 1]
-    double V = phi / M_PI;                  // Normalize phi to [0, 1]
 
-    // Calculate pixel coordinates
-    int pixel_x = (int)(U * (texture->width - 1) + 0.5); // +0.5 for rounding
-    int pixel_y = (int)(V * (texture->height - 1) + 0.5); // +0.5 for rounding
-
-    // Ensure pixel coordinates are within bounds
-    if (pixel_x < 0) pixel_x = 0;
-    if (pixel_x >= (int)texture->width ) pixel_x = texture->width - 1;
-    if (pixel_y < 0) pixel_y = 0;
-    if (pixel_y >= (int)texture->height ) pixel_y = texture->height - 1;
-	t_vec3	vec;
-
-	// dprintf(1, "%i %i\n", pixel_x, pixel_y);
-	vec.x = (double)texture->pixels[(pixel_y * pixel_x + pixel_x) * 4] / 255.0;
-	vec.y = (double)texture->pixels[(pixel_y * pixel_x + pixel_x) * 4  + 1] / 255.0;
-	vec.z = (double)texture->pixels[(pixel_y * pixel_x + pixel_x) * 4 + 2] / 255.0;
-	return (vec);
-}
-
-t_vec3	stripe_at_object(t_data *data, t_hit *hit)
+t_vec3	stripe_at_object(t_hit *hit)
 {
 	if (hit->type == 2)
 	{
@@ -407,13 +381,21 @@ t_vec3	stripe_at_object(t_data *data, t_hit *hit)
 	}
 	if (hit->type == 1)
 	{
-		// return (checker_sphere(hit));	
-		return (make_texture(data, hit));
+		return (checker_sphere(hit));	
 	}
 	return (hit->color);
 	// return (stripe_at(pattern_point, hit->color, create_vec3(1.0, 1.0, 1.0)));
 }
 
+
+t_vec3	manage_textures(t_hit *hit)
+{
+	if (hit->type == 1)
+	{
+		return (apply_texture_sphere(hit));	
+	}
+	return (hit->color);
+}
 
 t_vec3	calculate_light(t_data *data, t_ray *ray, t_hit *hit)
 {
@@ -424,10 +406,15 @@ t_vec3	calculate_light(t_data *data, t_ray *ray, t_hit *hit)
 	t_vec3				color;
 
 	color = hit->color;
-	if (1)
+	if (hit->checkers)
 	{
-		color = stripe_at_object(data, hit);
+		color = stripe_at_object(hit);
+		
 		// return (color);
+	}
+	else if (hit->texture)
+	{
+		color = manage_textures(hit);
 	}
 
 	(void)ray;

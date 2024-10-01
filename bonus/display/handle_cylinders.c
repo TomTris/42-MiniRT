@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:57:34 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 15:14:38 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:48:49 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ data->cylinders[i].height / 2.0))), data->cylinders[i].vec3_norm);
 				hit->normal = \
 				normalize(subtract(hit->cords, data->cylinders[i].vec3_cords));
 				hit->checkers = data->cylinders[i].checkers;
+				hit->cylinder = &data->cylinders[i];
+				hit->texture = data->cylinders[i].texture;
 			}
 		}
 	}

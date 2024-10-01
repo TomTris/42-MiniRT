@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 17:42:46 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/01 18:59:20 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_sphere
 	double	diameter;
 	double	cords[3];
 
+	mlx_texture_t	*texture;
 	t_vec3	vec3_cords;
 	t_vec3	vec3_color;
 	int		checkers;
@@ -84,6 +85,7 @@ typedef struct s_plane
 	double	vector[3];
 	int		colors[3];
 
+	mlx_texture_t	*texture;
 	t_vec3	vec3_cords;
 	t_vec3	vec3_color;
 	t_vec3	vec3_norm;
@@ -100,6 +102,7 @@ typedef struct s_cylinder
 	double	height;
 	int		checkers;
 
+	mlx_texture_t	*texture;
 	t_vec3	vec3_cords;
 	t_vec3	vec3_norm;
 	t_vec3	vec3_color;
@@ -153,6 +156,7 @@ typedef struct s_cone
 	t_vec3	vec3_norm;
 	t_vec3	vec3_color;
 	int		checkers;
+	mlx_texture_t	*texture;
 
 	t_vec3	vao;
 	t_vec3	pa;
@@ -278,7 +282,10 @@ typedef struct s_hit
 	t_var_sphere	vars_sp;
 	t_plane			*plane;
 	t_sphere		*sphere;
+	t_cone			*cone;
+	t_cylinder		*cylinder;
 	int				checkers;
+	mlx_texture_t	*texture;
 }	t_hit;
 
 typedef struct s_abc
@@ -334,6 +341,8 @@ int			parse_pl(t_data *data, char **splited);
 int			parse_cy(t_data *data, char **splited);
 int			parse_co(t_data *data, char **splited);
 
+void		set_null(mlx_texture_t **texture, int *checkers);
+int			open_texture(mlx_texture_t **texture, char **path);
 int			check_if_ok(t_data *data);
 double		get_len_vector_d(double *vector);
 
@@ -411,4 +420,6 @@ void					calculate_cone(t_cone *cone);
 
 
 double alpha_2_vector(t_vec3 *v1, t_vec3 *v2);
+
+t_vec3	apply_texture_sphere(t_hit *hit);
 #endif
