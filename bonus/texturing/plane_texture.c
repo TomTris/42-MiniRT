@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:05:05 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 19:45:56 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 20:03:04 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,10 +131,6 @@ t_vec3	apply_texture_plane(t_hit *hit)
 	get_uv_plane(hit, &u, &v);
 	u -= floor(u);
 	v -= floor(v);
-	if (u < 0)
-		u = 1.0 - u;
-	if (v < 0)
-		v = 1.0 - v;
 	pixel_x = (int)(u * (hit->texture->width - 1) + 0.5);
 	pixel_y = (int)(v * (hit->texture->height - 1) + 0.5);
 	modify_values(hit->texture, &pixel_x, &pixel_y);
