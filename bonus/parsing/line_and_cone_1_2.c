@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:43:08 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/01 17:49:36 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/01 20:48:03 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,49 @@ t_vec3	find_point_in_bottom(t_vec3 *p, t_plain *pl, t_vec3 *a)
 	return (vap);	
 }
 
+double value_a_vector(t_vec3 vec)
+{
+	return (vec.x + vec.y + vec.z);
+}
+
+t_point_x_nor_vec	cone_and_texture2(t_point_x_nor_vec *ret, t_cone *cone)
+{
+	int	height;
+	t_vec3	point_in_bottom;
+	double	alpha;
+	t_vec3	ox;
+	int	width;
+
+	height = ((cal_distance(cone->pa, ret->p)) / cone->s) \
+			* cone->texture->height;
+	point_in_bottom = find_point_in_bottom(&ret->p, &cone->pl, &cone->pa);
+	ox = vector_p1_to_p2(cone->po, point_in_bottom);
+	alpha = alpha_2_vector(&ox, &cone->bottom_ori_vec);
+	alpha /= (2 * M_PI);
+	width = (int)(alpha * cone->texture->width);
+	ret->color.x = \
+		(double)cone->texture->pixels[((height \
+		* cone->texture->width + width) * 4)] / 255.0;
+	ret->color.y = \
+		(double)cone->texture->pixels[((height * \
+		cone->texture->width + width) * 4 + 1)] / 255.0;
+	ret->color.z = \
+		(double)cone->texture->pixels[((height * \
+		cone->texture->width + width) * 4 + 2)] / 255.0;
+	return (*ret);
+}
+
 t_point_x_nor_vec	color_decide2(t_point_x_nor_vec *ret, t_cone *cone)
 {
 	int	color;
 	t_vec3	point_in_bottom;
 	double	alpha;
 	t_vec3	ox;
-
+	
+	if (cone->texture != 0)
+		return (cone_and_texture2(ret, cone));
 	if (cone->checkers == 0)
-	{
-		ret->color = cone->vec3_color;
-		return (*ret);
-	}
+		return (ret->color = cone->vec3_color, *ret);
 	color = 1;
 	if ((int) (cal_distance(cone->pa, ret->p) / cone->surface_width) % 2 == 1)
 		color *= -1;
