@@ -6,17 +6,23 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 13:43:46 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 18:49:23 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:07:57 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-void	set_type_distance_co(t_hit *hit, double distance)
+void	set_type_distance_pl(t_hit *hit, t_data *data, int i)
 {
-	hit->hit_distance = distance;
+	hit->hit_distance = hit->vars_sp.t;
 	hit->found = 1;
 	hit->type = 2;
+	hit->color = data->planes[i].vec3_color;
+	hit->cords = data->planes[i].vec3_cords;
+	hit->normal = data->planes[i].vec3_norm;
+	hit->plane = &data->planes[i];
+	hit->checkers = data->planes[i].checkers;
+	hit->texture = data->planes[i].texture;
 }
 
 double	get_factor(t_vec3 *norm, t_vec3	*point, t_vec3 *camera)
@@ -52,13 +58,7 @@ dot_product(ray->ray_direction, data->planes[i].vec3_norm);
 		hit->vars_sp.t = hit->vars_sp.c / hit->vars_sp.b;
 		if (hit->vars_sp.t > 0.0 && hit->vars_sp.t < hit->hit_distance)
 		{
-			set_type_distance_co(hit, hit->vars_sp.t);
-			hit->color = data->planes[i].vec3_color;
-			hit->cords = data->planes[i].vec3_cords;
-			hit->normal = data->planes[i].vec3_norm;
-			hit->plane = &data->planes[i];
-			hit->checkers = data->planes[i].checkers;
-			hit->texture = data->planes[i].texture;
+			set_type_distance_pl(hit, data, i);
 		}
 	}
 }

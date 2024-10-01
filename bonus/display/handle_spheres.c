@@ -6,16 +6,22 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:29:07 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 18:49:07 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:21:50 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-static void	setter(int *found, int *type)
+static void	setter(t_hit *hit, t_data *data, int i)
 {
-	*type = 1;
-	*found = 1;
+	hit->type = 1;
+	hit->found = 1;
+	hit->hit_distance = hit->vars_sp.t;
+	hit->color = data->spheres[i].vec3_color;
+	hit->cords = data->spheres[i].vec3_cords;
+	hit->sphere = &data->spheres[i];
+	hit->checkers = data->spheres[i].checkers;
+	hit->texture = data->spheres[i].texture;
 }
 
 void	handle_spheres(t_data *data, t_ray *ray, t_hit *hit)
@@ -39,13 +45,7 @@ void	handle_spheres(t_data *data, t_ray *ray, t_hit *hit)
 		/ (2.0 * hit->vars_sp.a);
 		if (hit->vars_sp.t > 0.0 && hit->vars_sp.t < hit->hit_distance)
 		{
-			hit->hit_distance = hit->vars_sp.t;
-			hit->color = data->spheres[i].vec3_color;
-			hit->cords = data->spheres[i].vec3_cords;
-			hit->sphere = &data->spheres[i];
-			hit->checkers = data->spheres[i].checkers;
-			hit->texture = data->spheres[i].texture;
-			setter(&hit->found, &hit->type);
+			setter(hit, data, i);
 		}
 	}
 }

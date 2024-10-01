@@ -6,17 +6,26 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:57:34 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 18:48:49 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:13:01 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-void	set_type_distance_cy(t_hit *hit, double distance)
+void	set_type_distance_cy(t_hit *hit, t_data *data, int i)
 {
-	hit->hit_distance = distance;
+	hit->hit_distance = hit->vars_sp.t;
 	hit->found = 1;
 	hit->type = 3;
+	hit->color = data->cylinders[i].vec3_color;
+	hit->cords = add(data->cylinders[i].vec3_cords, \
+	scale(data->cylinders[i].vec3_norm, hit->vars_sp.d - \
+	data->cylinders[i].height / 2.0));
+	hit->normal = \
+	normalize(subtract(hit->cords, data->cylinders[i].vec3_cords));
+	hit->checkers = data->cylinders[i].checkers;
+	hit->cylinder = &data->cylinders[i];
+	hit->texture = data->cylinders[i].texture;
 }
 
 void	top_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
@@ -39,7 +48,7 @@ void	top_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
 		(data->cylinders[i].diameter / 2.0) * \
 		(data->cylinders[i].diameter / 2.0))
 		{
-			set_type_distance_cy(hit, t_cap);
+			set_type_distance_cy2(hit, t_cap);
 			hit->color = data->cylinders[i].vec3_color;
 			hit->cords = inter_p;
 			hit->normal = data->cylinders[i].vec3_norm;
@@ -67,7 +76,7 @@ void	bottom_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
 		(data->cylinders[i].diameter / 2.0) * \
 		(data->cylinders[i].diameter / 2.0))
 		{
-			set_type_distance_cy(hit, t_cap);
+			set_type_distance_cy2(hit, t_cap);
 			hit->color = data->cylinders[i].vec3_color;
 			hit->cords = inter_p;
 			hit->normal = scale(data->cylinders[i].vec3_norm, -1.0);
@@ -90,16 +99,7 @@ data->cylinders[i].height / 2.0))), data->cylinders[i].vec3_norm);
 			if (hit->vars_sp.d >= 0 && hit->vars_sp.d <= \
 			data->cylinders[i].height)
 			{
-				set_type_distance_cy(hit, hit->vars_sp.t);
-				hit->color = data->cylinders[i].vec3_color;
-				hit->cords = add(data->cylinders[i].vec3_cords, \
-				scale(data->cylinders[i].vec3_norm, hit->vars_sp.d - \
-				data->cylinders[i].height / 2.0));
-				hit->normal = \
-				normalize(subtract(hit->cords, data->cylinders[i].vec3_cords));
-				hit->checkers = data->cylinders[i].checkers;
-				hit->cylinder = &data->cylinders[i];
-				hit->texture = data->cylinders[i].texture;
+				set_type_distance_cy(hit, data, i);
 			}
 		}
 	}

@@ -6,11 +6,27 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:34:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/01 18:01:10 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:12:26 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
+
+void	set_type_distance_cy2(t_hit *hit, double dist)
+{
+	hit->type = 3;
+	hit->hit_distance = dist;
+}
+
+typedef struct s_vars_d
+{
+	int			y;
+	int			x;
+	t_vec3		pixel;
+	t_ray		ray;
+	int			*index;
+	int			ind;
+}	t_vars_d;
 
 t_vec3	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
 {
@@ -31,50 +47,33 @@ t_vec3	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
 void	*displaying(void *input)
 {
 	t_data		*data;
-	uint32_t	y;
-	uint32_t	x;
-	t_vec3		pixel;
-	t_ray		ray;
-	int			*index;
-	int			ind;
+	t_vars_d	vars;
 
 	data = ((t_input *)input)->data;
-	index = (((t_input *)input)->ind);
-	ind = *index;
-	free(index);
+	vars.index = (((t_input *)input)->ind);
+	vars.ind = *vars.index;
+	free(vars.index);
 	free(input);
-	// ProfilerStart("profile_output.prof");
-	y = 0;
-	while (y < data->image->height)
+	vars.y = -1;
+	while (++vars.y < (int)data->image->height)
 	{
-		x = 0;
-		while (x < data->image->width)
+		vars.x = -1;
+		while (++vars.x < (int)data->image->width)
 		{
-			if (x % AMOUNT_OF_THREADS == ind)
+			if (vars.x % AMOUNT_OF_THREADS == vars.ind)
 			{
-				ray.ray_origin = data->camera.vec3_cords;
-				pixel = per_pixel(data, &ray, x, y);
-				// data->pixels[y * data->image->width + x] = add(data->pixels[y * data->image->width + x], pixel);
-				// mlx_put_pixel(data->image, x, y, get_color_from_vec3(scale(data->pixels[y * data->image->width + x], 1.0 / (double)t)));
-				mlx_put_pixel(data->image, x, y, get_color_from_vec3(pixel));
+				vars.ray.ray_origin = data->camera.vec3_cords;
+				vars.pixel = per_pixel(data, &vars.ray, vars.x, vars.y);
+				mlx_put_pixel(data->image, vars.x, vars.y, \
+				get_color_from_vec3(vars.pixel));
 			}
-			x++;
 		}
-		y++;
 	}
-
-	// ProfilerStop();
 	return (NULL);
 }
 
 void	display(t_data *data)
 {
-
-	data->texture = mlx_load_png("./textures/football.png");
-	// if (!data->texture)
-	// dprintf(1, "%f\n", data->planes->dist);
-	// exit(1);
-	// dprintf(1, "asdasd");
 	data->mlx = mlx_init(WIDTH, HEIGHT, "Scene", true);
 	if (!data->mlx)
 		return (display_error_message("Couldnt init window"));
@@ -90,5 +89,4 @@ void	display(t_data *data)
 	mlx_loop_hook(data->mlx, change_image_size_hook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
-	
 }

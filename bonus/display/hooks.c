@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 13:34:07 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/01 21:15:56 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,11 @@ int	create_the_threads(t_data *data)
 			return (0);
 		i++;
 	}
-	i = 0;
-	while (i < AMOUNT_OF_THREADS)
-	{
+	i = -1;
+	while (++i < AMOUNT_OF_THREADS)
 		if (pthread_join(data->threads[i], NULL))
 			return (0);
-		i++;
-	}
-	return(1);
+	return (1);
 }
 
 void	change_image_size_hook(void *param)
