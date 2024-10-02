@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 21:23:34 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 10:08:26 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_plain	plain_of_bottom_area(t_cone *cone)
 	return (plain);
 }
 
+//use cal_abc_cy // cal_abc_same_point
 void	cone_and_bottom(t_cone *cone)
 {
 	t_line	li;
