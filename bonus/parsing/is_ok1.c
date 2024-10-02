@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   is_ok1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 19:53:08 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 19:53:27 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 double	get_distance(t_vec3 *norm, t_vec3 *point, t_vec3 *camera)
 {

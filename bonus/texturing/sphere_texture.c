@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sphere_texture.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:14:19 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 19:56:08 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 typedef struct s_uv
 {

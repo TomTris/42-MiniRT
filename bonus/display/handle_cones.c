@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_cones.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:10:33 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 21:24:34 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 void	setter_cones(t_data *data, t_hit *hit, int i, t_point_x_nor_vec *res)
 {

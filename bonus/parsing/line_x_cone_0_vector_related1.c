@@ -6,11 +6,11 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:24:10 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 15:45:53 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 double	alpha_2_vector(t_vec3 *v1, t_vec3 *v2)
 {

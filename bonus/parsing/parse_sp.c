@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 18:59:28 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:07:51 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 void	error_message_parse_sp(int update)
 {
@@ -125,6 +125,5 @@ int	parse_sp(t_data *data, char **splited)
 	if (data->amount_of_spheres != 1)
 		free(data->spheres);
 	data->spheres = spheres;
-	dprintf(1, "%p", spheres[data->amount_of_spheres - 1].texture);
 	return (1);
 }

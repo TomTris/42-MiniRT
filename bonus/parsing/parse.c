@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:45 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 20:59:13 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:07:47 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 void	error_not_valid_identifier(char *str)
 {
@@ -78,6 +78,5 @@ int	parse(t_data *data)
 	}
 	if (!check_if_ok(data))
 		return (0);
-	output_data(data);
 	return (1);
 }

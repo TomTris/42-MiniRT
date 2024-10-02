@@ -6,11 +6,11 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:43:08 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 15:40:59 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 t_point_x_nor_vec	line_x_cone_surface1(t_cone *cone,
 	t_points *points, double s)

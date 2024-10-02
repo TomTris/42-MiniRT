@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_spheres.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/25 20:29:07 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 21:21:50 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 static void	setter(t_hit *hit, t_data *data, int i)
 {

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_planes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 13:43:46 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 21:07:57 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 void	set_type_distance_pl(t_hit *hit, t_data *data, int i)
 {

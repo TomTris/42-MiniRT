@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 18:09:32 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 14:41:00 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:09:47 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 char	*get_next_line(int fd, int *finished)
 {
@@ -33,7 +33,9 @@ char	*get_next_line(int fd, int *finished)
 	}
 	bytes = get_ind_of_n_len(str, 0);
 	if (bytes)
+	{
 		return (allocate(str));
+	}
 	return (solve_get_next(str, buffer, fd, finished));
 }
 

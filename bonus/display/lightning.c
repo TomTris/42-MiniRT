@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lightning.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:56 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 16:34:50 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 t_vec3	random_vector(void)
 {
@@ -27,9 +27,9 @@ int	is_in_shadow(t_data *data, t_hit *hit, t_vec3 *light_dir, double dist)
 	t_ray	ray;
 	t_hit	new_hit;
 
-
 	ray.ray_direction = *light_dir;
-	ray.ray_origin = add(hit->world_position, scale(hit->world_normal, 0.00001));
+	ray.ray_origin = add(hit->world_position, \
+		scale(hit->world_normal, 0.00001));
 	ray_trace(data, &ray, &new_hit);
 	if (new_hit.found == 1 && new_hit.hit_distance < dist)
 	{
@@ -48,15 +48,12 @@ typedef struct s_calculate_light
 	double	light_dot;
 	t_vec3	reflect;
 	double	reflect_dot;
-	double				factor;
-	double				dist;
-	int					i;
-	t_vec3				final;
-	t_vec3				color;
+	double	factor;
+	double	dist;
+	int		i;
+	t_vec3	final;
+	t_vec3	color;
 }	t_calculate_light;
-
-
-
 
 void	loop_calculate_light(t_data *data, t_ray *ray, t_hit *hit, \
 t_calculate_light *cl)
@@ -65,7 +62,8 @@ t_calculate_light *cl)
 	scale(data->light[cl->i].vec3_color, data->light[cl->i].ratio));
 	cl->difuse = create_vec3(0, 0, 0);
 	cl->specular = create_vec3(0, 0, 0);
-	cl->light_dir = subtract(data->light[cl->i].vec3_cords, hit->world_position);
+	cl->light_dir = subtract(data->light[cl->i].vec3_cords, \
+		hit->world_position);
 	cl->dist = sqrt(dot_product(cl->light_dir, cl->light_dir));
 	cl->light_dir = normalize(cl->light_dir);
 	cl->light_dot = dot_product(cl->light_dir, hit->world_normal);

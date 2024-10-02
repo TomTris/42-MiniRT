@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 20:59:02 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:08:25 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	ft_hook_keys(void *param)
 void	change_image_size_hook(void *param)
 {
 	t_data		*data;
-	long long	start;
 
 	data = (t_data *)param;
 	if ((uint32_t)data->mlx->width != data->image->width || \
@@ -49,11 +48,9 @@ void	change_image_size_hook(void *param)
 	}
 	if (!data->displayed)
 	{
-		start = current_time_in_ms();
 		data->displayed = 1;
-		if (!create_the_threads(data))
+		if (!displaying(data))
 			return (display_error_message("Error while displaying"), \
 			mlx_close_window(data->mlx));
-		dprintf(1, "%lli\n", current_time_in_ms() - start);
 	}
 }

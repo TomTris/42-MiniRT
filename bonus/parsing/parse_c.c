@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parse_c.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:40 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/25 20:23:56 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:46:58 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 void	error_message_parse_c(int update)
 {

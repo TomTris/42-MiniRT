@@ -1,8 +1,8 @@
 NAME			= minirt
-CFLAGS			= -Wextra -Wall -Werror  -fsanitize=address -g
+CFLAGS			= -Wextra -Wall -Werror
 CC 				= cc
 
-SRC_DIR = bonus
+SRC_DIR = src
 FT_LIBS =	MLX42/build/libmlx42.a
 
 SRC	= $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/**/*.c)

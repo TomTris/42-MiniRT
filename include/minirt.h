@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 16:42:07 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:57:09 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include "get_next_line.h"
+// # include "get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 # include <sys/time.h>
@@ -27,6 +27,8 @@
 # define HEIGHT 1024
 # define WIDTH 1024
 # define AMOUNT_OF_THREADS 6
+# define BUFFER_SIZE 1024
+
 
 typedef struct s_matrix3
 {
@@ -203,7 +205,7 @@ typedef struct s_data
 
 	t_camera			camera;
 	t_ambitient_light	ambitient_light;
-	t_light				*light;
+	t_light				light;
 
 	int					seen_camera;
 	int					seen_ambitient_light;
@@ -282,17 +284,23 @@ typedef struct s_abc
 	double	c;
 }	t_abc;
 
+char	*get_next_line(int fd, int *finished);
+char	*solve_get_next(char *str, char *buffer, int fd, int *finished);
+char	*allocate(char *str);
+char	*strjoins(char *first, char *second, char *str);
+size_t	get_ind_of_n_len(char *str, int l);
+char	*help_delete_25_lines(char *str, char *out, char *second, \
+size_t len1);
 
 //display/display.c
 //display/display2.c
-void		*displaying(void *input);
 void	display(t_data *data);
 int	transform_to_channel(double v);
 uint32_t	get_color_from_vec3(t_vec3 vec);
 void	closest_hit2(t_data *data, t_ray *ray, t_hit *hit);
 void	closest_hit(t_data *data, t_ray *ray, t_hit *hit);
 void	ray_trace(t_data *data, t_ray *ray, t_hit *hit);
-
+int	displaying(t_data *data);
 char		*get_next_line(int fd, int *finished);
 int			str_len(char *str);
 int			ends_with(char *main, char *sub);
@@ -316,7 +324,6 @@ void		freeing(char **arr);
 
 void		copy_all_stuff(void *to, void *from, int len);
 int			parse_l(t_data *data, char **splited);
-void		output_data(t_data	*data);
 void		error_message_parse_cy(int update);
 void		error_message_parse_co(int update);
 
@@ -404,7 +411,7 @@ double					degree_2_vector(t_vec3 *v1, t_vec3 *v2);
 t_vec3					vector_cross_product(t_vec3 v1, t_vec3 v2);
 void					calculate_cone(t_cone *cone);
 
-
+int	displaying2(t_data *data);
 t_vec3	get_color(t_hit *hit);
 void	modify_values(mlx_texture_t *texture, int *pixel_x, int *pixel_y);
 void	get_uv_plane(t_hit *hit, double *u, double *v);
@@ -420,4 +427,10 @@ t_vec3	apply_texture_cylinder(t_hit *hit);
 double	vector_length(t_vec3 v);
 t_point_x_nor_vec	color_decide2(t_point_x_nor_vec *ret, t_cone *cone);
 t_vec3	find_point_in_bottom(t_vec3 *p, t_plain *pl, t_vec3 *a);
+
+t_vec3	find_point_in_bottom_cylinder(t_vec3 *p, t_plain *pl, t_vec3 *norm);
+t_abc	cal_abc_cy(t_line *li, double r);
+void	cylinder_x_plain(t_cylinder *cy, t_vec3 *vab);
+double	distance_p_pl(t_vec3 *p, t_plain *pl);
+t_vec3	cy_x_checker_bottom(t_cylinder *cy, t_vec3 *p, int type);
 #endif

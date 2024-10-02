@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt copy.h                                      :+:      :+:    :+:   */
+/*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/30 20:09:58 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 18:06:07 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include "get_next_line.h"
+// # include "get_next_line.h"
 # include "../MLX42/include/MLX42/MLX42.h"
 # include <math.h>
 # include <sys/time.h>
@@ -27,7 +27,7 @@
 # define HEIGHT 1024
 # define WIDTH 1024
 # define AMOUNT_OF_THREADS 6
-
+# define BUFFER_SIZE 1024
 typedef struct s_matrix3
 {
 	double	m[3][3];
@@ -73,8 +73,10 @@ typedef struct s_sphere
 	double	diameter;
 	double	cords[3];
 
+	mlx_texture_t	*texture;
 	t_vec3	vec3_cords;
 	t_vec3	vec3_color;
+	int		checkers;
 }	t_sphere;
 
 typedef struct s_plane
@@ -83,10 +85,23 @@ typedef struct s_plane
 	double	vector[3];
 	int		colors[3];
 
+	mlx_texture_t	*texture;
 	t_vec3	vec3_cords;
 	t_vec3	vec3_color;
 	t_vec3	vec3_norm;
+	double	dist;
+	int		checkers;
 }	t_plane;
+
+//ax + by + cz + d = 0
+typedef struct s_plain
+{
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+}	t_plain;
+
 
 typedef struct s_cylinder
 {
@@ -95,11 +110,23 @@ typedef struct s_cylinder
 	double	cords[3];
 	double	vector[3];
 	double	height;
+	int		checkers;
 
+	mlx_texture_t	*texture;
 	t_vec3	vec3_cords;
 	t_vec3	vec3_norm;
 	t_vec3	vec3_color;
+
+	t_vec3	pa;
+	t_vec3	pb;
+	t_plain	pl_top;
+	t_vec3	bottom_ori_vec;
+	t_vec3	bottom_ori_vec2;
+	t_vec3	vab;
+	
+	double	r;
 }	t_cylinder;
+
 
 typedef struct s_cone
 {
@@ -112,21 +139,34 @@ typedef struct s_cone
 	t_vec3	vec3_cords;
 	t_vec3	vec3_norm;
 	t_vec3	vec3_color;
+	int		checkers;
+	mlx_texture_t	*texture;
+
+	t_vec3	vao;
+	t_vec3	pa;
+	t_vec3	po;
+	double	r;
+	t_plain				pl;
+	double	value1;
+	double	s;
+	double	cos_al;
+	double	bottom_width;
+	t_vec3	bottom_ori_vec;
+	t_vec3	bottom_ori_vec2;
+	double	bottom_angle;
+	double	bottom_angle_2;
+	double	surface_width;
 }	t_cone;
+
 
 typedef struct s_point_x_nor_vec
 {
 	int		amount;
 	double	t;
 	t_vec3	v;
+	t_vec3	p;
+	t_vec3	color;
 }	t_point_x_nor_vec;
-
-typedef struct s_point
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_point;
 
 typedef struct s_points
 {
@@ -142,23 +182,6 @@ typedef struct s_line
 	t_vec3	p;
 	t_vec3	dv;
 }	t_line;
-
-typedef struct s_cone_tom
-{
-	t_vec3	vao;
-	t_vec3	pa;
-	t_vec3	po;
-	double	r;
-}	t_cone;
-
-//ax + by + cz + d = 0
-typedef struct s_plain
-{
-	double	a;
-	double	b;
-	double	c;
-	double	d;
-}	t_plain;
 
 typedef struct s_cal_helper
 {
@@ -199,6 +222,8 @@ typedef struct s_data
 
 	int					current;
 	pthread_t			threads[AMOUNT_OF_THREADS];
+	mlx_texture_t *				texture;
+	t_vec3				*pixels;
 
 	int					fd;
 }	t_data;
@@ -241,12 +266,33 @@ typedef struct s_hit
 	int				found;
 	int				type;
 	t_var_sphere	vars_sp;
-
+	t_plane			*plane;
+	t_sphere		*sphere;
+	t_cone			*cone;
+	t_cylinder		*cylinder;
+	int				checkers;
+	int				type_cy;
+	mlx_texture_t	*texture;
 }	t_hit;
+
+typedef struct s_abc
+{
+	double	a;
+	double	b;
+	double	c;
+}	t_abc;
+
+
+char	*get_next_line(int fd, int *finished);
+char	*solve_get_next(char *str, char *buffer, int fd, int *finished);
+char	*allocate(char *str);
+char	*strjoins(char *first, char *second, char *str);
+size_t	get_ind_of_n_len(char *str, int l);
+char	*help_delete_25_lines(char *str, char *out, char *second, \
+size_t len1);
 
 //display/display.c
 //display/display2.c
-uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y);
 void		*displaying(void *input);
 void	display(t_data *data);
 int	transform_to_channel(double v);
@@ -278,7 +324,6 @@ void		freeing(char **arr);
 
 void		copy_all_stuff(void *to, void *from, int len);
 int			parse_l(t_data *data, char **splited);
-void		output_data(t_data	*data);
 void		error_message_parse_cy(int update);
 void		error_message_parse_co(int update);
 
@@ -290,6 +335,8 @@ int			parse_pl(t_data *data, char **splited);
 int			parse_cy(t_data *data, char **splited);
 int			parse_co(t_data *data, char **splited);
 
+void		set_null(mlx_texture_t **texture, int *checkers);
+int			open_texture(mlx_texture_t **texture, char **path);
 int			check_if_ok(t_data *data);
 double		get_len_vector_d(double *vector);
 
@@ -348,12 +395,12 @@ t_points				intersection1(t_line *line, t_cal_helper *h);
 double					cal_stuff(t_cal_helper *h, t_line *line, t_cone *cone);
 t_points				intersection(t_line *line, t_cone *cone);
 //line_and_cone_2_0.c
-t_plain					plain_of_bottom_area(t_cone *cone);
+// t_plain					plain_of_bottom_area(t_cone *cone);
 int				 		is_point_in_circle(t_cone *co, t_vec3 *p);
-int						is_same_side(t_plain *pl, t_vec3 p1, t_vec3 p2);
+int	is_same_side(t_plain *pl, t_vec3 p1, double value1);
 t_point_x_nor_vec		line_x_cone_bottom(t_line *li, t_cone *cone);
 //line_and_cone_2_1.c
-// t_abc				 	cal_abc(t_line *li, t_cone *cone);
+t_abc				 	cal_abc(t_line *li, t_cone *cone);
 void					line_parallel_in_plain2(t_point_x_nor_vec *ret, t_line *li, t_cone *cone);
 t_point_x_nor_vec		line_parallel_in_plain(t_plain *pl, t_line *li, t_cone *cone);
 //line_and_cone_2_2.c
@@ -362,4 +409,28 @@ t_vec3					vector_p1_to_p2(t_vec3 point1, t_vec3 point2);
 double					cal_distance(t_vec3 p1, t_vec3 p2);
 double					degree_2_vector(t_vec3 *v1, t_vec3 *v2);
 t_vec3					vector_cross_product(t_vec3 v1, t_vec3 v2);
+void					calculate_cone(t_cone *cone);
+
+int	displaying2(t_data *data);
+t_vec3	get_color(t_hit *hit);
+void	modify_values(mlx_texture_t *texture, int *pixel_x, int *pixel_y);
+void	get_uv_plane(t_hit *hit, double *u, double *v);
+double alpha_2_vector(t_vec3 *v1, t_vec3 *v2);
+double cos_alpha_2_vector(t_vec3 *v1, t_vec3 *v2);
+t_vec3	apply_texture_plane(t_hit *hit);
+t_vec3	apply_texture_sphere(t_hit *hit);
+int	check_planes(t_data *data, int i);
+int	check_is_vector_ok(double *vector);
+void	set_type_distance_cy2(t_hit *hit, double dist, int var);
+double value_a_vector(t_vec3 vec);
+t_vec3	apply_texture_cylinder(t_hit *hit);
+double	vector_length(t_vec3 v);
+t_point_x_nor_vec	color_decide2(t_point_x_nor_vec *ret, t_cone *cone);
+t_vec3	find_point_in_bottom(t_vec3 *p, t_plain *pl, t_vec3 *a);
+
+t_vec3	find_point_in_bottom_cylinder(t_vec3 *p, t_plain *pl, t_vec3 *norm);
+t_abc	cal_abc_cy(t_line *li, double r);
+void	cylinder_x_plain(t_cylinder *cy, t_vec3 *vab);
+double	distance_p_pl(t_vec3 *p, t_plain *pl);
+t_vec3	cy_x_checker_bottom(t_cylinder *cy, t_vec3 *p, int type);
 #endif

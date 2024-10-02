@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 21:15:56 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:06:52 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minirt.h"
+#include "../../include/minirt_bonus.h"
 
 long long	current_time_in_ms(void)
 {
@@ -81,6 +81,5 @@ void	change_image_size_hook(void *param)
 		if (!create_the_threads(data))
 			return (display_error_message("Error while displaying"), \
 			mlx_close_window(data->mlx));
-		dprintf(1, "%lli\n", current_time_in_ms() - start);
 	}
 }
