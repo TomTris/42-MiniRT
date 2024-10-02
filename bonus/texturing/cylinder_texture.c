@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 21:55:07 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 15:20:34 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 15:27:07 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,6 @@ t_vec3	apply_texture_cylinder(t_hit *hit)
 	}
 	if (cy->checkers == 1)
 	{
-		printf("1\n");
 		if (hit->type_cy != 1)
 			return (cy_x_checker_bottom(cy, &p, hit->type_cy));
 		return (cy_x_checker_side(cy, &p));
