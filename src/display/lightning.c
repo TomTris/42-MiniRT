@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:56 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 22:35:50 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 23:03:25 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	calculate_light2(t_data *data, t_ray *ray, t_hit *hit,
 	cl->reflect_dot = dot_product(cl->reflect, ray->ray_direction);
 	if (cl->reflect_dot > 0)
 	{
-		cl->factor = pow(cl->reflect_dot, 10);
+		cl->factor = pow(cl->reflect_dot, 50);
 		cl->specular = scale(data->light.vec3_color, \
 			data->light.ratio * cl->factor);
 	}

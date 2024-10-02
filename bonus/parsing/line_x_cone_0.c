@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:50:56 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 18:46:43 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 23:06:29 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	cone_checker_bottom(t_point_nvec *ret, t_cone *cone)
 	t_vec3	ox;
 	double	alpha;
 
-	color = 1;
+	color = -1;
 	dis = cal_distance(cone->po, ret->p);
 	width = cone->r / 6;
 	if ((int)(dis / width) % 2 == 1)
