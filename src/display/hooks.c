@@ -6,22 +6,22 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 18:08:25 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 19:22:30 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-long long	current_time_in_ms(void)
-{
-	struct timeval	time_now;
-	long long		milliseconds;
+// long long	current_time_in_ms(void)
+// {
+// 	struct timeval	time_now;
+// 	long long		milliseconds;
 
-	gettimeofday(&time_now, NULL);
-	milliseconds = (long long) time_now.tv_sec * 1000 \
-		+ time_now.tv_usec / 1000;
-	return (milliseconds);
-}
+// 	gettimeofday(&time_now, NULL);
+// 	milliseconds = (long long) time_now.tv_sec * 1000
+// 		+ time_now.tv_usec / 1000;
+// 	return (milliseconds);
+// }
 
 void	ft_hook_keys(void *param)
 {
