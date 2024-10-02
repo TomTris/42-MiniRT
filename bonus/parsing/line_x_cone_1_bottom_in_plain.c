@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 17:23:08 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 19:02:14 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_abc	cal_abc(t_line *li, t_cone *cone)
 	return (abc);
 }
 
-void	line_parallel_in_plain2(t_point_x_nor_vec *ret,
+void	line_parallel_in_plain2(t_point_nvec *ret,
 	t_line *li, t_cone *cone)
 {
 	ret->amount = 1;
@@ -40,12 +40,12 @@ void	line_parallel_in_plain2(t_point_x_nor_vec *ret,
 	ret->v = normalize(vector_p1_to_p2(cone->po, ret->p));
 }
 
-t_point_x_nor_vec	line_parallel_in_plain(t_plain *pl, t_line *li,
+t_point_nvec	line_parallel_in_plain(t_plain *pl, t_line *li,
 	t_cone *cone)
 {
-	t_point_x_nor_vec	ret;
-	t_abc				abc;
-	double				delta;
+	t_point_nvec	ret;
+	t_abc			abc;
+	double			delta;
 
 	if (pl->a * li->p.x + pl->b * li->p.y + pl->c * li->p.z + pl->d != 0)
 		return (ret.amount = 0, ret);

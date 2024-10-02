@@ -6,13 +6,13 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 17:10:33 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 19:01:59 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt_bonus.h"
 
-void	setter_cones(t_data *data, t_hit *hit, int i, t_point_x_nor_vec *res)
+void	setter_cones(t_data *data, t_hit *hit, int i, t_point_nvec *res)
 {
 	hit->found = 1;
 	hit->type = 4;
@@ -26,9 +26,9 @@ void	setter_cones(t_data *data, t_hit *hit, int i, t_point_x_nor_vec *res)
 
 void	handle_cones(t_data *data, t_ray *ray, t_hit *hit)
 {
-	int					i;
-	t_line				line;
-	t_point_x_nor_vec	res;
+	int				i;
+	t_line			line;
+	t_point_nvec	res;
 
 	i = 0;
 	while (i < data->amount_of_cones)

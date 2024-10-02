@@ -6,13 +6,13 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 15:41:07 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 18:46:43 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt_bonus.h"
 
-t_point_x_nor_vec	cone_and_texture2(t_point_x_nor_vec *ret, t_cone *cone)
+t_point_nvec	cone_and_texture2(t_point_nvec *ret, t_cone *cone)
 {
 	int		height;
 	t_vec3	point_in_bottom;
@@ -41,7 +41,7 @@ t_point_x_nor_vec	cone_and_texture2(t_point_x_nor_vec *ret, t_cone *cone)
 	return (*ret);
 }
 
-t_point_x_nor_vec	color_decide2(t_point_x_nor_vec *ret, t_cone *cone)
+t_point_nvec	color_decide2(t_point_nvec *ret, t_cone *cone)
 {
 	int		color;
 	t_vec3	point_in_bottom;

@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:42:31 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 19:02:35 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int	is_same_side(t_plain *pl, t_vec3 p1, double value1)
 	return (0);
 }
 
-t_point_x_nor_vec	line_x_cone_bottom(t_line *li, t_cone *cone)
+t_point_nvec	line_x_cone_bottom(t_line *li, t_cone *cone)
 {
-	t_point_x_nor_vec	ret;
-	double				divided_num;
+	t_point_nvec	ret;
+	double			divided_num;
 
 	divided_num = (cone->pl.a * li->dv.x + cone->pl.b \
 		* li->dv.y + cone->pl.c * li->dv.z);

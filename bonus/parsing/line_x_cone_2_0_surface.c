@@ -6,19 +6,19 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:43:08 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 19:02:46 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt_bonus.h"
 
-t_point_x_nor_vec	line_x_cone_surface1(t_cone *cone,
+t_point_nvec	line_x_cone_surface1(t_cone *cone,
 	t_points *points, double s)
 {
-	t_vec3				cp;
-	t_vec3				ap;
-	t_vec3				op;
-	t_point_x_nor_vec	ret;
+	t_vec3			cp;
+	t_vec3			ap;
+	t_vec3			op;
+	t_point_nvec	ret;
 
 	cp.x = points->p1.x - cone->pa.x;
 	cp.y = points->p1.y - cone->pa.y;
@@ -63,13 +63,13 @@ void	line_x_cone_surface2_2(t_vec3 *cp, t_cone *cone,
 	}
 }
 
-t_point_x_nor_vec	line_x_cone_surface2(t_line *line, \
+t_point_nvec	line_x_cone_surface2(t_line *line, \
 	t_cone *cone, t_points *points, double s)
 {
-	t_vec3				ap;
-	t_vec3				op;
-	t_vec3				cp;
-	t_point_x_nor_vec	ret;
+	t_vec3			ap;
+	t_vec3			op;
+	t_vec3			cp;
+	t_point_nvec	ret;
 
 	line_x_cone_surface2_2(&cp, cone, points, s);
 	if (points->amount == 0)
@@ -93,10 +93,10 @@ t_point_x_nor_vec	line_x_cone_surface2(t_line *line, \
 		color_decide2(&ret, cone), ret);
 }
 
-t_point_x_nor_vec	line_x_cone_surface(t_line *line, t_cone *cone)
+t_point_nvec	line_x_cone_surface(t_line *line, t_cone *cone)
 {
-	t_points			points;
-	t_point_x_nor_vec	ret;
+	t_points		points;
+	t_point_nvec	ret;
 
 	points = intersection(line, cone);
 	if (points.amount == 0)

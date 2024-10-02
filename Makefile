@@ -2,7 +2,7 @@ NAME			= minirt
 CFLAGS			= -Wextra -Wall -Werror
 CC 				= cc
 
-SRC_DIR = src
+SRC_DIR = bonus
 FT_LIBS =	MLX42/build/libmlx42.a
 
 SRC	= $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/**/*.c)

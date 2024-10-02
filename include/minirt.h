@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 17:57:09 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 18:46:43 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ typedef struct s_point_x_nor_vec
 	t_vec3	v;
 	t_vec3	p;
 	t_vec3	color;
-}	t_point_x_nor_vec;
+}	t_point_nvec;
 
 typedef struct s_points
 {
@@ -381,12 +381,12 @@ double		get_factor(t_vec3 *norm, t_vec3	*point, t_vec3 *camera);
 t_vec3		calculate_light(t_data *data, t_ray *ray, t_hit *hit);
 
 //line_and_cone_1_1.c
-t_point_x_nor_vec	line_x_cone(t_line *line, t_cone *cone);
+t_point_nvec	line_x_cone(t_line *line, t_cone *cone);
 //line_and_cone_1_2.c
-t_point_x_nor_vec		line_x_cone_surface1(t_cone *cone, t_points *points, double s);
+t_point_nvec		line_x_cone_surface1(t_cone *cone, t_points *points, double s);
 void					line_x_cone_surface2_2(t_vec3 *cp, t_cone *cone, t_points *points, double s);
-t_point_x_nor_vec		line_x_cone_surface2(t_line *line, t_cone *cone, t_points *points, double s);
-t_point_x_nor_vec		line_x_cone_surface(t_line *line, t_cone *cone);
+t_point_nvec		line_x_cone_surface2(t_line *line, t_cone *cone, t_points *points, double s);
+t_point_nvec		line_x_cone_surface(t_line *line, t_cone *cone);
 //line_and_cone_1_3.c
 t_points				intersection2_2(double t, double delta, t_line *line, t_cal_helper *h);
 t_points				intersection2(double delta, t_line *line, t_cal_helper *h);
@@ -398,11 +398,11 @@ t_points				intersection(t_line *line, t_cone *cone);
 // t_plain					plain_of_bottom_area(t_cone *cone);
 int				 		is_point_in_circle(t_cone *co, t_vec3 *p);
 int	is_same_side(t_plain *pl, t_vec3 p1, double value1);
-t_point_x_nor_vec		line_x_cone_bottom(t_line *li, t_cone *cone);
+t_point_nvec		line_x_cone_bottom(t_line *li, t_cone *cone);
 //line_and_cone_2_1.c
 t_abc				 	cal_abc(t_line *li, t_cone *cone);
-void					line_parallel_in_plain2(t_point_x_nor_vec *ret, t_line *li, t_cone *cone);
-t_point_x_nor_vec		line_parallel_in_plain(t_plain *pl, t_line *li, t_cone *cone);
+void					line_parallel_in_plain2(t_point_nvec *ret, t_line *li, t_cone *cone);
+t_point_nvec		line_parallel_in_plain(t_plain *pl, t_line *li, t_cone *cone);
 //line_and_cone_2_2.c
 double					 dot_vec(t_vec3 vec1, t_vec3 vec2);
 t_vec3					vector_p1_to_p2(t_vec3 point1, t_vec3 point2);
@@ -425,7 +425,7 @@ void	set_type_distance_cy2(t_hit *hit, double dist, int var);
 double value_a_vector(t_vec3 vec);
 t_vec3	apply_texture_cylinder(t_hit *hit);
 double	vector_length(t_vec3 v);
-t_point_x_nor_vec	color_decide2(t_point_x_nor_vec *ret, t_cone *cone);
+t_point_nvec	color_decide2(t_point_nvec *ret, t_cone *cone);
 t_vec3	find_point_in_bottom(t_vec3 *p, t_plain *pl, t_vec3 *a);
 
 t_vec3	find_point_in_bottom_cylinder(t_vec3 *p, t_plain *pl, t_vec3 *norm);

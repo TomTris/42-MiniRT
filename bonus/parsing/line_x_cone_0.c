@@ -6,13 +6,13 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:50:56 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 18:46:43 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt_bonus.h"
 
-t_point_x_nor_vec	cone_texture_bottom(t_point_x_nor_vec *ret, t_cone *cone)
+t_point_nvec	cone_texture_bottom(t_point_nvec *ret, t_cone *cone)
 {
 	double	temp;
 	int		height;
@@ -36,7 +36,7 @@ t_point_x_nor_vec	cone_texture_bottom(t_point_x_nor_vec *ret, t_cone *cone)
 	return (*ret);
 }
 
-void	cone_checker_bottom(t_point_x_nor_vec *ret, t_cone *cone)
+void	cone_checker_bottom(t_point_nvec *ret, t_cone *cone)
 {
 	double	dis;
 	double	width;
@@ -59,9 +59,9 @@ void	cone_checker_bottom(t_point_x_nor_vec *ret, t_cone *cone)
 		ret->color = create_vec3(1, 1, 1);
 }
 
-t_point_x_nor_vec	line_x_cone(t_line *line, t_cone *cone)
+t_point_nvec	line_x_cone(t_line *line, t_cone *cone)
 {
-	t_point_x_nor_vec	ret;
+	t_point_nvec	ret;
 
 	ret.color = create_vec3(0, 255, 255);
 	ret = line_x_cone_bottom(line, cone);
