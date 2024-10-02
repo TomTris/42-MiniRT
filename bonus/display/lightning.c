@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:56 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 22:33:05 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	is_in_shadow(t_data *data, t_hit *hit, t_vec3 *light_dir, double dist)
 	ray.ray_direction = *light_dir;
 	ray.ray_origin = add(hit->world_position, \
 		scale(hit->world_normal, 0.00001));
+	mem_set_0(&new_hit, sizeof(t_hit));
 	ray_trace(data, &ray, &new_hit);
 	if (new_hit.found == 1 && new_hit.hit_distance < dist)
 	{

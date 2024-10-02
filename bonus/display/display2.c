@@ -6,11 +6,25 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:34:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 18:13:40 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 22:36:38 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt_bonus.h"
+
+void	mem_set_0(void *a, size_t len)
+{
+	size_t	i;
+	char	*b;
+
+	b = (char *)a;
+	i = 0;
+	while (i < len)
+	{
+		b[i] = 0;
+		i++;
+	}
+}
 
 void	set_type_distance_cy2(t_hit *hit, double dist, int var)
 {
@@ -38,6 +52,7 @@ t_vec3	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y)
 	ray->ray_direction = get_direction_ray(data, ((double)x / \
 	(double)data->image->width) * 2.0 - 1.0, (1.0 - (double)y / \
 	(double)data->image->height) * 2.0 - 1.0);
+	mem_set_0(&hit, sizeof(t_hit));
 	ray_trace(data, ray, &hit);
 	if (hit.found == 0)
 		return (create_vec3(0, 0, 0));

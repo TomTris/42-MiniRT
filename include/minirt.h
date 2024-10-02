@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 19:21:37 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 22:40:31 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,6 +304,7 @@ void		ray_trace(t_data *data, t_ray *ray, t_hit *hit);
 uint32_t	per_pixel(t_data *data, t_ray *ray, uint32_t x, uint32_t y);
 int			displaying(t_data *data);
 void		display(t_data *data);
+void		mem_set_0(void *a, size_t len);
 
 //get_ray_direction.c
 t_vec3		get_direction_ray(t_data *data, double offset_x, double offset_y);

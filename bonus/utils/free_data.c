@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:54 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 22:29:56 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	free_data_before_display(t_data *data)
 		free(data->planes);
 	if (data->amount_of_cylinders)
 		free(data->cylinders);
+	if (data->amount_of_lights)
+		free(data->light);
 	if (data->fd != -1)
 		close(data->fd);
 }

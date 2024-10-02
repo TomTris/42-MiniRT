@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_cylinders.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:57:34 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 16:22:34 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 22:50:29 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,60 +17,67 @@ void	set_type_distance_cy(t_hit *hit, double distance)
 	hit->hit_distance = distance;
 	hit->found = 1;
 	hit->type = 3;
+	hit->type_cy = 1;
 }
 
-void	top_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
+typedef struct s_val_holder
 {
 	t_vec3	cap_center;
 	double	t_cap;
 	t_vec3	inter_p;
 	t_vec3	dist_to_center;
+}	t_val_holder;
 
-	cap_center = add(data->cylinders[i].vec3_cords, \
+void	top_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
+{
+	t_val_holder	t;
+
+	t.cap_center = add(data->cylinders[i].vec3_cords, \
 	scale(data->cylinders[i].vec3_norm, data->cylinders[i].height / 2.0));
-	t_cap = dot_product(subtract(cap_center, ray->ray_origin), \
+	t.t_cap = dot_product(subtract(t.cap_center, ray->ray_origin), \
 	data->cylinders[i].vec3_norm) / dot_product(ray->ray_direction, \
 	data->cylinders[i].vec3_norm);
-	if (t_cap > 0 && t_cap < hit->hit_distance)
+	if (t.t_cap > 0 && t.t_cap < hit->hit_distance)
 	{
-		inter_p = add(ray->ray_origin, scale(ray->ray_direction, t_cap));
-		dist_to_center = subtract(inter_p, cap_center);
-		if (dot_product(dist_to_center, dist_to_center) <= \
+		t.inter_p = add(ray->ray_origin, scale(ray->ray_direction, t.t_cap));
+		t.dist_to_center = subtract(t.inter_p, t.cap_center);
+		if (dot_product(t.dist_to_center, t.dist_to_center) <= \
 		(data->cylinders[i].diameter / 2.0) * \
 		(data->cylinders[i].diameter / 2.0))
 		{
-			set_type_distance_cy(hit, t_cap);
+			set_type_distance_cy(hit, t.t_cap);
 			hit->color = data->cylinders[i].vec3_color;
-			hit->cords = inter_p;
+			hit->cords = t.inter_p;
 			hit->normal = data->cylinders[i].vec3_norm;
+			hit->type_cy = 3;
+			hit->cylinder = &data->cylinders[i];
 		}
 	}
 }
 
 void	bottom_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
 {
-	t_vec3	cap_center;
-	double	t_cap;
-	t_vec3	inter_p;
-	t_vec3	dist_to_center;
+	t_val_holder	t;
 
-	cap_center = subtract(data->cylinders[i].vec3_cords, \
+	t.cap_center = subtract(data->cylinders[i].vec3_cords, \
 	scale(data->cylinders[i].vec3_norm, data->cylinders[i].height / 2.0));
-	t_cap = dot_product(subtract(cap_center, ray->ray_origin), \
+	t.t_cap = dot_product(subtract(t.cap_center, ray->ray_origin), \
 	data->cylinders[i].vec3_norm) / dot_product(ray->ray_direction, \
 	data->cylinders[i].vec3_norm);
-	if (t_cap > 0 && t_cap < hit->hit_distance)
+	if (t.t_cap > 0 && t.t_cap < hit->hit_distance)
 	{
-		inter_p = add(ray->ray_origin, scale(ray->ray_direction, t_cap));
-		dist_to_center = subtract(inter_p, cap_center);
-		if (dot_product(dist_to_center, dist_to_center) <= \
+		t.inter_p = add(ray->ray_origin, scale(ray->ray_direction, t.t_cap));
+		t.dist_to_center = subtract(t.inter_p, t.cap_center);
+		if (dot_product(t.dist_to_center, t.dist_to_center) <= \
 		(data->cylinders[i].diameter / 2.0) * \
 		(data->cylinders[i].diameter / 2.0))
 		{
-			set_type_distance_cy(hit, t_cap);
+			set_type_distance_cy(hit, t.t_cap);
 			hit->color = data->cylinders[i].vec3_color;
-			hit->cords = inter_p;
-			hit->normal = scale(data->cylinders[i].vec3_norm, -1.0);
+			hit->cords = t.inter_p;
+			hit->normal = scale(data->cylinders[i].vec3_norm, 1.0);
+			hit->type_cy = 2;
+			hit->cylinder = &data->cylinders[i];
 		}
 	}
 }
