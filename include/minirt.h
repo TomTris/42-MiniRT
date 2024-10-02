@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 21:58:44 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 13:34:52 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,14 @@ typedef struct s_plane
 	double	dist;
 	int		checkers;
 }	t_plane;
+//ax + by + cz + d = 0
+typedef struct s_plain
+{
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+}	t_plain;
 
 typedef struct s_cylinder
 {
@@ -126,14 +134,6 @@ typedef struct s_cylinder
 	double	surface_width;
 }	t_cylinder;
 
-//ax + by + cz + d = 0
-typedef struct s_plain
-{
-	double	a;
-	double	b;
-	double	c;
-	double	d;
-}	t_plain;
 
 // typedef struct s_cone
 // {

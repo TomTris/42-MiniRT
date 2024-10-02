@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   line_and_cone_1_1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 00:50:56 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/01 21:30:52 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/01 22:06:54 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minirt.h"
 
-double alpha_2_vector(t_vec3 *v1, t_vec3 *v2)
+double	alpha_2_vector(t_vec3 *v1, t_vec3 *v2)
 {
 	double top;
 	double down;
