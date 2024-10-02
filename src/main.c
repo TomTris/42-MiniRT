@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:10 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 13:56:45 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 23:10:12 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 	{
-		write(2, "Error\nUsage: [executable] [path_to_scene]\n", 41);
+		write(2, "Error\nUsage: [executable] [path_to_scene]\n", 42);
 		return (1);
 	}
 	fd = get_fd(av[1]);

@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:45 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 18:07:47 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 23:13:26 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	parse(t_data *data)
 		finished = 0;
 		line = get_next_line(data->fd, &finished);
 		if (line == NULL && finished == 0)
-			return (display_error_message("Memmory Allocation"), 0);
+			return (display_error_message("Can't not read from path"), 0);
 		if (!line)
 			break ;
 		if (!parse_line(data, line))

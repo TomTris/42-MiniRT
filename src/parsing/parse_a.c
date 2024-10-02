@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_a.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:40 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/18 14:59:13 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 23:16:36 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	parse_a(t_data *data, char **splited)
 	if (data->seen_ambitient_light)
 		return (display_error_message("`A` cant be defined twice"), 0);
 	if (len2d_array(splited) != 3)
-		return (display_error_message("`A` must have 2 args"), 0);
+		return (display_error_message("`A` must have exact 2 args"), 0);
 	if (!get_first_arg(data, splited))
 		return (0);
 	if (!get_second_arg_a(data, splited))

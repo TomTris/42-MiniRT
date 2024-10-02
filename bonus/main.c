@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:10 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 23:08:28 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 23:11:56 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int ac, char **av)
 	srand(time(NULL));
 	if (ac != 2)
 	{
-		write(2, "Error\nUsage: [executable] [path_to_scene]\n", 41);
+		write(2, "Error\nUsage: [executable] [path_to_scene]\n", 42);
 		return (1);
 	}
 	fd = get_fd(av[1]);
