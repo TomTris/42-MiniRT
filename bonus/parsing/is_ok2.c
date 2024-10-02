@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 16:55:57 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 10:08:26 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 15:47:41 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,22 @@ t_plain	plain_of_bottom_area(t_cone *cone)
 void	cone_and_bottom(t_cone *cone)
 {
 	t_line	li;
-	t_abc abc;
-	double delta;
-	double t;
+	t_abc	abc;
+	double	delta;
+	double	t;
 	t_vec3	intersec;
 
 	cone->bottom_width = cone->r / 6;
 	cone->bottom_angle = M_PI / 6;
 	cone->bottom_angle_2 = M_PI / 12;
 	if (cone->vao.x == 0.0)
-		li.dv = create_vec3(1,0,0);	
+		li.dv = create_vec3(1, 0, 0);
 	else if (cone->vao.y == 0.0)
-		li.dv = create_vec3(0,1,0);	
+		li.dv = create_vec3(0, 1, 0);
 	else if (cone->vao.z == 0.0)
-		li.dv = create_vec3(0,0,1);	
+		li.dv = create_vec3(0, 0, 1);
 	else
-		li.dv = vector_cross_product(cone->vao, create_vec3(1, 0 ,0));
+		li.dv = vector_cross_product(cone->vao, create_vec3(1, 0, 0));
 	li.p = cone->po;
 	abc = cal_abc(&li, cone);
 	delta = sqrt(pow(abc.b, 2) - 4 * abc.a * abc.c);
@@ -57,7 +57,8 @@ void	cone_and_bottom(t_cone *cone)
 
 void	cone_and_bottom2(t_cone *cone)
 {
-	cone->bottom_ori_vec2 = vector_cross_product(cone->vao, cone->bottom_ori_vec);
+	cone->bottom_ori_vec2 = \
+		vector_cross_product(cone->vao, cone->bottom_ori_vec);
 }
 
 void	cone_and_surface(t_cone *cone)
@@ -65,7 +66,7 @@ void	cone_and_surface(t_cone *cone)
 	cone->surface_width = cone->s / 10;
 }
 
-void calculate_cone(t_cone *cone)
+void	calculate_cone(t_cone *cone)
 {
 	cone->vao = cone->vec3_norm;
 	cone->pa = cone->vec3_cords;

@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 15:24:21 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:42:07 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -418,4 +418,6 @@ void	set_type_distance_cy2(t_hit *hit, double dist, int var);
 double value_a_vector(t_vec3 vec);
 t_vec3	apply_texture_cylinder(t_hit *hit);
 double	vector_length(t_vec3 v);
+t_point_x_nor_vec	color_decide2(t_point_x_nor_vec *ret, t_cone *cone);
+t_vec3	find_point_in_bottom(t_vec3 *p, t_plain *pl, t_vec3 *a);
 #endif
