@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:57:34 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 21:53:43 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 15:03:30 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ void	top_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
 			hit->color = data->cylinders[i].vec3_color;
 			hit->cords = inter_p;
 			hit->normal = data->cylinders[i].vec3_norm;
+			hit->texture = data->cylinders[i].texture;
+			hit->cylinder = &data->cylinders[i];
 		}
 	}
 }
@@ -81,6 +83,8 @@ void	bottom_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
 			hit->color = data->cylinders[i].vec3_color;
 			hit->cords = inter_p;
 			hit->normal = scale(data->cylinders[i].vec3_norm, -1.0);
+			hit->texture = data->cylinders[i].texture;
+			hit->cylinder = &data->cylinders[i];
 		}
 	}
 }
