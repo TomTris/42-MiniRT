@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 13:48:46 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 15:21:33 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,43 +119,14 @@ typedef struct s_cylinder
 
 	t_vec3	pa;
 	t_vec3	pb;
-	t_plain	pl_bot;
 	t_plain	pl_top;
 	t_vec3	bottom_ori_vec;
 	t_vec3	bottom_ori_vec2;
 	t_vec3	vab;
-	double	alpha_divided;
 	
 	double	r;
 }	t_cylinder;
 
-
-// typedef struct s_cone
-// {
-// 	int		colors[3];
-// 	double	diameter;
-// 	double	cords[3];
-// 	double	vector[3];
-// 	double	height;
-
-// 	t_vec3	vec3_cords;
-// 	t_vec3	vec3_norm;
-// 	t_vec3	vec3_color;
-
-// 	t_vec3	vao;
-// 	t_vec3	pa;
-// 	t_vec3	po;
-// 	double	r;
-// 	t_plain				pl;
-// 	double	value1;
-// 	double	s;
-// 	double	cos_al;
-// 	double	bottom_width;
-// 	t_vec3	bottom_ori_vec;
-// 	double	bottom_angle;
-// 	double	bottom_angle_2;
-// 	double	surface_width;
-// }	t_cone;
 
 typedef struct s_cone
 {
@@ -434,6 +405,7 @@ t_vec3					vector_cross_product(t_vec3 v1, t_vec3 v2);
 void					calculate_cone(t_cone *cone);
 
 
+t_vec3	get_color(t_hit *hit);
 void	modify_values(mlx_texture_t *texture, int *pixel_x, int *pixel_y);
 void	get_uv_plane(t_hit *hit, double *u, double *v);
 double alpha_2_vector(t_vec3 *v1, t_vec3 *v2);

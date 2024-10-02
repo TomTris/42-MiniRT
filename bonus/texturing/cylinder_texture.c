@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 21:55:07 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 15:04:25 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 15:20:34 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,17 @@ t_vec3	cy_x_checker_bottom(t_cylinder *cy, t_vec3 *p, int type)
 t_vec3	cy_x_checker_side(t_cylinder *cy, t_vec3 *p)
 {
 	int	color;
-	color = 1;
 
+	color = 1;
 	double	height = distance_p_pl(p, &cy->pl_top);
-	if ((int)(height * 10 / cy->height) % 2 == 0)
+	if ((int)(height * 8 / cy->height) % 2 == 0)
 		color = -1;
-	t_vec3	o2 = add(cy->pa, scale(cy->vab, height / cy->height));
+	t_vec3	o2 = add(cy->pa, scale(cy->vab, -height));
 	t_vec3	o2p = vector_p1_to_p2(o2, *p);
 	double	alpha = alpha_2_vector(&cy->bottom_ori_vec, &o2p);
-	if ((int)(alpha / cy->alpha_divided + 0.5) % 2 == 0)
+	if (value_a_vector(vector_cross_product(cy->bottom_ori_vec, o2p)) <0)
+		alpha = 2 * M_PI - alpha;
+	if ((int)(alpha / (2 * M_PI / 8)) % 2 == 0)
 		color *= -1;
 	if (color == 1)
 		return (create_vec3(1, 1, 1));
@@ -172,10 +174,6 @@ t_vec3	cy_x_texture_side(t_cylinder *cy, t_vec3 *p)
 	return (ret);
 }
 
-// type_cy == 1 side  type_cy == 2 bottom  3 top
-// hit->type_cy == 1;
-// hit->world_position = p;
-
 t_vec3	apply_texture_cylinder(t_hit *hit)
 {
 	t_cylinder *cy = hit->cylinder;
@@ -190,11 +188,6 @@ t_vec3	apply_texture_cylinder(t_hit *hit)
 	cy->pl_top.b = cy->vab.y;
 	cy->pl_top.c = cy->vab.z;
 	cy->pl_top.d = -(cy->vab.x * cy->pa.x + cy->vab.y * cy->pa.y + cy->vab.z * cy->pa.z);
-	cy->pb = add(cy->vec3_cords, scale(cy->vab, cy->height / -2.0));
-	cy->pl_bot.a = cy->vab.x;
-	cy->pl_bot.b = cy->vab.y;
-	cy->pl_bot.c = cy->vab.z;
-	cy->pl_bot.d = -(cy->vab.x * cy->pb.x + cy->vab.y * cy->pb.y + cy->vab.z * cy->pb.z);
 	if (cy->texture != NULL)
 	{
 		if (hit->type_cy == 1)
@@ -203,6 +196,7 @@ t_vec3	apply_texture_cylinder(t_hit *hit)
 	}
 	if (cy->checkers == 1)
 	{
+		printf("1\n");
 		if (hit->type_cy != 1)
 			return (cy_x_checker_bottom(cy, &p, hit->type_cy));
 		return (cy_x_checker_side(cy, &p));
