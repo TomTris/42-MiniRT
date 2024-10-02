@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/29 21:52:20 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 16:34:19 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,15 @@ void	closest_hit2(t_data *data, t_ray *ray, t_hit *hit)
 	{
 		hit->world_position = add(ray->ray_origin, \
 			scale(ray->ray_direction, hit->hit_distance));
-		hit->world_normal = normalize(subtract(hit->world_position, \
-			add(hit->cords, scale(hit->normal, \
-			dot_product(subtract(hit->world_position, hit->cords), \
-			hit->normal)))));
+		if (hit->type_cy == 1)
+			hit->world_normal = normalize(subtract(hit->world_position, \
+				add(hit->cords, scale(hit->normal, \
+				dot_product(subtract(hit->world_position, hit->cords), \
+				hit->normal)))));
+		else if (hit->type_cy == 2)
+			hit->world_normal = scale(hit->cylinder->vec3_norm, -1.0);
+		else
+			hit->world_normal = scale(hit->cylinder->vec3_norm, 1.0);
 	}
 }
 

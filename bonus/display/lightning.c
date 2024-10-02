@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lightning.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 14:44:56 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 15:06:43 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 16:34:50 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_calculate_light *cl)
 		cl->reflect_dot = dot_product(cl->reflect, ray->ray_direction);
 		if (cl->reflect_dot > 0)
 		{
-			cl->factor = pow(cl->reflect_dot, 10);
+			cl->factor = pow(cl->reflect_dot, 50);
 			cl->specular = scale(data->light[cl->i].vec3_color, \
 				data->light[cl->i].ratio * cl->factor);
 		}

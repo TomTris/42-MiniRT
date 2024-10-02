@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 15:23:26 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 15:24:21 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,16 @@ typedef struct s_plane
 	int		checkers;
 }	t_plane;
 
+//ax + by + cz + d = 0
+typedef struct s_plain
+{
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+}	t_plain;
+
+
 typedef struct s_cylinder
 {
 	int		colors[3];
@@ -117,41 +127,6 @@ typedef struct s_cylinder
 	double	r;
 }	t_cylinder;
 
-//ax + by + cz + d = 0
-typedef struct s_plain
-{
-	double	a;
-	double	b;
-	double	c;
-	double	d;
-}	t_plain;
-
-// typedef struct s_cone
-// {
-// 	int		colors[3];
-// 	double	diameter;
-// 	double	cords[3];
-// 	double	vector[3];
-// 	double	height;
-
-// 	t_vec3	vec3_cords;
-// 	t_vec3	vec3_norm;
-// 	t_vec3	vec3_color;
-
-// 	t_vec3	vao;
-// 	t_vec3	pa;
-// 	t_vec3	po;
-// 	double	r;
-// 	t_plain				pl;
-// 	double	value1;
-// 	double	s;
-// 	double	cos_al;
-// 	double	bottom_width;
-// 	t_vec3	bottom_ori_vec;
-// 	double	bottom_angle;
-// 	double	bottom_angle_2;
-// 	double	surface_width;
-// }	t_cone;
 
 typedef struct s_cone
 {

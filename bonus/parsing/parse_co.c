@@ -6,7 +6,7 @@
 /*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/01 18:59:50 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:04:06 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	parse_co(t_data *data, char **splited)
 	cones = malloc(sizeof(t_cone) * (data->amount_of_cones + 1));
 	if (!cones)
 		return (display_error_message("Memmory Allocation Error"), 0);
-	copy_all_stuff(cones, data->planes, sizeof(t_cone) * \
+	copy_all_stuff(cones, data->cones, sizeof(t_cone) * \
 	data->amount_of_cones);
 	cone = &(cones[data->amount_of_cones]);
 	set_null(&cone->texture, &cone->checkers);

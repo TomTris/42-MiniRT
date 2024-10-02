@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_cylinders.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 12:57:34 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 15:13:13 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/02 16:24:18 by obrittne         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	top_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
 			hit->texture = data->cylinders[i].texture;
 			hit->cylinder = &data->cylinders[i];
 			hit->checkers = data->cylinders[i].checkers;
+			hit->found = 1;
 		}
 	}
 }
@@ -87,6 +88,7 @@ void	bottom_circle(t_data *data, t_ray *ray, t_hit *hit, int i)
 			hit->texture = data->cylinders[i].texture;
 			hit->cylinder = &data->cylinders[i];
 			hit->checkers = data->cylinders[i].checkers;
+			hit->found = 1;
 
 		}
 	}
@@ -104,8 +106,8 @@ void	intersection_height(t_data *data, t_ray *ray, t_hit *hit, int i)
 scale(ray->ray_direction, hit->vars_sp.t)), \
 subtract(data->cylinders[i].vec3_cords, scale(data->cylinders[i].vec3_norm, \
 data->cylinders[i].height / 2.0))), data->cylinders[i].vec3_norm);
-			if (hit->vars_sp.d >= 0 && hit->vars_sp.d <= \
-			data->cylinders[i].height)
+			if (hit->vars_sp.d >= 0  && 
+			hit->vars_sp.d <= data->cylinders[i].height)
 			{
 				set_type_distance_cy(hit, data, i);
 			}

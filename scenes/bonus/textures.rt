@@ -1,0 +1,32 @@
+A 0.2      255,255,255
+
+C 0,3.5,-20  0,0,1  70
+
+L 15,7,-20  0.6   255,255,255
+L -15,7,-20  0.6   255,255,255
+
+# Columns
+cy   -5,0,-2     0,1,0    2.8   20   textures/wall.png
+cy   -5,0,10     0,1,0    2.8   20  textures/wall.png
+cy   5,0,-2      0,1,0    2.8   20  textures/wall.png
+cy   5,0,10      0,1,0    2.8   20  textures/wall.png
+
+# Center sphere
+sp    0,1,-1     1.2      textures/ball.png
+
+#Spheres on columns
+sp   -5,0,10     4.2      textures/football.png
+sp   5,0,10      4.2     textures/football.png
+sp   -5,0,-2     4.2     textures/football.png
+sp   5,0,-2      4.2     textures/football.png
+sp   -5,10,10    4.2     textures/football.png
+sp   5,10,10     4.2     textures/football.png 
+sp   -5,10,-2    4.2      textures/football.png
+sp   5,10,-2     4.2     textures/football.png
+
+# Floor
+pl   0,0,0  0,1,0         textures/grass.png
+# Back wall
+pl   0,0,16  0,0,-1       textures/wall.png
+# Ceiling
+pl   0,10,0  0,-1,0       textures/football.png
