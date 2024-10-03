@@ -23,23 +23,23 @@ The goal of the program is to generate images using the Raytracing protocol. Tho
 
 ## 📷 Preview
 ### Bonus
-1. [./minirt_bonus scenes/bonus/atom.rt](https://drive.google.com/uc?export=view&id=1Q2Y1CFVlxLS4pUqKBOcRAyxJvtyolX4V)
-2. [./minirt_bonus scenes/bonus/bubbles.rt](https://drive.google.com/uc?export=view&id=1dJrZdKWVq6pYWc0kHlsOoV0BdErg-XUE)
-3. [./minirt_bonus scenes/bonus/chess.rt](https://drive.google.com/uc?export=view&id=1YWDYpv8Cmd8zNHOiemdJ0Sv2etC1SGCu)
-4. [./minirt_bonus scenes/bonus/colored_snowman.rt](https://drive.google.com/uc?export=view&id=1EtKlNb4ilAX1gAqCLGhMDbq23HXc56PH)
-5. [./minirt_bonus scenes/bonus/colored_spheres.rt](https://drive.google.com/uc?export=view&id=1bOoyPRNxI0dU13gelHXoK7ELRJOR6iWR)
-6. [./minirt_bonus scenes/bonus/stickman_with_hat.rt](https://drive.google.com/uc?export=view&id=1DUYyikOEL1_ka36UrkLIaIqPi5rWxXYd)
+1. ![./minirt_bonus scenes/bonus/atom.rt](https://drive.google.com/uc?export=view&id=1Q2Y1CFVlxLS4pUqKBOcRAyxJvtyolX4V)
+2. ![./minirt_bonus scenes/bonus/bubbles.rt](https://drive.google.com/uc?export=view&id=1dJrZdKWVq6pYWc0kHlsOoV0BdErg-XUE)
+3. ![./minirt_bonus scenes/bonus/chess.rt](https://drive.google.com/uc?export=view&id=1YWDYpv8Cmd8zNHOiemdJ0Sv2etC1SGCu)
+4. ![./minirt_bonus scenes/bonus/colored_snowman.rt](https://drive.google.com/uc?export=view&id=1EtKlNb4ilAX1gAqCLGhMDbq23HXc56PH)
+5. ![./minirt_bonus scenes/bonus/colored_spheres.rt](https://drive.google.com/uc?export=view&id=1bOoyPRNxI0dU13gelHXoK7ELRJOR6iWR)
+6. ![./minirt_bonus scenes/bonus/stickman_with_hat.rt](https://drive.google.com/uc?export=view&id=1DUYyikOEL1_ka36UrkLIaIqPi5rWxXYd)
 
 ### Mandatory
-1. [./minirt scenes/subject/camera.rt](https://drive.google.com/uc?export=view&id=1Tz_Zy7qMirxUuaF8kQi0weH_LV9Gh5Fz)
-2. [./minirt scenes/subject/cylinder.rt](https://drive.google.com/uc?export=view&id=1rzwu_F_-AuTtT2XNQqRs_9ttXTpOwCbO)
-3. [./minirt scenes/subject/plain.rt](https://drive.google.com/uc?export=view&id=1COW8bO7zENiiLcSPKgpNprqwEWLn0Enp)
-4. [./minirt scenes/subject/shadow.rt](https://drive.google.com/uc?export=view&id=1V4hnK_pmf64-1h8P41L3-L0oxbyJgtSj)
-5. [./minirt scenes/subject/sphere.rt](https://drive.google.com/uc?export=view&id=1Qqoh8e7fKaUP73VJl9lgvZJF0udzd2q3)
+1. ![./minirt scenes/subject/camera.rt](https://drive.google.com/uc?export=view&id=1Tz_Zy7qMirxUuaF8kQi0weH_LV9Gh5Fz)
+2. ![./minirt scenes/subject/cylinder.rt](https://drive.google.com/uc?export=view&id=1rzwu_F_-AuTtT2XNQqRs_9ttXTpOwCbO)
+3. ![./minirt scenes/subject/plain.rt](https://drive.google.com/uc?export=view&id=1COW8bO7zENiiLcSPKgpNprqwEWLn0Enp)
+4. ![./minirt scenes/subject/shadow.rt](https://drive.google.com/uc?export=view&id=1V4hnK_pmf64-1h8P41L3-L0oxbyJgtSj)
+5. ![./minirt scenes/subject/sphere.rt](https://drive.google.com/uc?export=view&id=1Qqoh8e7fKaUP73VJl9lgvZJF0udzd2q3)
 
 #### Mandatory additional
-7. [./minirt scenes/mandatory/octagon.rt](https://drive.google.com/uc?export=view&id=1329Wg77J2HrDB0B6Q5mL7jmXgeRr8EhG)
-8. [./minirt scenes/mandatory/scene.rt](https://drive.google.com/uc?export=view&id=1iZcWMprg9AdaBPlzkHx0B6WOpPa5VVPS)
+7. ![./minirt scenes/mandatory/octagon.rt](https://drive.google.com/uc?export=view&id=1329Wg77J2HrDB0B6Q5mL7jmXgeRr8EhG)
+8. ![./minirt scenes/mandatory/scene.rt](https://drive.google.com/uc?export=view&id=1iZcWMprg9AdaBPlzkHx0B6WOpPa5VVPS)
 
 9. More than that?
 ```
