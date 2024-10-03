@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/19 13:54:43 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:42:58 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,13 @@ int	parse_sp(t_data *data, char **splited)
 	copy_all_stuff(spheres, data->spheres, sizeof(t_sphere) * \
 	data->amount_of_spheres);
 	if (len2d_array(splited) != 4)
-		return (display_error_message("`sp` must have 3 args"), 0);
+		return (display_error_message("`sp` must have 3 args"), free(spheres), 0);
 	if (!get_first_arg_sp(splited[1], 0, &(spheres[data->amount_of_spheres])))
-		return (0);
+		return (free(spheres), 0);
 	if (!get_first_arg_sp(splited[3], 1, &(spheres[data->amount_of_spheres])))
-		return (0);
+		return (free(spheres), 0);
 	if (!get_radius_sp(splited[2], &(spheres[data->amount_of_spheres])))
-		return (0);
+		return (free(spheres), 0);
 	data->amount_of_spheres += 1;
 	if (data->amount_of_spheres != 1)
 		free(data->spheres);

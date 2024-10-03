@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/29 16:34:46 by qdo               #+#    #+#             */
-/*   Updated: 2024/10/02 22:36:38 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/03 15:53:06 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,7 @@ void	*displaying(void *input)
 	t_vars_d	vars;
 
 	data = ((t_input *)input)->data;
-	vars.index = (((t_input *)input)->ind);
-	vars.ind = *vars.index;
-	free(vars.index);
-	free(input);
+	vars.ind = (((t_input *)input)->ind);
 	vars.y = -1;
 	while (++vars.y < (int)data->image->height)
 	{

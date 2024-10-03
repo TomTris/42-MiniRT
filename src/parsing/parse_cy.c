@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 22:29:20 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/03 15:43:42 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,17 +105,17 @@ int	parse_cy(t_data *data, char **splited)
 	data->amount_of_cylinders);
 	cylinder = &(cylinders[data->amount_of_cylinders]);
 	if (len2d_array(splited) != 6)
-		return (display_error_message("`cy` must have 5 args"), 0);
+		return (display_error_message("`cy` must have 5 args"), free(cylinders), 0);
 	if (!get_first_arg_cy(splited[1], 0, cylinder))
-		return (0);
+		return (free(cylinders), 0);
 	if (!get_first_arg_cy(splited[5], 1, cylinder))
-		return (0);
+		return (free(cylinders), 0);
 	if (!get_first_arg_cy(splited[2], 2, cylinder))
-		return (0);
+		return (free(cylinders), 0);
 	if (!get_radius_cy(splited[3], cylinder, 0))
-		return (0);
+		return (free(cylinders), 0);
 	if (!get_radius_cy(splited[4], cylinder, 1))
-		return (0);
+		return (free(cylinders), 0);
 	if (++data->amount_of_cylinders && data->amount_of_cylinders != 1)
 		free(data->cylinders);
 	data->cylinders = cylinders;

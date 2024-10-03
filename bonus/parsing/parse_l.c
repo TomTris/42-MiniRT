@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/03 15:41:41 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,13 +111,13 @@ int	parse_l(t_data *data, char **splited)
 	copy_all_stuff(lights, data->light, sizeof(t_light) * \
 	data->amount_of_lights);
 	if (len2d_array(splited) != 4)
-		return (display_error_message("`L` must have 3 args"), 0);
+		return (display_error_message("`L` must have 3 args"), free(lights), 0);
 	if (!get_first_arg_l(&lights[data->amount_of_lights], splited[1], 0))
-		return (0);
+		return (free(lights), 0);
 	if (!get_first_arg_l(&lights[data->amount_of_lights], splited[3], 1))
-		return (0);
+		return (free(lights), 0);
 	if (!get_ratio(&lights[data->amount_of_lights], splited[2]))
-		return (0);
+		return (free(lights), 0);
 	data->amount_of_lights += 1;
 	if (data->amount_of_lights != 1)
 		free(data->light);

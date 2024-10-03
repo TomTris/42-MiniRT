@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_co.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/24 22:50:23 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:44:13 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,17 +105,17 @@ int	parse_co(t_data *data, char **splited)
 	data->amount_of_cones);
 	cone = &(cones[data->amount_of_cones]);
 	if (len2d_array(splited) != 6)
-		return (display_error_message("`co` must have 5 args"), 0);
+		return (display_error_message("`co` must have 5 args"), free(cones), 0);
 	if (!get_first_arg_co(splited[1], 0, cone))
-		return (0);
+		return (free(cones), 0);
 	if (!get_first_arg_co(splited[5], 1, cone))
-		return (0);
+		return (free(cones), 0);
 	if (!get_first_arg_co(splited[2], 2, cone))
-		return (0);
+		return (free(cones), 0);
 	if (!get_radius_co(splited[3], cone, 0))
-		return (0);
+		return (free(cones), 0);
 	if (!get_radius_co(splited[4], cone, 1))
-		return (0);
+		return (free(cones), 0);
 	if (++data->amount_of_cones && data->amount_of_cones != 1)
 		free(data->cones);
 	data->cones = cones;

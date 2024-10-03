@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_pl.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obrittne <obrittne@student.42.fr>          +#+  +:+       +#+        */
+/*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/09/23 11:50:14 by obrittne         ###   ########.fr       */
+/*   Updated: 2024/10/03 15:43:10 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,13 @@ int	parse_pl(t_data *data, char **splited)
 	copy_all_stuff(planes, data->planes, sizeof(t_plane) * \
 	data->amount_of_planes);
 	if (len2d_array(splited) != 4)
-		return (display_error_message("`pl` must have 3 args"), 0);
+		return (display_error_message("`pl` must have 3 args"), free(planes), 0);
 	if (!get_first_arg_pl(splited[1], 0, &(planes[data->amount_of_planes])))
-		return (0);
+		return (free(planes), 0);
 	if (!get_first_arg_pl(splited[3], 1, &(planes[data->amount_of_planes])))
-		return (0);
+		return (free(planes), 0);
 	if (!get_first_arg_pl(splited[2], 2, &(planes[data->amount_of_planes])))
-		return (0);
+		return (free(planes), 0);
 	data->amount_of_planes += 1;
 	if (data->amount_of_planes != 1)
 		free(data->planes);

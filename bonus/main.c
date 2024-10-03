@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:10 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 23:11:56 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/03 14:58:41 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,15 @@ void	init_data(t_data *data, int fd)
 	data->amount_of_lights = 0;
 }
 
+void	check()
+{
+	system("leaks minirt_bonus");
+}
 int	main(int ac, char **av)
 {
 	int		fd;
 	t_data	data;
-
+atexit(check);
 	srand(time(NULL));
 	if (ac != 2)
 	{
@@ -60,7 +64,9 @@ int	main(int ac, char **av)
 		return (1);
 	init_data(&data, fd);
 	if (!parse(&data))
+	{
 		return (free_data_before_display(&data), 1);
+	}
 	display(&data);
 	free_data_before_display(&data);
 	return (0);

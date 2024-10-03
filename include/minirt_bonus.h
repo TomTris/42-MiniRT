@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:41:16 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 22:47:59 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/03 15:47:35 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ typedef struct s_data
 
 typedef struct s_input
 {
-	int		*ind;
+	int		ind;
 	t_data	*data;
 }	t_input;
 

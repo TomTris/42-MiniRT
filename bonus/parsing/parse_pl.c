@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 21:44:00 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 17:46:49 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/03 15:42:09 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,13 @@ int	parse_pl(t_data *data, char **splited)
 	planes[data->amount_of_planes].checkers = 0;
 	planes[data->amount_of_planes].texture = NULL;
 	if (len2d_array(splited) != 4)
-		return (display_error_message("`pl` must have 3 args"), 0);
+		return (display_error_message("`pl` must have 3 args"), free(planes), 0);
 	if (!get_first_arg_pl(splited[1], 0, &(planes[data->amount_of_planes])))
-		return (0);
+		return (free(planes), 0);
 	if (!get_first_arg_pl(splited[3], 1, &(planes[data->amount_of_planes])))
-		return (0);
+		return (free(planes), 0);
 	if (!get_first_arg_pl(splited[2], 2, &(planes[data->amount_of_planes])))
-		return (0);
+		return (free(planes), 0);
 	data->amount_of_planes += 1;
 	if (data->amount_of_planes != 1)
 		free(data->planes);

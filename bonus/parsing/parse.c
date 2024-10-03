@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/17 19:40:45 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 23:13:26 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/03 15:00:50 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ int	parse(t_data *data)
 		free(line);
 		line = NULL;
 	}
+	printf("a\n");
 	if (!check_if_ok(data))
-		return (0);
+		return (free(line), 0);
 	return (1);
 }

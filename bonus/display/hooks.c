@@ -6,7 +6,7 @@
 /*   By: qdo <qdo@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/19 12:52:27 by obrittne          #+#    #+#             */
-/*   Updated: 2024/10/02 18:17:33 by qdo              ###   ########.fr       */
+/*   Updated: 2024/10/03 15:50:54 by qdo              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,14 @@ void	ft_hook_keys(void *param)
 int	create_the_threads(t_data *data)
 {
 	int		i;
-	t_input	*input;
+	t_input	input[AMOUNT_OF_THREADS];
 
 	i = 0;
 	while (i < AMOUNT_OF_THREADS)
 	{
-		input = malloc(sizeof(t_input));
-		if (!input)
-			return (0);
-		input->ind = malloc(sizeof(int));
-		if (!input->ind)
-			return (0);
-		*(input->ind) = i;
-		input->data = data;
-		if (pthread_create(&data->threads[i], NULL, displaying, input))
+		input[i].ind = i;
+		input[i].data = data;
+		if (pthread_create(&data->threads[i], NULL, displaying, &input[i]))
 			return (0);
 		i++;
 	}
